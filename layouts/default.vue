@@ -1,6 +1,7 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
+  <v-app light>
+   <!-- <v-navigation-drawer
+    color="primary"
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -23,12 +24,14 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer>-->
     <v-app-bar
+    color="primary"
       :clipped-left="clipped"
       fixed
       app
     >
+    <!--
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn
         icon
@@ -36,57 +39,54 @@
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+    -->
+    <v-icon>mdi-heart</v-icon>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
+      
+      
     </v-app-bar>
+    
     <v-main>
       <v-container>
+
         <Nuxt />
+
       </v-container>
     </v-main>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
-  </v-app>
+ 
+    
+    <div>
+  <v-bottom-navigation :elevation="3" fixed>
+<v-btn value="recent"  size="x-small">
+  <v-icon>mdi-history</v-icon>
+  Career
+</v-btn>
+
+<v-btn value="favorites"  size="x-small">
+  <v-icon>mdi-heart</v-icon>
+  Family
+</v-btn>
+
+<v-btn 
+value="nearby" size="x-small">
+  <v-icon>mdi-map-marker</v-icon>
+  Random
+</v-btn>
+
+<v-btn 
+value="nearby" size="x-small">
+  <v-icon>mdi-map-marker</v-icon>
+  Custom
+</v-btn>
+
+</v-bottom-navigation>
+</div>
+
+
+</v-app>
 </template>
+
+  
 
 <script>
 export default {
@@ -99,19 +99,19 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Career',
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
+          icon: 'mdi-apps',
+          title: 'Family',
+          to: '/'
+        },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Quote God'
     }
   }
 }
