@@ -36,7 +36,9 @@
               </div>
               <div class="text-body-1" style="color: #F5F5F5; word-wrap: break-word;"> {{quote.verse}}</div>
               
-         <div class="text-caption font-weight-thin" style="background-color: #555; padding:2px; border-radius: 10px;">{{quote.reference}}</div>
+         <div class="text-caption font-weight-thin" style="background-color: #555; padding:2px; border-radius: 10px;" elevation="20">
+            <a :href="quote.verse_url" target="_blank" style="color: #fff;">{{quote.reference}}</a>
+        </div>
   
             </v-card-actions>
             <v-img
