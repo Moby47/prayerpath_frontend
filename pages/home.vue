@@ -164,8 +164,8 @@ value="nearby" size="x-small" style="color: white !important;" @click="dialog = 
         title: "Web Development Portfolio",
         meta:[
           
-    { hid: 'description6', name: 'description', content: 'web development and digital marketing services.' },
-    { name: 'keywords', content: 'seo, web' },
+    { hid: 'description6', name: 'description', content: 'The app that helps you keep your prayer life organized' },
+    { name: 'keywords', content: 'app, pray, bible' },
           
         ]
       }
@@ -185,6 +185,9 @@ value="nearby" size="x-small" style="color: white !important;" @click="dialog = 
 
     dialog: false,
     categories:[],
+
+    key: process.env.BACKEND_API_KEY,
+    backed_url: process.env.BACKEND_APP_URL,
     }
     },
   
@@ -195,12 +198,12 @@ value="nearby" size="x-small" style="color: white !important;" @click="dialog = 
       this.showButton = false
       this.scrollTop();
 
-    var   final_url =  'http://localhost:8000/api/quotes';
+    var   final_url =  this.backed_url +'/api/quotes';
     fetch(final_url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'X-Authorization': '5KuSqmiUM8KDgsdGfr8AFU66VSZRFVVGAAFx8nwynYM0CS91nfRocfOag7A9F8ol'
+      'X-Authorization': this.key
     }
     })
     .then(res => res.json())
@@ -237,12 +240,12 @@ value="nearby" size="x-small" style="color: white !important;" @click="dialog = 
       this.showButton = false
       this.scrollTop();
 
-    var   final_url =  'http://localhost:8000/api/quotes'+ '/' + category;
+    var   final_url =  this.backed_url +'/api/quotes'+ '/' + category;
     fetch(final_url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'X-Authorization': '5KuSqmiUM8KDgsdGfr8AFU66VSZRFVVGAAFx8nwynYM0CS91nfRocfOag7A9F8ol'
+      'X-Authorization': this.key
     }
     })
     .then(res => res.json())
@@ -262,18 +265,17 @@ value="nearby" size="x-small" style="color: white !important;" @click="dialog = 
 
   getCategories(){
      
-    var   final_url =  'http://localhost:8000/api/categories'
+    var   final_url =  this.backed_url +'/api/categories'
     fetch(final_url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'X-Authorization': '5KuSqmiUM8KDgsdGfr8AFU66VSZRFVVGAAFx8nwynYM0CS91nfRocfOag7A9F8ol'
+      'X-Authorization': this.key
     }
     })
     .then(res => res.json())
     .then(res=>{
       this.categories = res.data;
-      console.log('cdd',this.categories)
     })
     .catch(error =>{
       console.log(error)  
