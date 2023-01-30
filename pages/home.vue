@@ -56,10 +56,10 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row justify="center">
+   <v-row justify="center">
       <v-col cols="12" sm="8" md="6">
         <div class="d-flex justify-center" style="margin-bottom: 65px;">
-          <v-btn color="#555" @click="getquotes()" v-if="showButton">Refresh</v-btn>
+          <v-btn color="#555" @click="getquotes()" v-if="showButton">Reset</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -71,29 +71,68 @@
   <div>
   <v-bottom-navigation :elevation="3" fixed style="background-color: #4a9ec1;">
     <v-btn 
-value="nearby" size="x-small" style="color: white !important;">
+value="nearby" size="x-small" style="color: white !important;"
+@click="getquotes()"
+>
   <v-icon>mdi-home</v-icon>
   Home
 </v-btn>
 
-<v-btn value="recent"  size="x-small" style="color: white !important;">
+<v-btn value="recent"  size="x-small" style="color: white !important;"
+@click="getQuotesByCat('career')"
+>
   <v-icon>mdi-briefcase</v-icon>
   Career
 </v-btn>
 
-<v-btn value="favorites"  size="x-small" style="color: white !important;">
+<v-btn value="favorites"  size="x-small" style="color: white !important;"
+@click="getQuotesByCat('family')"
+>
   <v-icon>mdi-human-male-female-child</v-icon>
   Family
 </v-btn>
 
 <v-btn 
-value="nearby" size="x-small" style="color: white !important;">
+value="nearby" size="x-small" style="color: white !important;" @click="dialog = true">
   <v-icon>mdi-dots-vertical</v-icon>
   Others
 </v-btn>
 </v-bottom-navigation>
 </div>
 <!--bottom nav-->
+
+
+<!--Modal-->
+<template>
+  <div class="text-center">
+    <v-dialog
+      v-model="dialog">
+      <v-card style="background-color: white !important;">
+
+ <template>
+  <div class="text-center">
+
+    <v-chip
+      class="ma-2"
+      color="#4a9ec1"
+      text-color="white"
+      v-for='category in categories' v-bind:key='category.id'
+      @click="getQuotesByCat(category.category)"
+    >
+      {{category.category}}
+    </v-chip>
+    
+  </div>
+</template>
+
+        <v-card-actions style="background-color: white !important;">
+          <v-btn color="#555" block @click="dialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+<!--Modal-->
 
 
   <!--Overlay-->
@@ -143,23 +182,20 @@ value="nearby" size="x-small" style="color: white !important;">
     err: false,
     overlay:null,
     showButton:null,
-    //pagination: [],
+
+    dialog: false,
+    categories:[],
     }
     },
   
     methods: {
   
-    getquotes(param_url){
-  
+    getquotes(){
       this.overlay = true
       this.showButton = false
       this.scrollTop();
-  /*
-      if(param_url){
-       this.$nuxt.$loading.start()
-      }
-  */
-    var   final_url = param_url || 'http://localhost:8000/api/quotes';
+
+    var   final_url =  'http://localhost:8000/api/quotes';
     fetch(final_url, {
     method: 'GET',
     headers: {
@@ -172,15 +208,10 @@ value="nearby" size="x-small" style="color: white !important;">
       this.quotes = res.data;
       this.showButton = true
       this.overlay = false
-     // console.log(this.quotes)
-     // this.loading = false
-      //this.$nuxt.$loading.finish()
-     // this.makePagination(res.meta, res.links);
+
     })
     .catch(error =>{
       console.log(error)  
-     // this.loading = false    
-      //this.$nuxt.$loading.finish()
       this.err = true
       this.overlay = false
         })
@@ -195,6 +226,61 @@ value="nearby" size="x-small" style="color: white !important;">
             behavior: 'smooth'
           });
   },
+
+  
+  getQuotesByCat(category){
+
+    //if called from modal
+    this.dialog = false
+
+      this.overlay = true
+      this.showButton = false
+      this.scrollTop();
+
+    var   final_url =  'http://localhost:8000/api/quotes'+ '/' + category;
+    fetch(final_url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Authorization': '5KuSqmiUM8KDgsdGfr8AFU66VSZRFVVGAAFx8nwynYM0CS91nfRocfOag7A9F8ol'
+    }
+    })
+    .then(res => res.json())
+    .then(res=>{
+      this.quotes = res.data;
+      this.showButton = true
+      this.overlay = false
+
+    })
+    .catch(error =>{
+      console.log(error)  
+      this.err = true
+      this.overlay = false
+        })
+  },
+  //end
+
+  getCategories(){
+     
+    var   final_url =  'http://localhost:8000/api/categories'
+    fetch(final_url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Authorization': '5KuSqmiUM8KDgsdGfr8AFU66VSZRFVVGAAFx8nwynYM0CS91nfRocfOag7A9F8ol'
+    }
+    })
+    .then(res => res.json())
+    .then(res=>{
+      this.categories = res.data;
+      console.log('cdd',this.categories)
+    })
+    .catch(error =>{
+      console.log(error)  
+        })
+  },
+  //end
+
          
   },
   //  method end
@@ -202,6 +288,8 @@ value="nearby" size="x-small" style="color: white !important;">
   mounted(){
    //get quotes
    this.getquotes()
+   //get categories
+   this.getCategories()
    },
             
   
