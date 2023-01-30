@@ -28,6 +28,7 @@
           <v-img
             contain
             height="70px"
+            lazy-src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
             src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
             style="flex-basis: 80px"
             class="flex-grow-0"
@@ -44,12 +45,24 @@
   <v-row justify="center">
     <v-col cols="12" sm="8" md="6">
       <div class="d-flex justify-center" style="margin-bottom: 65px;">
-        <v-btn color="#555" @click="getquotes()">Load More</v-btn>
+        <v-btn color="#555" @click="getquotes()" v-if="showButton">Refresh</v-btn>
       </div>
     </v-col>
   </v-row>
 </template>
      
+<!--Overlay-->
+<template>
+      <div class="text-center">
+        <v-overlay :value="overlay">
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+          <br>
+          Getting Ready...
+        </v-overlay>
+      </div>
+      </template>
+      <!--Overlay-->
+
     </v-col>
   </v-row>
 
@@ -80,22 +93,26 @@
   quotes:[],
   loading: true,
   err: false,
+  overlay:null,
+  showButton:null,
   //pagination: [],
   }
   },
 
   methods: {
 
-  getquotes(page_url){
+  getquotes(param_url){
 
+    this.overlay = true
+    this.showButton = false
     this.scrollTop();
-
-    if(page_url){
+/*
+    if(param_url){
      this.$nuxt.$loading.start()
     }
-
-  var   page_url = page_url || 'http://localhost:8000/api/quotes';
-  fetch(page_url, {
+*/
+  var   final_url = param_url || 'http://localhost:8000/api/quotes';
+  fetch(final_url, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
@@ -105,16 +122,19 @@
   .then(res => res.json())
   .then(res=>{
     this.quotes = res.data;
+    this.showButton = true
+    this.overlay = false
    // console.log(this.quotes)
    // this.loading = false
-    this.$nuxt.$loading.finish()
+    //this.$nuxt.$loading.finish()
    // this.makePagination(res.meta, res.links);
   })
   .catch(error =>{
     console.log(error)  
    // this.loading = false    
-    this.$nuxt.$loading.finish()
+    //this.$nuxt.$loading.finish()
     this.err = true
+    this.overlay = false
       })
 },
 
@@ -127,19 +147,7 @@ scrollTop(){
           behavior: 'smooth'
         });
 },
-/*
-makePagination(meta, links){
-var pagination = {
-current_page: meta.current_page,
-last_page: meta.last_page,
-next_page_url: links.next,
-prev_page_url: links.prev
-}
-document.body.scrollTop = 0;
-document.documentElement.scrollTop = 0;
-this.pagination = pagination;
-},
-       */         
+       
 },
 //  method end
 
