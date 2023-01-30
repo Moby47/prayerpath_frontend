@@ -14,6 +14,7 @@
     d-flex
     v-for="n in 3" :key="n"
   >
+  
     <div class="d-flex justify-between">
       <v-card-title class="flex-grow-1 flex-column align-start">
         <div class="text-h6">
@@ -52,9 +53,19 @@
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
   name: 'IndexPage',
-   data: () => ({ 
-    }),
+
+  data () {
+    return {
+      
+    }
+  },
+  methods: {
+   
+  }
 }
 </script>
