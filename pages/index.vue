@@ -1,6 +1,6 @@
 <template>
 
-  <v-row justify="center" align="center">
+  <v-row justify="center" align="center" class="mt-16">
     <v-col>
 
       <template>
@@ -19,7 +19,7 @@
       <template>
   <v-card
     class="mx-auto my-12"
-    style="background-color: #ffffff; color:black !important;"
+    style="background-color: whitesmoke; color:black !important;"
   >
      <v-img
       class="align-end text-white"
