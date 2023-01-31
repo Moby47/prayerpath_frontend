@@ -41,14 +41,26 @@
         </div>
   
             </v-card-actions>
-            <v-img
+
+
+            <v-img v-if="quote.imageurl"
+              contain
+              height="70px"
+              :lazy-src="quote.imageurl"
+              :src="quote.imageurl"
+              style="flex-basis: 80px"
+              class="flex-grow-0 mr-1 mt-2"
+            ></v-img>
+
+            <v-img v-else
               contain
               height="70px"
               lazy-src="https://cdn.pixabay.com/photo/2014/04/02/10/44/hands-304398_960_720.png"
               src="https://cdn.pixabay.com/photo/2014/04/02/10/44/hands-304398_960_720.png"
               style="flex-basis: 80px"
-              class="flex-grow-0 mr-1"
+              class="flex-grow-0 mr-1 mt-2"
             ></v-img>
+
           </div>
   
           <v-divider></v-divider>
