@@ -78,7 +78,7 @@ Does he speak and then not act? Does he promise and not fulfill?"
       return {
         sentence: 'A christian praying',
         imageUrls: [],
-        openaiApiKey: process.env.OPENAI_API,
+        openaiApiKey: process.env.OPENAI_API_KEY,
         key: process.env.BACKEND_API_KEY,
         backend_url: process.env.BACKEND_APP_URL,
       }
