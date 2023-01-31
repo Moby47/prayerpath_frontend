@@ -11,8 +11,8 @@
       fixed
       app
     >
-    <v-icon>mdi-heart</v-icon>
-      <v-toolbar-title>Quote God</v-toolbar-title>
+    <v-icon>mdi-hands-pray</v-icon>
+      <v-toolbar-title>Quote & Pray</v-toolbar-title>
     </v-app-bar>
     <!--app bar-->
 
@@ -22,7 +22,7 @@
       <v-col cols="12" sm="8" md="6">
         <v-card
           class="mx-auto"
-          color="#1F7087"
+          color="#1b5868"
           elevation="20"
           py-4 
           style="margin: 10px;"
@@ -44,10 +44,10 @@
             <v-img
               contain
               height="70px"
-              lazy-src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
-              src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
+              lazy-src="https://cdn.pixabay.com/photo/2014/04/02/10/44/hands-304398_960_720.png"
+              src="https://cdn.pixabay.com/photo/2014/04/02/10/44/hands-304398_960_720.png"
               style="flex-basis: 80px"
-              class="flex-grow-0"
+              class="flex-grow-0 mr-1"
             ></v-img>
           </div>
   
@@ -74,7 +74,7 @@
   <v-bottom-navigation :elevation="3" fixed style="background-color: #4a9ec1;">
     <v-btn 
 value="nearby" size="x-small" style="color: white !important;"
-@click="getquotes()"
+:to="{ name: 'index'}"
 >
   <v-icon>mdi-home</v-icon>
   Home
