@@ -72,7 +72,6 @@ Does he speak and then not act? Does he promise and not fulfill?"
 
 <script>
 export default {
-  name: 'DefaultLayout',
   data () {
     return {
       
