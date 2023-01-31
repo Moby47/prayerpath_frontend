@@ -71,11 +71,86 @@ Does he speak and then not act? Does he promise and not fulfill?"
 
 
 <script>
-export default {
-  data () {
-    return {
-      
+  import axios from 'axios';
+  
+  export default {
+    data() {
+      return {
+        sentence: 'A christian praying',
+        imageUrls: [],
+        openaiApiKey: process.env.OPENAI_API,
+        key: process.env.BACKEND_API_KEY,
+        backend_url: process.env.BACKEND_APP_URL,
+      }
+    },
+    methods: {
+
+      async getImageUrls() {
+        try{
+        const response = await axios.post('https://api.openai.com/v1/images/generations', {
+            prompt: this.sentence,
+            n: 5,
+            size: '256x256'
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.openaiApiKey}`
+          }
+        })
+        this.imageUrls = response.data.data.map(imageData => imageData.url);
+        console.log(this.imageUrls);
+        console.log("Images gotten");
+
+        // Make the second API call after the first one has completed
+        const secondResponse = await axios.post(this.backend_url+'/api/add-imageUrls', {
+          imageUrls: this.imageUrls
+        })
+
+        // Check if the second API call was successful
+      if (secondResponse.data == 1) {
+        console.log("getImageUrls ran correct");
+      } else {
+        console.log("Failed to get or save generated img url to DB");
+      }
+    } catch (error) {
+      console.error(error);
     }
+    },
+
+
+      getImageUrlsChecker(){
+        //check if need be to run getImageUrls
+    var url =  this.backend_url +'/api/check-imageurl';
+    fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Authorization': this.key
+    }
+    })
+    .then(res => res.json())
+    .then(res=>{
+      if (res == 1){
+        this.getImageUrls()
+        console.log('ran imageUrl getter func')
+      }else{
+        console.log('getImageUrls did not run')
+      }
+    })
+    .catch(error =>{
+      console.log(error)  
+        })
+
+      },
+      //
+
+
+    },
+
+    mounted(){
+   //check if need be to run dall-e func
+   this.getImageUrlsChecker()
+   },
+
   }
-}
-</script>
+  </script>

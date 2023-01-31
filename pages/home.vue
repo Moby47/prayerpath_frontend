@@ -229,6 +229,7 @@ value="nearby" size="x-small" style="color: white !important;" @click="dialog = 
     })
     .catch(error =>{
       console.log(error)  
+      this.showButton = true
       this.err = true
       this.overlay = false
         })
@@ -271,6 +272,7 @@ value="nearby" size="x-small" style="color: white !important;" @click="dialog = 
     })
     .catch(error =>{
       console.log(error)  
+      this.showButton = true
       this.err = true
       this.overlay = false
         })
