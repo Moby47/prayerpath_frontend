@@ -1,12 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col>
-      <!--app bar-->
-      <v-app-bar color="#4a9ec1" :clipped-left="clipped" fixed app>
-        <v-icon>mdi-hands-pray</v-icon>
-        <v-toolbar-title>Quote & Pray</v-toolbar-title>
-      </v-app-bar>
-      <!--app bar-->
+    
 
           <!--content and btn-->
   <template>
@@ -201,7 +196,6 @@ export default {
 
   data() {
     return {
-      clipped: false,
       fixed: false,
       quotes: [],
       loading: true,
