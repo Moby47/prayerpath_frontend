@@ -6,7 +6,7 @@
       <div class="banner layer" id="home">
         <div class="container">
           <div class="row banner-text">
-            <div class="slider-info col-lg-8">
+            <div class="slider-info col-lg-8 animated tdExpandInBounce">
               <div class="agileinfo-logo mt-5">
                 <h4 class="mb-16">
                   Quote God & Pray
