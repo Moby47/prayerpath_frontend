@@ -79,17 +79,21 @@ export default {
 
         // Save the received URLs in the component's data
         this.imageUrls = response.data.data.map(imageData => imageData.url);
-        console.log(this.imageUrls);
         console.log("Images gotten");
 
         // Make the second API call after the first one has completed
         const secondResponse = await axios.post(this.backend_url+'/api/add-imageUrls', {
           imageUrls: this.imageUrls
+        },{
+          headers: {
+           // 'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.key}`
+          }
         })
 
         // Check if the second API call was successful
         if (secondResponse.data == 1) {
-          console.log("getImageUrls ran correct");
+          console.log("getImageUrls ran and saved correct");
         } else {
           console.log("Failed to get or save generated img url to DB");
         }

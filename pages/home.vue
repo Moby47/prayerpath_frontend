@@ -20,14 +20,22 @@
           <div class="d-flex justify-between">
             <v-card-actions class="flex-grow-1 flex-column align-start">
               <div class="text-h6">
-                You said:
+                God's Word:
               </div>
               <div class="text-body-1" style="color: #F5F5F5; word-wrap: break-word;">
                 {{quote.verse}}
               </div>
-              <div class="text-caption font-weight-thin" style="background-color: #555; padding:2px; border-radius: 10px;" elevation="20">
-                <a :href="quote.verse_url" target="_blank" style="color: #fff;">{{quote.reference}}</a>
-              </div>
+              
+              <a :href="quote.verse_url" target="_blank" style="text-decoration: none;">
+              <v-chip
+              color="#F5F5DC"
+              label
+              size="x-small"
+              text-color="black">
+              <v-icon>mdi-link</v-icon>
+              {{quote.reference}}
+              </v-chip>
+            </a>
             </v-card-actions>
 
             <v-img
@@ -52,9 +60,21 @@
           </div>
 
           <v-divider></v-divider>
+        
+         
+
           <v-card-actions class="text-body-2" style="color: #F5F5F5;">
             {{quote.prayer}}
           </v-card-actions>
+            <v-chip
+            class="ma-2"
+            label
+            color="#9AC0D1"
+            style=" font-size: 12px; padding: 3px;"
+            text-color="black"
+            >
+            Prayer For {{quote.category}}
+            </v-chip>
         </v-card>
       </v-col>
     </v-row>
@@ -132,8 +152,8 @@
               <!-- Loop through categories and display each as a chip -->
               <v-chip
                 class="ma-2"
-                color="#4a9ec1"
-                text-color="white"
+                color="#9AC0D1"
+                text-color="black"
                 v-for='category in categories' 
                 v-bind:key='category.id'
                 @click="getQuotesByCat(category.category)"
