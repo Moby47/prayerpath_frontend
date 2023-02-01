@@ -16,7 +16,14 @@
                 "God does not lie or change his mind, and always follows through on his promises."
               </h3>
               <v-chip-group>
-                <v-chip>Numbers 23:19</v-chip>
+              <v-chip
+              color="#F5F5DC"
+              label
+              size="x-small"
+              text-color="black">
+              <v-icon>mdi-book-cross</v-icon>
+              Numbers 23:19
+             </v-chip>
               </v-chip-group>
 
               <v-btn
