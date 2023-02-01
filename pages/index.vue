@@ -21,9 +21,7 @@
 
               <v-btn
             class="btn mt-4 mr-2 text-capitalize"
-            href="#"
             :to="{ name: 'home'}"
-            role="button"
           >
             Talk to him
           </v-btn>

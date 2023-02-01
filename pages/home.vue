@@ -149,9 +149,10 @@
           </template>
 
         <!-- Close button -->
-        <v-card-actions style="background-color: white !important;">
-            <v-btn color="#555" block @click="dialog = false">Close</v-btn>
-        </v-card-actions>
+        <v-card-actions style="background-color: white !important; display: flex; justify-content: center; align-items: center;">
+  <v-btn color="#555" @click="dialog = false">Cancel</v-btn>
+</v-card-actions>
+
       </v-card>
     </v-dialog>
   </div>
