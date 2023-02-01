@@ -3,8 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - quote',
-    title: 'quote',
+    titleTemplate: '%s - Quote',
+    title: 'Quote',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -61,11 +61,28 @@ export default {
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    meta:{
+      author: 'Henry Onyemaobi',
+    },
     manifest: {
-      lang: 'en'
-    }
+      lang: 'en',
+      name: "Quote",
+      short_name: "Quote",
+      orientation: "portrait-primary",
+      background_color: "#f6f6f6",
+      theme_color: "#ffffff",
+      description: "The app that helps you keep your prayer life organized",
+      dir: "ltr",
+    },
+    icon: {
+      fileName: 'logo.png',
+      sizes: [64, 120, 144, 152, 192, 384, 512],
+      purpose: 'any'
+    },
+  
   },
 
+ 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
