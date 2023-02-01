@@ -79,13 +79,8 @@ button.btn.w3ls-btn:hover {
     background: #333;
 }
 
-
-
-
-
-
 .banner {
-    background: url('https://cdn.pixabay.com/photo/2022/12/25/07/49/door-7676969_960_720.jpg')no-repeat center;
+    background: url('https://cdn.pixabay.com/photo/2019/08/27/05/04/cross-4433376_960_720.jpg')no-repeat center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
