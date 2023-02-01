@@ -187,6 +187,15 @@
         </template>
         <!--Overlay-->
   
+        <!--Err snackbar-->
+    <v-snackbar
+      v-model="snackbar" >
+      An error occured. Please again later.
+      <template>
+      </template>
+    </v-snackbar>
+<!--Err snackbar-->
+
       </v-col>
     </v-row>
   
@@ -216,6 +225,7 @@ export default {
 
   data() {
     return {
+      snackbar: false,
       fixed: false,
       quotes: [],
       loading: true,
@@ -251,6 +261,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
+          this.snackbar = true
           this.showButton = true;
           this.err = true;
           this.overlay = false;
@@ -290,7 +301,8 @@ export default {
 
         })
         .catch(error =>{
-          console.log(error)  
+          console.log(error)
+          this.snackbar = true  
           this.showButton = true
           this.err = true
           this.overlay = false
@@ -313,7 +325,8 @@ export default {
       this.categories = res.data;
     })
     .catch(error =>{
-      console.log(error)  
+      console.log(error)
+      this.snackbar = true  
         })
   },
   //end

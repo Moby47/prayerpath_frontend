@@ -41,6 +41,14 @@
 </header>
 <!-- //header -->
 
+<!--Err snackbar-->
+    <v-snackbar
+      v-model="snackbar" >
+      An error occured. Please again later.
+      <template>
+      </template>
+    </v-snackbar>
+<!--Err snackbar-->
 
 </div>
 </template>
@@ -49,7 +57,7 @@
 
   @media only screen and (max-width: 768px) {
     #fake-height {
-      height: 250px;
+      height: 230px;
     }
   }
 </style>
@@ -61,6 +69,7 @@
 export default {
   data() {
     return {
+      snackbar: false,
       sentence: 'A christian praying',
       imageUrls: [],
       openaiApiKey: process.env.OPENAI_API_KEY,
@@ -106,6 +115,7 @@ export default {
         }
       } catch (error) {
         console.error(error);
+        this.snackbar = true
       }
     },
 
@@ -131,6 +141,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
+          this.snackbar = true
         })
     },
 
@@ -138,7 +149,7 @@ export default {
 
   mounted() {
     //check if need be to run dall-e func
-    this.getImageUrlsChecker()
+   // this.getImageUrlsChecker()
   },
 
 }
