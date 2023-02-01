@@ -1,87 +1,54 @@
 <template>
-  <!-- Main container for the page layout -->
-  <v-row justify="center" align="center" class="mt-6">
-    <!-- Wrapper column for card component -->
-    <v-col>
+  <div>
+    <!-- header -->
+    <header class="index-banner">
+      <!-- banner -->
+      <div class="banner layer" id="home">
+        <div class="container">
+          <div class="row banner-text">
+            <div class="slider-info col-lg-8">
+              <div class="agileinfo-logo mt-5">
+                <h4 class="mb-16">
+                  Quote God & Pray
+                </h4>
+              </div>
+              <h3 class="txt-w3_agile mt-16" style="font-size: 16px;">
+                "God does not lie or change his mind, and always follows through on his promises."
+              </h3>
+              <v-chip-group>
+                <v-chip>Numbers 23:19</v-chip>
+              </v-chip-group>
 
-   <!-- Card container -->
-   <template>
-    <!-- Row container for card component -->
-    <v-row justify="center" align="center">
-      <!-- Column container for card component -->
-      <v-col cols="12" sm="8" md="6">
-        <!-- Card component with styles and attributes -->
-        <v-card
-          class="mx-auto"
-          color="#ffffff"
-          elevation="20"
-          py-4 
-          style="margin: 10px;"
-          d-flex
-        >
+              <v-btn
+            class="btn mt-4 mr-2 text-capitalize"
+            href="#"
+            :to="{ name: 'home'}"
+            role="button"
+          >
+            Talk to him
+          </v-btn>
+        </div>
+        <div id="fake-height"></div>
+      </div>
+    </div>
+  </div>
+  <!-- //banner -->
+</header>
+<!-- //header -->
 
-          <!-- Content inside the card -->
-          <template>
-            <!-- Card with styles and attributes for content -->
-            <v-card
-              class="mx-auto my-12"
-              style="background-color: whitesmoke; color:black !important;"
-            >
-              <!-- Image component with styles and attributes -->
-              <v-img
-                class="align-end text-white"
-                height="300"
-                src="https://cdn.pixabay.com/photo/2022/12/25/07/49/door-7676969_960_720.jpg"
-                cover
-              >
-                <!-- Title for the image -->
-                <v-card-title>Quote God & Pray</v-card-title>
-              </v-img>
 
-              <!-- Subtitle with a quote and source -->
-              <v-card-subtitle>
-                <!-- Quote text with styles -->
-                <span class="me-1" style="color:black !important;">
-                  "God is not human, that he should lie, not a human being, that he should change his mind. 
-                  Does he speak and then not act? Does he promise and not fulfill?"
-                </span>
-                <!-- Source for the quote -->
-                <v-chip-group>
-                  <v-chip>Numbers 23:19</v-chip>
-                </v-chip-group>
-              </v-card-subtitle>
-
-              <!-- Separator line -->
-              <hr>
-              <!-- Actions for the card -->
-              <v-card-actions>
-                <!-- Start button -->
-                <v-btn
-                  color="#4a9ec1"
-                  variant="text"
-                  :to="{ name: 'home'}"
-                >
-                  Start
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </template>
-          <!-- End of content inside the card -->
-
-        </v-card>
-      </v-col>
-      <!-- End of column container for card component -->
-    </v-row>
-    <!-- End of row container for card component -->
-  </template>
-  <!-- End of card container -->
-
-</v-col>
-<!-- End of wrapper column for card component -->
-
-</v-row>
-  <!-- End of main container for the page layout -->
+</div>
 </template>
+<style scoped>
+  @import '@/assets/css/landing.css';
+
+  @media only screen and (max-width: 768px) {
+    #fake-height {
+      height: 250px;
+    }
+  }
+</style>
+
 <!-- Script section with data, methods, and mounted lifecycle hook -->
 <script>
  import axios from 'axios';
