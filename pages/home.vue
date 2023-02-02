@@ -3,7 +3,7 @@
     <v-col>
     
 
-          <!--content and btn-->
+          <!-- Dynamic content and btn-->
   <template>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6" class="">
@@ -28,6 +28,7 @@
               
               <a :href="quote.verse_url" target="_blank" style="text-decoration: none;">
               <v-chip
+              @click.prevent="promptRedirect(quote.verse_url)"
               color="#F5F5DC"
               label
               size="x-small"
@@ -61,8 +62,6 @@
 
           <v-divider></v-divider>
         
-         
-
           <v-card-actions class="text-body-2" style="color: #F5F5F5;">
             {{quote.prayer}}
           </v-card-actions>
@@ -87,6 +86,8 @@
     </v-col>
   </v-row>
   </template>
+<!-- Dynamic content and btn-->
+
 
   <!-- bottom nav -->
   <div>
@@ -138,8 +139,10 @@
       </v-btn>
     </v-bottom-navigation>
   </div>
+<!-- bottom nav -->
 
-  <!-- Modal -->
+
+  <!-- Category Modal -->
   <template>
     <div class="text-center">
       <v-dialog
@@ -172,11 +175,11 @@
     </v-dialog>
   </div>
 </template>
-<!--Modal-->
+<!-- Category Modal-->
 
 
-  <!--Overlay-->
-  <template>
+  <!--Loading Overlay-->
+    <template>
         <div class="text-center">
           <v-overlay :value="overlay">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
@@ -185,16 +188,49 @@
           </v-overlay>
         </div>
         </template>
-        <!--Overlay-->
+        <!--Loading Overlay-->
+
   
         <!--Err snackbar-->
     <v-snackbar
+    :timeout="3000"
+    color="red"
       v-model="snackbar" >
       An error occured. Please again later.
       <template>
       </template>
     </v-snackbar>
-<!--Err snackbar-->
+    <!--Err snackbar-->
+
+<!-- Verse url snackbar-->
+<v-snackbar
+    :timeout="5000"
+    :value="showSnackbar"
+    color="#555"
+    v-model="showSnackbar"
+  >
+    This leads to biblegateway.
+    <template v-slot:action="{ attrs }">
+      <v-btn
+        color="#F5F5DC"
+        text
+        @click="showSnackbar = false"
+        v-bind="attrs"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
+        color="#F5F5DC"
+        dark
+        text
+        @click="redirect"
+        v-bind="attrs"
+      >
+        Continue
+      </v-btn>
+    </template>
+  </v-snackbar>
+<!-- Verse url snackbar-->
 
       </v-col>
     </v-row>
@@ -225,6 +261,8 @@ export default {
 
   data() {
     return {
+      verse_url:'',
+      showSnackbar: false,
       snackbar: false,
       fixed: false,
       quotes: [],
@@ -331,6 +369,13 @@ export default {
   },
   //end
 
+  promptRedirect(verse_url) {
+        this.showSnackbar = true;
+        this.verse_url = verse_url
+    },
+    redirect(event) {
+     window.open(this.verse_url, "_blank");
+    },
          
   },
   //  method end
