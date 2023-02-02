@@ -41,15 +41,6 @@
 </header>
 <!-- //header -->
 
-<!--Err snackbar-->
-    <v-snackbar
-      v-model="snackbar" >
-      An error occured. Please again later.
-      <template>
-      </template>
-    </v-snackbar>
-<!--Err snackbar-->
-
 </div>
 </template>
 <style scoped>
@@ -69,55 +60,67 @@
 export default {
   data() {
     return {
-      snackbar: false,
-      sentence: 'A christian praying',
-      imageUrls: [],
-      openaiApiKey: process.env.OPENAI_API_KEY,
-      key: process.env.BACKEND_API_KEY,
-      backend_url: process.env.BACKEND_APP_URL,
-    }
-  },
-  methods: {
-
-    async getImageUrls() {
-      try {
-        // Make the first API call
-        const response = await axios.post('https://api.openai.com/v1/images/generations', {
-          prompt: this.sentence,
-          n: 5,
-          size: '256x256'
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.openaiApiKey}`
-          }
-        })
-
-        // Save the received URLs in the component's data
-        this.imageUrls = response.data.data.map(imageData => imageData.url);
-        console.log("Images gotten");
-
-        // Make the second API call after the first one has completed
-        const secondResponse = await axios.post(this.backend_url+'/api/add-imageUrls', {
-          imageUrls: this.imageUrls
-        },{
-          headers: {
-           // 'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.key}`
-          }
-        })
-
-        // Check if the second API call was successful
-        if (secondResponse.data == 1) {
-          console.log("getImageUrls ran and saved correct");
-        } else {
-          console.log("Failed to get or save generated img url to DB");
-        }
-      } catch (error) {
-        console.error(error);
-        this.snackbar = true
-      }
+        sentence: 'A Christian Praying',
+        imageUrls: [],
+        openaiApiKey: process.env.OPENAI_API_KEY,
+        key: process.env.BACKEND_API_KEY,
+        backend_url: process.env.BACKEND_APP_URL,
+      };
     },
+    methods: {
+      async getImageUrls() {
+        try {
+          // Make the first API call
+          const response = await axios.post('https://api.openai.com/v1/images/generations', {
+            prompt: this.sentence,
+            n: 5,
+            size: '256x256',
+          }, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.openaiApiKey}`,
+            },
+          });
+  
+          // Save the received URLs in the component's data
+          this.imageUrls = response.data.data.map(imageData => imageData.url);
+          console.log('Images gotten');
+  
+          // Upload each image URL to Cloudinary
+          const newUrls = [];
+          for (const url of this.imageUrls) {
+            try {
+              const result = await this.$cloudinary.upload(url, {
+                public_id: `image_${new Date().getTime()}`,
+                upload_preset: 'ml_default',
+                resource_type: 'auto',
+              });
+              newUrls.push(result.secure_url);
+              console.log('New Cloudinary URLs:', newUrls);
+            } catch (error) {
+              console.error(`Error uploading image: ${error}`);
+            }
+          }
+  
+          // Make the second API call after the first one has completed
+          const secondResponse = await axios.post(`${this.backend_url}/api/add-imageUrls`, {
+            imageUrls: newUrls,
+          }, {
+            headers: {
+              'Authorization': `Bearer ${this.key}`,
+            },
+          });
+  
+          // Check if the second API call was successful
+          if (secondResponse.data === 1) {
+            console.log('getImageUrls ran and saved correctly');
+          } else {
+            console.log('Failed to get or save generated img url to DB');
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      },
 
 
     getImageUrlsChecker() {
@@ -141,7 +144,6 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          this.snackbar = true
         })
     },
 
@@ -149,7 +151,7 @@ export default {
 
   mounted() {
     //check if need be to run dall-e func
-   // this.getImageUrlsChecker()
+    this.getImageUrlsChecker()
   },
 
 }

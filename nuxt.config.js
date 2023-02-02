@@ -51,7 +51,15 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/cloudinary',
   ],
+
+  cloudinary: {
+    // Cloudinary configuration options
+    cloudName: 'ddvotdlwm',
+    apiKey: '733671229438548',
+    apiSecret: 'l_5eL-VRYweL5CluEaEZfilZJz4',
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
