@@ -11,6 +11,12 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
+    script: [
+      {
+        src: 'https://cdn.onesignal.com/sdks/OneSignalSDK.js',
+        async: true
+      }
+    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href:'https://fonts.googleapis.com/css?family=Poppins:300,400&display=swap'},
@@ -60,12 +66,24 @@ oneSignal: {
   init: {
     appId: '1d73fcce-b49c-4e97-ad4a-b8d5c516797d',
     allowLocalhostAsSecureOrigin: true,
-    persistNotification: true,
+    persistNotification: false,
     welcomeNotification: {
-     // disable: true
-    }
+      "title": "Quote App",
+      "message": "Thanks for subscribing.",
+      // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
+    },
+    promptOptions: {
+      /* These prompt options values configure both the HTTP prompt and the HTTP popup. */
+      /* actionMessage limited to 90 characters */
+      actionMessage: "Keep your prayer life updated",
+      /* acceptButtonText limited to 15 characters */
+      acceptButtonText: "Ok",
+      /* cancelButtonText limited to 15 characters */
+      cancelButtonText: "Cancel"
+      },
   }
 },
+
 
   cloudinary: {
     // Cloudinary configuration options
