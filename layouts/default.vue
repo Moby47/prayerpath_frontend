@@ -1,12 +1,7 @@
 <template>
   <!-- Wrap the whole layout with a v-app component -->
   <v-app style="background-color: white;">
-      <!--app bar-->
-      <v-app-bar color="#4a9ec1" fixed app>
-        <v-icon>mdi-hands-pray</v-icon>
-        <v-toolbar-title>Quote</v-toolbar-title>
-      </v-app-bar>
-      <!--app bar-->
+
     <!-- Main content container -->
     <v-main>
       <v-container>

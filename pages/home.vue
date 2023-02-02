@@ -2,6 +2,12 @@
   <v-row justify="center" align="center">
     <v-col>
     
+      <!--app bar-->
+      <v-app-bar color="#4a9ec1" fixed app>
+        <v-icon>mdi-hands-pray</v-icon>
+        <v-toolbar-title>Quote</v-toolbar-title>
+      </v-app-bar>
+      <!--app bar-->
 
           <!-- Dynamic content and btn-->
   <template>

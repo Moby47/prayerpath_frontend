@@ -49,10 +49,23 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/onesignal',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/cloudinary',
   ],
+
+  // Options
+oneSignal: {
+  init: {
+    appId: '1d73fcce-b49c-4e97-ad4a-b8d5c516797d',
+    allowLocalhostAsSecureOrigin: true,
+    persistNotification: true,
+    welcomeNotification: {
+     // disable: true
+    }
+  }
+},
 
   cloudinary: {
     // Cloudinary configuration options
