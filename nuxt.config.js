@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
+import './static/cron'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
