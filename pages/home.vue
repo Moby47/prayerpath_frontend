@@ -264,7 +264,7 @@
   
   
   <script>
-//import axios from 'axios';
+import axios from 'axios';
 
 export default {
   head() {
@@ -293,7 +293,6 @@ export default {
       fixed: false,
       quotes: [],
       loading: true,
-      err: false,
       overlay: null,
       showButton: null,
       dialog: false,
@@ -304,33 +303,30 @@ export default {
   },
 
   methods: {
-    getquotes() {
-      this.overlay = true;
-      this.showButton = false;
-      this.scrollTop();
-
-      var final_url = this.backed_url + '/api/quotes';
-      fetch(final_url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Authorization': this.key
-        }
-      })
-        .then(res => res.json())
-        .then(res => {
-          this.quotes = res.data;
-          this.showButton = true;
-          this.overlay = false;
-        })
-        .catch(error => {
-          console.log(error)
-          this.snackbar = true
-          this.showButton = true;
-          this.err = true;
-          this.overlay = false;
+    async getquotes() {
+      try {
+        this.overlay = true;
+        this.showButton = false;
+        this.scrollTop();
+  
+        var final_url = this.backed_url + '/api/quotes';
+        const response = await axios.get(final_url, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': this.key
+          }
         });
+        this.quotes = response.data.data;
+        this.showButton = true;
+        this.overlay = false;
+      } catch (error) {
+        console.log(error)
+        this.snackbar = true
+        this.showButton = true;
+        this.overlay = false;
+      }
     },
+
     // getquotes method end
 
     scrollTop() {
@@ -341,7 +337,7 @@ export default {
       });
     },
 
-    getQuotesByCat(category) {
+    async getQuotesByCat(category) {
       //if called from modal
       this.dialog = false;
 
@@ -350,49 +346,43 @@ export default {
       this.scrollTop();
 
       var final_url = this.backed_url + '/api/quotes' + '/' + category;
-      fetch(final_url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Authorization': this.key
-        }
-      })
-        .then(res => res.json())
-        .then(res => {
-          this.quotes = res.data;
-          this.showButton = true;
-          this.overlay = false
-
-        })
-        .catch(error =>{
-          console.log(error)
-          this.snackbar = true  
-          this.showButton = true
-          this.err = true
-          this.overlay = false
-        })
+      try {
+        const response = await axios.get(final_url, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': this.key
+          }
+        });
+        this.quotes = response.data.data;
+        this.showButton = true;
+        this.overlay = false;
+      } catch (error) {
+        console.log(error)
+        this.snackbar = true
+        this.showButton = true
+        this.err = true
+        this.overlay = false
+      }
   },
+
   //end
 
-  getCategories(){
-     
-    var   final_url =  this.backed_url +'/api/categories'
-    fetch(final_url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Authorization': this.key
-    }
-    })
-    .then(res => res.json())
-    .then(res=>{
-      this.categories = res.data;
-    })
-    .catch(error =>{
-      console.log(error)
-      this.snackbar = true  
-        })
-  },
+  async getCategories() {
+      var final_url = this.backed_url + '/api/categories';
+      try {
+        const response = await axios.get(final_url, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': this.key
+          }
+        });
+        this.categories = response.data.data;
+      } catch (error) {
+        console.log(error)
+        this.snackbar = true
+      }
+    },
+
   //end
 
   promptRedirect(verse_url) {

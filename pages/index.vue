@@ -126,29 +126,27 @@ export default {
       },
 
 
-    getImageUrlsChecker() {
+      async getImageUrlsChecker() {
       //check if need be to run getImageUrls
       var url = this.backend_url + '/api/check-imageurl';
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Authorization': this.key
-        }
-      })
-        .then(res => res.json())
-        .then(res => {
-          if (res == 1) {
-            this.getImageUrls()
-            console.log('ran imageUrl getter func')
-          } else {
-            console.log('getImageUrls did not run')
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': this.key
           }
-        })
-        .catch(error => {
-          console.log(error)
-        })
+        });
+        if (response.data == 1) {
+          this.getImageUrls();
+          console.log('ran imageUrl getter func');
+        } else {
+          console.log('getImageUrls did not run');
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
+
 
   },
 
