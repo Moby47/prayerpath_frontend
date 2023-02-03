@@ -1,7 +1,7 @@
 <template>
+   <v-app style="background-color: black;">
   <div>
-    <!-- header -->
-    <header class="index-banner">
+ 
       <!-- banner -->
       <div class="banner layer" id="home">
         <div class="container">
@@ -15,7 +15,7 @@
               <h3 class="txt-w3_agile mt-16" style="font-size: 16px;">
                 "God does not lie or change his mind, and always follows through on his promises."
               </h3>
-              <v-chip-group>
+              <v-chip-group class="mt-3">
               <v-chip
               color="#F5F5DC"
               label
@@ -27,7 +27,7 @@
               </v-chip-group>
 
               <v-btn
-            class="btn mt-4 mr-2 text-capitalize"
+            class="btn mt-14 mr-2 text-capitalize"
             :to="{ name: 'home'}"
           >
             Talk to him
@@ -38,10 +38,9 @@
     </div>
   </div>
   <!-- //banner -->
-</header>
-<!-- //header -->
 
 </div>
+</v-app>
 </template>
 <style scoped>
   @import '@/assets/css/landing.css';
@@ -51,6 +50,10 @@
       height: 330px;
     }
   }
+  body {
+    overflow: hidden;
+  }
+ 
 </style>
 
 <!-- Script section with data, methods, and mounted lifecycle hook -->
@@ -152,7 +155,12 @@ export default {
   mounted() {
     //check if need be to run dall-e func
     this.getImageUrlsChecker()
+    document.body.style.overflow = 'hidden';
   },
+
+  beforeDestroy() {
+    document.body.style.overflow = '';
+  }
 
 }
 

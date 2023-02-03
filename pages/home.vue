@@ -1,10 +1,12 @@
 <template>
+   <v-app style="background-color: white;">
+      <v-container> <!--Gives the home page a centered look-->
   <v-row justify="center" align="center">
     <v-col>
     
       <!--app bar-->
       <v-app-bar color="#4a9ec1" fixed app>
-        <v-icon>mdi-hands-pray</v-icon>
+        <NuxtLink  text-color="black" to="/"> <v-icon>mdi-hands-pray</v-icon> </NuxtLink>
         <v-toolbar-title>Quote</v-toolbar-title>
       </v-app-bar>
       <!--app bar-->
@@ -174,7 +176,7 @@
 
         <!-- Close button -->
         <v-card-actions style="background-color: white !important; display: flex; justify-content: center; align-items: center;">
-  <v-btn color="#555" @click="dialog = false">Cancel</v-btn>
+  <v-btn color="#555" @click="dialog = false">Close</v-btn>
 </v-card-actions>
 
       </v-card>
@@ -238,9 +240,26 @@
   </v-snackbar>
 <!-- Verse url snackbar-->
 
+<template>
+  <v-btn
+    color="#555"
+    fab
+    fixed
+    :bottom='true'
+    small
+    :right='true'
+    @click="scrollTop()"
+    v-if="showButton"
+    :style="{ bottom: '70px', right: '30px' }"
+  >
+    <v-icon>mdi-arrow-up</v-icon>
+  </v-btn>
+</template>
+
       </v-col>
     </v-row>
-  
+  </v-container> <!--Gives the home page a centered look-->
+</v-app>
   </template>
   
   
@@ -267,6 +286,7 @@ export default {
 
   data() {
     return {
+      showButton: false,
       verse_url:'',
       showSnackbar: false,
       snackbar: false,
@@ -382,6 +402,10 @@ export default {
     redirect(event) {
      window.open(this.verse_url, "_blank");
     },
+
+    handleScroll() {
+      this.showButton = window.pageYOffset > 200;
+    },
          
   },
   //  method end
@@ -391,8 +415,14 @@ export default {
    this.getquotes()
    //get categories
    this.getCategories()
+
+   window.addEventListener("scroll", this.handleScroll);
+
    },
-            
+
+  beforeDestroy() {
+  window.removeEventListener("scroll", this.handleScroll);
+  },        
   
    }
   
