@@ -1,8 +1,8 @@
 const cron = require('node-cron');
 import axios from 'axios';
 
-cron.schedule('0 21 * * *', () => {
-  console.log('Running a task everyday at 9pm');
+cron.schedule('0 8,20 * * *', () => {
+  console.log('Running a task at 8am and 8pm every day');
 
   sendNotification().then(() => {
     console.log("Notification sent successfully");
