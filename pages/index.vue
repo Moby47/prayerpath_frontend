@@ -63,7 +63,9 @@
 export default {
   data() {
     return {
-        sentence: 'A Christian Praying',
+        category: '',
+        categoryCount:'',
+        sentence: 'A good picture of ',
         imageUrls: [],
         openaiApiKey: process.env.OPENAI_API_KEY,
         key: process.env.BACKEND_API_KEY,
@@ -75,8 +77,8 @@ export default {
         try {
           // Make the first API call
           const response = await axios.post('https://api.openai.com/v1/images/generations', {
-            prompt: this.sentence,
-            n: 5,
+            prompt: this.sentence + this.category,
+            n: this.categoryCount,
             size: '256x256',
           }, {
             headers: {
@@ -108,6 +110,7 @@ export default {
           // Make the second API call after the first one has completed
           const secondResponse = await axios.post(`${this.backend_url}/api/add-imageUrls`, {
             imageUrls: newUrls,
+            category: this.category,
           }, {
             headers: {
               'Authorization': `Bearer ${this.key}`,
@@ -136,10 +139,19 @@ export default {
             'X-Authorization': this.key
           }
         });
-        if (response.data == 1) {
-          this.getImageUrls();
+        if (response.data !== 0) {
+
+          this.category = response.data[0].category
+          if(response.data[0].count > 10){
+            this.categoryCount = 10
+          }else{
+            this.categoryCount = response.data[0].count
+          }
+          
           console.log('ran imageUrl getter func');
+          this.getImageUrls();
         } else {
+          console.log('No categories found');
           console.log('getImageUrls did not run');
         }
       } catch (error) {
@@ -152,7 +164,7 @@ export default {
 
   mounted() {
     //check if need be to run dall-e func
-    //this.getImageUrlsChecker()
+    this.getImageUrlsChecker()
     document.body.style.overflow = 'hidden';
   },
 

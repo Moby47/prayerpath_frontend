@@ -360,7 +360,7 @@ for (let i = 0; i < res.data.data.length; i++) {
   let key = quote.id;
   let existingQuote = savedQuotes.find(q => q.id === key);
   if (existingQuote) {
-    let newKey = Math.floor((Math.random() * 100100) + 1);
+    let newKey = Math.floor((Math.random() * 900900) + 1);
     quote.id = newKey;
     savedQuotes.push(quote);
   } else {
