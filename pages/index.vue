@@ -65,7 +65,7 @@ export default {
     return {
         category: '',
         categoryCount:'',
-        sentence: 'A good picture of ',
+        sentence: 'A good picture that potrays ',
         imageUrls: [],
         openaiApiKey: process.env.OPENAI_API_KEY,
         key: process.env.BACKEND_API_KEY,
