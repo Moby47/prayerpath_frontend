@@ -1,16 +1,16 @@
 <template>
   <v-app dark>
     <div id="bg">
- <div class="center-content">
+ <div class="center-content" style="color:black;">
       <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>
     <h1 v-else>
       {{ otherError }}
     </h1>
-      <NuxtLink to="/" class="button">
+      <v-btn :to="{ name: 'index'}" class="button">
       Home page
-    </NuxtLink>
+    </v-btn>
     </div>
   </div>
   </v-app>
@@ -48,7 +48,7 @@ h1 {
 }
 #bg {
             font-family: 'Nunito', sans-serif;
-            background-image: url("https://cdn.pixabay.com/photo/2019/08/27/05/04/cross-4433376_960_720.jpg");
+            background-image: url("https://cdn.pixabay.com/photo/2016/09/16/19/15/gear-1674891_960_720.png");
             background-size: cover;
             height: 100vh;
         }
