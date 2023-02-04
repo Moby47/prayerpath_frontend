@@ -120,7 +120,7 @@
         value="recent"  
         size="x-small" 
         style="color: white !important;"
-        @click="getQuotesByCat('career')"
+        @click="getQuotesByCat('Career')"
       >
         <v-icon>mdi-briefcase</v-icon>
         Career
@@ -130,7 +130,7 @@
         value="favorites"  
         size="x-small" 
         style="color: white !important;"
-        @click="getQuotesByCat('family')"
+        @click="getQuotesByCat('Family')"
       >
         <v-icon>mdi-human-male-female-child</v-icon>
         Family
@@ -157,8 +157,8 @@
         v-model="dialog">
         <v-card style="background-color: white !important;">
 
-          <!-- Categories list -->
-          <template>
+          <!-- Categories list --> <!-- For online use/display -->
+          <template v-if="!offlineCategory">
             <div class="text-center">
               <!-- Loop through categories and display each as a chip -->
               <v-chip
@@ -170,6 +170,21 @@
                 @click="getQuotesByCat(category.category)"
               >
                 {{category.category}}
+              </v-chip>
+            </div>
+          </template>
+
+          <!-- For offline use -->
+          <template v-else>
+            <div class="text-center">
+              <v-chip
+                class="ma-2"
+                color="#9AC0D1"
+                text-color="black"
+                v-for="category in categories" :key="category"
+                @click="getQuotesByCat(category)"
+              >
+                {{category}}
               </v-chip>
             </div>
           </template>
@@ -192,7 +207,7 @@
           <v-overlay :value="overlay">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
             <br>
-            Getting Ready...
+            Loading...
           </v-overlay>
         </div>
         </template>
@@ -201,12 +216,20 @@
   
         <!--Err snackbar-->
     <v-snackbar
-    :timeout="3000"
-    color="red"
+    :timeout="4500"
+    color="#555"
       v-model="snackbar" >
-      An error occured. Please again later.
-      <template>
-      </template>
+      {{errSnackText}}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+        color="#F5F5DC"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+        </template>
     </v-snackbar>
     <!--Err snackbar-->
 
@@ -265,6 +288,7 @@
   
   <script>
 import axios from 'axios';
+import * as idb from 'idb-keyval'
 
 export default {
   head() {
@@ -287,6 +311,8 @@ export default {
   data() {
     return {
       showButton: false,
+      offlineCategory: false,
+      errSnackText:'',
       verse_url:'',
       showSnackbar: false,
       snackbar: false,
@@ -303,29 +329,75 @@ export default {
   },
 
   methods: {
-    async getquotes() {
-      try {
-        this.overlay = true;
-        this.showButton = false;
-        this.scrollTop();
-  
-        var final_url = this.backed_url + '/api/quotes';
-        const response = await axios.get(final_url, {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Authorization': this.key
-          }
-        });
-        this.quotes = response.data.data;
-        this.showButton = true;
-        this.overlay = false;
-      } catch (error) {
-        console.log(error)
-        this.snackbar = true
-        this.showButton = true;
-        this.overlay = false;
-      }
-    },
+
+async getquotes() {
+
+  this.overlay = true;
+  this.showButton = false;
+  this.scrollTop();
+var final_url = this.backed_url + '/api/quotes';
+
+try {
+const res = await axios.get(final_url, {
+headers: {
+'Content-Type': 'application/json',
+'X-Authorization': this.key
+}
+});
+
+this.quotes = res.data.data;
+//console.log('fresh quoate',this.quotes)
+this.showButton = true;
+this.overlay = false;
+
+//add to indexeddb
+let savedQuotes = await idb.get('quotes') || [];
+if (savedQuotes.length + res.data.data.length > 100) {
+  savedQuotes = savedQuotes.slice(0, 100 - res.data.data.length);
+}
+for (let i = 0; i < res.data.data.length; i++) {
+  let quote = res.data.data[i];
+  let key = quote.id;
+  let existingQuote = savedQuotes.find(q => q.id === key);
+  if (existingQuote) {
+    let newKey = Math.floor((Math.random() * 100100) + 1);
+    quote.id = newKey;
+    savedQuotes.push(quote);
+  } else {
+    savedQuotes.push(quote);
+  }
+}
+await idb.set('quotes', savedQuotes);
+//console.log('saved quotes', savedQuotes)
+//add to indexeddb
+
+} catch (error) {
+
+console.error(error);
+this.showButton = true;
+this.overlay = false;
+
+//get from indexeddb
+try {
+const savedQuotes = await idb.get('quotes');
+
+if (savedQuotes) {
+this.quotes = savedQuotes;
+//console.log('retrieved',savedQuotes)
+this.snackbar = true
+this.errSnackText = 'You are in offline mode'
+} else {
+console.log("No saved quotes found");
+this.errSnackText = 'Offline mode: No saved quotes found'
+}
+
+} catch (error) {
+console.error(error);
+}
+//get from indexeddb
+
+}
+},
 
     // getquotes method end
 
@@ -356,14 +428,35 @@ export default {
         this.quotes = response.data.data;
         this.showButton = true;
         this.overlay = false;
+
+
       } catch (error) {
         console.log(error)
         this.snackbar = true
         this.showButton = true
-        this.err = true
         this.overlay = false
-      }
-  },
+
+  //get from indexeddb
+try {
+const savedQuotes = await idb.get('quotes');
+
+if (savedQuotes) {
+this.quotes = savedQuotes.filter(quote => quote.category == category);
+//console.log('retrieved',savedQuotes)
+this.snackbar = true
+this.errSnackText = 'Offline mode:'+' '+'Data found for '+category
+} else {
+console.log("No saved quotes found");
+this.errSnackText = 'Offline mode: No saved quotes found for'+' '+category
+}
+
+} catch (error) {
+console.error(error);
+}
+//get from indexeddb
+
+  }
+},
 
   //end
 
@@ -379,7 +472,25 @@ export default {
         this.categories = response.data.data;
       } catch (error) {
         console.log(error)
-        this.snackbar = true
+
+//get from indexeddb
+try {
+const savedQuotes = await idb.get('quotes');
+
+if (savedQuotes) {
+this.quotes = savedQuotes;
+const categories = [...new Set(savedQuotes.map(quote => quote.category))];
+this.categories = categories;
+this.offlineCategory = true
+console.log('categories', this.categories);
+} else {
+console.log("No saved quotes found to get categories");
+}
+
+} catch (error) {
+console.error(error);
+}
+//get from indexeddb
       }
     },
 

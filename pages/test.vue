@@ -18,15 +18,15 @@
     
     
     <script>
-//import axios from 'axios';
+import axios from 'axios';
+import * as idb from 'idb-keyval'
+
 
 export default {
   
   data() {
     return {
-     
-      quotes: [],
-     
+      quotes: [], // Store the quotes received from API
       key: process.env.BACKEND_API_KEY,
       backed_url: process.env.BACKEND_APP_URL,
     }
@@ -34,23 +34,11 @@ export default {
 
   methods: {
 
-    getquotes() {
-      var final_url = this.backed_url + '/api/quotes';
-      fetch(final_url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Authorization': this.key
-        }
-      })
-        .then(res => res.json())
-        .then(res => {
-          this.quotes = res.data;
-        })
-        .catch(error => {
-          console.log(error)
-        });
-    },
+async getquotes() {
+
+
+
+}
 
 
 },
