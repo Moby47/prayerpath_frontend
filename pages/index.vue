@@ -185,7 +185,7 @@ export default {
 
   mounted() {
     //check if need be to run dall-e func
-   // this.getImageUrlsChecker()
+    this.getImageUrlsChecker()
     document.body.style.overflow = 'hidden';
   },
 
