@@ -115,6 +115,16 @@
         Home
       </v-btn>
 
+      <v-btn 
+        value="nearby" 
+        size="x-small" 
+        style="color: white !important;"
+        @click="getQuotes()"
+      >
+        <v-icon>mdi-select-all</v-icon>
+        All
+      </v-btn>
+
       <!-- Career button -->
       <v-btn 
         value="recent"  
