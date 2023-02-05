@@ -6,7 +6,7 @@ import './static/quote_cron.js'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - Quote',
+    titleTemplate: '%s',
     title: 'Quote',
     meta: [
       { charset: 'utf-8' },

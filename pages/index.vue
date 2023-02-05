@@ -4,10 +4,10 @@
 
    <div class="center-content">
         <h1>Quote God & Pray</h1>
-        <h3 class=" mt-6 pl-10 pr-2" style="font-size: 16px;">
+        <h3 class="mt-6 text-center" style="font-size: 16px;">
                 "God does not lie or change his mind, and always follows through on his promises."
               </h3>
-              <v-chip-group class="mt-3">
+              <v-chip-group>
               <v-chip
               color="#F5F5DC"
               label
@@ -18,8 +18,9 @@
              </v-chip>
               </v-chip-group>
         <v-btn
-            class="btn mt-14 mr-2 text-capitalize"
+            class="btn mt-14 mr-2 text-capitalize floater"
             :to="{ name: 'home'}"
+            elevation="12"
           >
             Talk to him
           </v-btn>
@@ -36,13 +37,11 @@
   }
   .btn  {
     padding: 8px 29px;
-    background: #00BCD4;
     color: #eee;
     font-weight: 500;
-    border: none;
     font-size: 17px;
     letter-spacing: 1px;
-    border-radius: 0px;
+    border-radius: 10px;
 }
 .btn :hover {
     background: #333;
@@ -59,7 +58,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 70vh;
+            height: 60vh;
         }
 
         h1 {
@@ -75,6 +74,49 @@
             cursor: pointer;
         }
  
+ /*
+=========
+floater
+=========
+*/
+
+.floater{
+	animation-name: floater;
+	-webkit-animation-name: floater;
+
+	animation-duration: 1.5s;	
+	-webkit-animation-duration: 1.5s;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+
+	visibility: visible !important;	
+}
+
+@keyframes floater {
+	0% {
+		transform: translateY(0%);	
+	}
+	50% {
+		transform: translateY(8%);	
+	}	
+	100% {
+		transform: translateY(0%);
+	}			
+}
+
+@-webkit-keyframes floater {
+	0% {
+		-webkit-transform: translateY(0%);	
+	}
+	50% {
+		-webkit-transform: translateY(8%);	
+	}	
+	100% {
+		-webkit-transform: translateY(0%);
+	}			
+}
+
 </style>
 
 <!-- Script section with data, methods, and mounted lifecycle hook -->
@@ -86,7 +128,6 @@ export default {
     return {
         category: '',
         categoryCount:'',
-        sentence: 'A good picture that potrays ',
         imageUrls: [],
         openaiApiKey: process.env.OPENAI_API_KEY,
         key: process.env.BACKEND_API_KEY,
@@ -98,7 +139,7 @@ export default {
         try {
           // Make the first API call
           const response = await axios.post('https://api.openai.com/v1/images/generations', {
-            prompt: this.sentence + this.category,
+            prompt: 'Show a person experiencing ' + this.category +' through their faith in God.',
             n: this.categoryCount,
             size: '256x256',
           }, {
@@ -140,7 +181,7 @@ export default {
   
           // Check if the second API call was successful
           if (secondResponse.data === 1) {
-            console.log('getImageUrls ran and saved correctly');
+            console.log('getImageUrls ran and saved correctly for '+ this.category);
           } else {
             console.log('Failed to get or save generated img url to DB');
           }

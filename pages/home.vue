@@ -7,7 +7,7 @@
       <!--app bar-->
       <v-app-bar color="#4a9ec1" fixed app>
        <v-icon>mdi-hands-pray</v-icon> 
-        <v-toolbar-title>Quote</v-toolbar-title>
+        <v-toolbar-title>QuoteGod</v-toolbar-title>
       </v-app-bar>
       <!--app bar-->
 
@@ -16,7 +16,7 @@
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6" class="">
         <v-card
-          class="mx-auto animated tdFadeIn"
+          class="mx-auto animated fadeIn"
           color="#1b5868"
           elevation="20"
           py-4
@@ -50,7 +50,7 @@
             <v-img
               v-if="quote.imageurl"
               contain
-              height="70px"
+              height="50px"
               :lazy-src="quote.imageurl"
               :src="quote.imageurl"
               style="flex-basis: 80px"
@@ -60,7 +60,7 @@
             <v-img
               v-else
               contain
-              height="70px"
+              height="50px"
               lazy-src="https://cdn.pixabay.com/photo/2014/04/02/10/44/hands-304398_960_720.png"
               src="https://cdn.pixabay.com/photo/2014/04/02/10/44/hands-304398_960_720.png"
               style="flex-basis: 80px"
@@ -119,7 +119,7 @@
         value="nearby" 
         size="x-small" 
         style="color: white !important;"
-        @click="getQuotes()"
+        @click="getquotes()"
       >
         <v-icon>mdi-select-all</v-icon>
         All
@@ -135,7 +135,7 @@
         <v-icon>mdi-briefcase</v-icon>
         Career
       </v-btn>
-<!-- Family button -->
+<!-- Family button 
 <v-btn 
         value="favorites"  
         size="x-small" 
@@ -145,7 +145,7 @@
         <v-icon>mdi-human-male-female-child</v-icon>
         Family
       </v-btn>
-
+-->
       <!-- Others button -->
       <v-btn 
         value="nearby" 
@@ -295,6 +295,46 @@
 </v-app>
   </template>
   
+  <style scoped>
+/*
+==========
+fadeIn
+==========
+*/
+
+
+.fadeIn{
+	animation-name: fadeIn;
+	-webkit-animation-name: fadeIn;	
+
+	animation-duration: 2s;	
+	-webkit-animation-duration: 2s;
+
+	animation-timing-function: ease;	
+	-webkit-animation-timing-function: ease;	
+
+	visibility: visible !important;		
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}	
+}
+
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+</style>
   
   <script>
 import axios from 'axios';
