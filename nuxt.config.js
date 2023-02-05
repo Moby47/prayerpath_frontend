@@ -7,7 +7,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s',
-    title: 'Quote',
+    title: 'PrayerPath',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -24,7 +24,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href:'https://fonts.googleapis.com/css?family=Poppins:300,400&display=swap'},
       { rel: 'stylesheet', href:'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'},
-      { rel: 'stylesheet', href:'https://cdn.jsdelivr.net/gh/shakrmedia/tuesday@v1.1.0/build/tuesday.min.css'},
+      //{ rel: 'stylesheet', href:'https://cdn.jsdelivr.net/gh/shakrmedia/tuesday@v1.1.0/build/tuesday.min.css'},
     ]
   },
 
@@ -37,7 +37,7 @@ export default {
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/custom.css',
+    //'@/assets/css/custom.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins

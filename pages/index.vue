@@ -2,7 +2,7 @@
    <v-app id="bg">
   <div>
 
-   <div class="center-content">
+   <div class="center-content zoomer">
         <h1>Quote God & Pray</h1>
         <h3 class="mt-6 text-center" style="font-size: 16px;">
                 "God does not lie or change his mind, and always follows through on his promises."
@@ -117,6 +117,43 @@ floater
 	}			
 }
 
+/*
+==========
+zoomer
+==========
+*/
+.zoomer{
+	animation-name: zoomer;
+	-webkit-animation-name: zoomer;	
+
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
+
+	animation-timing-function: cubic-bezier(0.5, 0.2, 0.3, 1.0);	
+	-webkit-animation-timing-function: cubic-bezier(0.5, 0.2, 0.3, 1.0);
+
+	-webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;	
+
+	visibility: visible !important;						
+}
+@-webkit-keyframes zoomer {
+  0% {
+    -webkit-transform: scale(.3);
+  }
+  100% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes zoomer {
+  0% {
+    transform: scale(.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 </style>
 
 <!-- Script section with data, methods, and mounted lifecycle hook -->
@@ -124,6 +161,23 @@ floater
  import axios from 'axios';
 
 export default {
+  head() {
+    return {
+  title: "PrayerPath - Quote God & Pray",
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith."
+    },
+    {
+      name: 'keywords',
+      content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
+    }
+  ]
+}
+
+  },
   data() {
     return {
         category: '',

@@ -7,7 +7,7 @@
       <!--app bar-->
       <v-app-bar color="#4a9ec1" fixed app>
        <v-icon>mdi-hands-pray</v-icon> 
-        <v-toolbar-title>QuoteGod</v-toolbar-title>
+        <v-toolbar-title>PrayerPath</v-toolbar-title>
       </v-app-bar>
       <!--app bar-->
 
@@ -343,19 +343,20 @@ import * as idb from 'idb-keyval'
 export default {
   head() {
     return {
-      title: "Quote God & Pray",
-      meta: [
-        {
-          hid: 'description6',
-          name: 'description',
-          content: 'The app that helps you keep your prayer life organized'
-        },
-        {
-          name: 'keywords',
-          content: 'app, pray, bible'
-        }
-      ]
+  title: "PrayerPath - Quote God & Pray",
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith."
+    },
+    {
+      name: 'keywords',
+      content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
     }
+  ]
+}
+
   },
 
   data() {
