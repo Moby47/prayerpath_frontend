@@ -235,7 +235,7 @@ export default {
   
           // Check if the second API call was successful
           if (secondResponse.data === 1) {
-            console.log('getImageUrls ran and saved correctly for '+ this.category);
+            console.log('getImageUrls() ran and saved correctly for '+ this.category);
           } else {
             console.log('Failed to get or save generated img url to DB');
           }
@@ -264,11 +264,11 @@ export default {
             this.categoryCount = response.data[0].count
           }
           
-          console.log('ran imageUrl getter func');
+          console.log('Ran the function to get imageUrl');
           this.getImageUrls();
         } else {
           console.log('No categories found');
-          console.log('getImageUrls did not run');
+          console.log('getImageUrls() did not run');
         }
       } catch (error) {
         console.log(error);

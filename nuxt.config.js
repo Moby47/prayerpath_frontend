@@ -71,7 +71,7 @@ oneSignal: {
     allowLocalhostAsSecureOrigin: true,
     persistNotification: false,
     welcomeNotification: {
-      "title": "Quote App",
+      "title": "PrayerPath",
       "message": "Thanks for subscribing.",
       // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
     },
@@ -108,12 +108,12 @@ oneSignal: {
     },
     manifest: {
       lang: 'en',
-      name: "Quote",
-      short_name: "Quote",
+      name: "PrayerPath",
+      short_name: "PrayerPath",
       orientation: "portrait-primary",
       background_color: "#f6f6f6",
       theme_color: "#ffffff",
-      description: "The app that helps you keep your prayer life organized",
+      description: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith.",
       dir: "ltr",
     },
     icon: {

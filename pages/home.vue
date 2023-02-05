@@ -436,10 +436,10 @@ if (savedQuotes) {
 this.quotes = savedQuotes;
 //console.log('retrieved',savedQuotes)
 this.snackbar = true
-this.errSnackText = 'You are in offline mode'
+this.errSnackText = "Uh oh, looks like you're out of Wi-Fi reach!"
 } else {
-console.log("No saved quotes found");
-this.errSnackText = 'Offline mode: No saved quotes found'
+console.log("Whoopsie Daisy, looks like we've got a blank slate here!");
+this.errSnackText = 'No saved record found in this black-out'
 }
 
 } catch (error) {
@@ -535,7 +535,7 @@ this.categories = categories;
 this.offlineCategory = true
 console.log('categories', this.categories);
 } else {
-console.log("No saved quotes found to get categories");
+console.log("No categories found, looks like the quotes are on a coffee break.");
 }
 
 } catch (error) {
