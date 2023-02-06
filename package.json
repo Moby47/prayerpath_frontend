@@ -1,6 +1,8 @@
 {
   "name": "prayerpath",
   "version": "1.0.0",
+  "description": "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith.",
+  "author": "Henry Onyemaobi",
   "engines": {
     "node": "12.x"
   },
@@ -9,7 +11,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
