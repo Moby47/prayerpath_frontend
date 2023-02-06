@@ -169,7 +169,7 @@
 
           <!-- Categories list --> <!-- For online use/display -->
           <template v-if="!offlineCategory">
-            <div class="text-center">
+            <div class="text-center" v-if="category">
               <!-- Loop through categories and display each as a chip -->
               <v-chip
                 class="ma-2"
@@ -181,6 +181,9 @@
               >
                 {{category.category}}
               </v-chip>
+            </div>
+            <div class="text-center" v-else>
+             Nothing to see here.
             </div>
           </template>
 
