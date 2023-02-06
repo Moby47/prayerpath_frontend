@@ -440,6 +440,7 @@ this.errSnackText = "Uh oh, looks like you're out of Wi-Fi reach!"
 } else {
 console.log("Whoopsie Daisy, looks like we've got a blank slate here!");
 this.errSnackText = 'No saved record found in this black-out'
+this.snackbar = true
 }
 
 } catch (error) {
@@ -498,7 +499,7 @@ this.snackbar = true
 this.errSnackText = 'Offline mode:'+' '+'Data found for '+category
 } else {
 console.log("No saved quotes found");
-this.errSnackText = 'Offline mode: No saved quotes found for'+' '+category
+this.errSnackText = 'Offline mode: No result for'+' '+category
 }
 
 } catch (error) {
