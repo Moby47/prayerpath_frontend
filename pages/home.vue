@@ -182,7 +182,7 @@
                 {{category.category}}
               </v-chip>
             </div>
-            <div class="text-center" v-else>
+            <div class="text-center" style="color: black !important;" v-else>
              Nothing to see here.
             </div>
           </template>
