@@ -153,4 +153,12 @@ oneSignal: {
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },
+
+  
+    publicRuntimeConfig: {
+      BACKEND_APP_URL: process.env.BACKEND_APP_URL,
+      BACKEND_API_KEY: process.env.BACKEND_API_KEY
+    },
+  
+  
 }

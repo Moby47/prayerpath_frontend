@@ -169,7 +169,7 @@
 
           <!-- Categories list --> <!-- For online use/display -->
           <template v-if="!offlineCategory">
-            <div class="text-center" v-if="category">
+            <div class="text-center" v-if="categories">
               <!-- Loop through categories and display each as a chip -->
               <v-chip
                 class="ma-2"
@@ -377,8 +377,8 @@ export default {
       showButton: null,
       dialog: false,
       categories: [],
-      key: process.env.BACKEND_API_KEY,
-      backed_url: process.env.BACKEND_APP_URL,
+      key: this.$config.BACKEND_API_KEY,
+      backed_url: this.$config.BACKEND_APP_URL,
     }
   },
 
