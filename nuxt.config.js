@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
-import './static/reminder_cron.js'
-import './static/quote_cron.js'
+//import './static/reminder_cron.js'
+//import './static/quote_cron.js'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -157,8 +157,17 @@ oneSignal: {
   
     publicRuntimeConfig: {
       BACKEND_APP_URL: process.env.BACKEND_APP_URL,
-      BACKEND_API_KEY: process.env.BACKEND_API_KEY
+
+      APP_URL: process.env.APP_URL,
     },
   
+    privateRuntimeConfig: {
+      BACKEND_API_KEY: process.env.BACKEND_API_KEY,
+
+      OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+
+      ONESIGNAL_BASIC_KEY: process.env.ONESIGNAL_BASIC_KEY,
+      ONESIGNAL_APP_ID: process.env.ONESIGNAL_APP_ID,
+    },
   
 }

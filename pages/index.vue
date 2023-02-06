@@ -183,9 +183,9 @@ export default {
         category: '',
         categoryCount:'',
         imageUrls: [],
-        openaiApiKey: process.env.OPENAI_API_KEY,
-        key: process.env.BACKEND_API_KEY,
-        backend_url: process.env.BACKEND_APP_URL,
+        openaiApiKey: this.$config.OPENAI_API_KEY,
+        key: this.$config.BACKEND_API_KEY,
+        backend_url: this.$config.BACKEND_APP_URL,
       };
     },
     methods: {

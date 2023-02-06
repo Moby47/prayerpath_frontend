@@ -378,7 +378,7 @@ export default {
       dialog: false,
       categories: [],
       key: this.$config.BACKEND_API_KEY,
-      backed_url: this.$config.BACKEND_APP_URL,
+      backend_url: this.$config.BACKEND_APP_URL,
     }
   },
 
@@ -389,7 +389,7 @@ async getquotes() {
   this.overlay = true;
   this.showButton = false;
   this.scrollTop();
-var final_url = this.backed_url + '/api/quotes';
+var final_url = this.backend_url + '/api/quotes';
 
 try {
 const res = await axios.get(final_url, {
@@ -472,7 +472,7 @@ console.error(error);
       this.showButton = false;
       this.scrollTop();
 
-      var final_url = this.backed_url + '/api/quotes' + '/' + category;
+      var final_url = this.backend_url + '/api/quotes' + '/' + category;
       try {
         const response = await axios.get(final_url, {
           headers: {
@@ -516,7 +516,7 @@ console.error(error);
   //end
 
   async getCategories() {
-      var final_url = this.backed_url + '/api/categories';
+      var final_url = this.backend_url + '/api/categories';
       try {
         const response = await axios.get(final_url, {
           headers: {
