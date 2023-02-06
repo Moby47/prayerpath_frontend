@@ -439,9 +439,9 @@ if (savedQuotes) {
 this.quotes = savedQuotes;
 //console.log('retrieved',savedQuotes)
 this.snackbar = true
-this.errSnackText = "Uh oh, looks like you're out of Wi-Fi reach!"
+this.errSnackText = "Offline mode: You're out of Wi-Fi reach!"
 } else {
-console.log("Whoopsie Daisy, looks like we've got a blank slate here!");
+console.log("No cached record/quotes found");
 this.errSnackText = 'No saved record found in this black-out'
 this.snackbar = true
 }
@@ -539,7 +539,7 @@ this.categories = categories;
 this.offlineCategory = true
 console.log('categories', this.categories);
 } else {
-console.log("No categories found, looks like the quotes are on a coffee break.");
+console.log("No categories found.");
 }
 
 } catch (error) {
