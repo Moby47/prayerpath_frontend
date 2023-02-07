@@ -16,7 +16,7 @@
 <v-row justify="center" align="center">
   <v-col cols="12" sm="8" md="6" class="">
     <v-card
-      class="mx-auto animated tdFadeIn"
+      class="mx-auto"
       color="#ADD8E6"
       :elevation="0" :shadow="false"
       py-4
