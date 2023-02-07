@@ -218,7 +218,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
    <template>
        <div class="text-center">
          <v-overlay :value="overlay">
-           <v-progress-linear indeterminate size="64" color="#F5F5DC" value="90" striped height="10"></v-progress-linear>
+           <v-progress-linear indeterminate size="64" color="#F5F5DC"  height="10"></v-progress-linear>
            <br>
            Loading...
          </v-overlay>
