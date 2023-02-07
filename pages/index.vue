@@ -44,9 +44,7 @@
     letter-spacing: 1px;
     border-radius: 10px;
 }
-.btn :hover {
-    background: #333;
-}
+
 #bg {
    font-family: 'Nunito', sans-serif;
    background-image: url("https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg");
