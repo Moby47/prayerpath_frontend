@@ -267,7 +267,7 @@ export default {
           console.log('Ran the function to get imageUrl');
           this.getImageUrls();
         } else {
-          console.log('No categories found');
+          console.log('No categories found to populate images');
           console.log('getImageUrls() did not run');
         }
       } catch (error) {

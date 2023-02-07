@@ -150,11 +150,13 @@ oneSignal: {
     postcss: null,
   },
 
-  //for page transition
+ /*
+ //for page transition
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },
 
+*/
   
     publicRuntimeConfig: {
       BACKEND_APP_URL: process.env.BACKEND_APP_URL,
