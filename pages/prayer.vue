@@ -14,7 +14,7 @@
 
 <template>
 <v-row justify="center" align="center">
-  <v-col cols="12" sm="8" md="6" class="">
+  <v-col cols="12" sm="8" md="6" class="others-font">
     <v-card
       class="mx-auto"
       color="#ADD8E6"
@@ -29,7 +29,7 @@
           <div class="text-h6" style="color: #000;">
             God's Word:
           </div>
-          <div class="text-body-1" style="color: #000; word-wrap: break-word;">
+          <div class="text-body-1 verse-font" style="color: #000; word-wrap: break-word;">
             {{quote.verse}}
           </div>
           <a :href="quote.verse_url" target="_blank" style="text-decoration: none;">
@@ -69,7 +69,7 @@
 
       <v-divider></v-divider>
 
-      <v-card-actions class="text-body-2" style="color: #000;">
+      <v-card-actions class="text-body-2 prayer-font" style="color: #000;">
         {{quote.prayer}}
       </v-card-actions>
       <v-chip
@@ -300,6 +300,16 @@ d-flex justify-center" style="margin-bottom: 65px;">
  
  <style scoped>
 
+.verse-font {
+  font-family: 'Lato', sans-serif !important;
+}
+.prayer-font {
+  font-family: Georgia, 'Times New Roman', Times, serif !important;
+}
+
+.others-font {
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
 
 </style>
  

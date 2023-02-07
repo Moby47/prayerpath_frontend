@@ -5,9 +5,9 @@
       <v-toolbar-title style="color:black" class="m-2"><v-icon color="black">mdi-hands-pray</v-icon> PrayerPath</v-toolbar-title>
       <div class="center-content animated tdExpandIn">
     <h1 style="color:black;">Quote God & Pray</h1>
-    <h3 class="mt-6 text-center" style="font-size: 16px; color:black;">
+    <h5 class="mt-6 text-center" style="color:black;">
       "God does not lie or change his mind, and always follows through on his promises."
-    </h3>
+    </h5>
     <v-chip-group>
       <v-chip
         color="#F5F5DC"
@@ -19,7 +19,7 @@
       </v-chip>
     </v-chip-group>
     <v-btn
-      class="btn mt-14 mr-2 text-capitalize floater"
+      class="btn mt-15 mr-2 text-capitalize floater"
       :to="{ name: 'prayer'}"
       elevation="12"
       color="#ADD8E6">
@@ -62,6 +62,7 @@
             align-items: center;
             justify-content: center;
             height: 60vh;
+            font-family: Georgia, 'Times New Roman', Times, serif;
         }
 
         h1 {

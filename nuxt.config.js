@@ -3,6 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 //import './static/reminder_cron.js'
 //import './static/quote_cron.js'
 
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -22,8 +23,8 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href:'https://fonts.googleapis.com/css?family=Poppins:300,400&display=swap'},
-      { rel: 'stylesheet', href:'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'},
+     // { rel: 'stylesheet', href:'https://fonts.googleapis.com/css2?family=Lato&display=swap'},
+     // { rel: 'stylesheet', href:'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'},
       { rel: 'stylesheet', href:'https://cdn.jsdelivr.net/gh/shakrmedia/tuesday@v1.1.0/build/tuesday.min.css'},
     ]
   },
@@ -38,6 +39,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     //'@/assets/css/custom.css',
+   // '@/assets/css/fonts.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
