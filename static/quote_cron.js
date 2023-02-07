@@ -58,7 +58,7 @@ async function makeApiCall(){
       contents: { en: 'More quotes added to our database' },
       headings: { en: 'Update' },
       included_segments: ['Subscribed Users'],
-      url: process.env.APP_URL+'/home',
+      url: process.env.APP_URL+'/prayer',
       web_push_topic: 'tag',
       chrome_web_image: `${process.env.APP_URL}/static/logo.png`, // 512 or >
     };

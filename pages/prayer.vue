@@ -294,7 +294,7 @@
 
       </v-col>
     </v-row>
-  </v-container> <!--Gives the home page a centered look-->
+  </v-container> <!--Gives the  page a centered look-->
 </v-app>
   </template>
   

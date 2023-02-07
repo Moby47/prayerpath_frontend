@@ -19,7 +19,7 @@
               </v-chip-group>
         <v-btn
             class="btn mt-14 mr-2 text-capitalize floater"
-            :to="{ name: 'home'}"
+            :to="{ name: 'prayer'}"
             elevation="12"
           >
             Talk to him
