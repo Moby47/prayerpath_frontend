@@ -16,7 +16,7 @@
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6" class="">
         <v-card
-          class="mx-auto animated fadeIn"
+          class="mx-auto animated tdFadeIn"
           color="#1b5868"
           elevation="20"
           py-4
@@ -299,43 +299,7 @@
   </template>
   
   <style scoped>
-/*
-==========
-fadeIn
-==========
-*/
 
-
-.fadeIn{
-	animation-name: fadeIn;
-	-webkit-animation-name: fadeIn;	
-
-	animation-duration: 2s;	
-	-webkit-animation-duration: 2s;
-
-	animation-timing-function: ease;	
-	-webkit-animation-timing-function: ease;	
-
-	visibility: visible !important;		
-}
-
-@keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}	
-}
-
-@-webkit-keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
 
 </style>
   
