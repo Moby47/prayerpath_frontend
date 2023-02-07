@@ -5,17 +5,34 @@
      <v-col>
      
      <!--app bar-->
-<v-app-bar color="white" fixed app :elevation="0" :shadow="false" style="color: black;">
+  <v-app-bar color="white" fixed app :elevation="0" :shadow="false" style="color: black;">
   <v-icon  color="black">mdi-hands-pray</v-icon> 
   <v-toolbar-title>PrayerPath</v-toolbar-title>
-</v-app-bar>
-<!--app bar-->
-
- 
-<template>
+  </v-app-bar>
+  <!--app bar-->
+  
+  
+                  
+  <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6" class="">
+
+ <!--dummy-->
+  <v-sheet
+    :color="`#ADD8E6`"
+    class="pa-3 animated tdFadeOut"
+    light
+    v-if="overlay"
+  > <v-skeleton-loader
+      class="mx-auto"
+      max-width="300"
+      type="article"
+      :color="`white`"
+    ></v-skeleton-loader></v-sheet>
+    <!--dummy-->
+
       <v-card
+      v-else
         class="mx-auto animated tdFadeIn"
         color="#ADD8E6"
         :elevation="0" :shadow="false"
@@ -45,7 +62,7 @@
               </v-chip>
             </a>
           </v-card-actions>
-
+  
           <v-img
             v-if="quote.imageurl"
             contain
@@ -55,7 +72,7 @@
             style="flex-basis: 80px"
             class="flex-grow-0 mr-1 mt-2"
           ></v-img>
-
+  
           <v-img
             v-else
             contain
@@ -66,9 +83,9 @@
             class="flex-grow-0 mr-1 mt-2"
           ></v-img>
         </div>
-
+  
         <v-divider></v-divider>
-
+  
         <v-card-actions class="text-body-2" style="color: #000;">
           {{quote.prayer}}
         </v-card-actions>
@@ -87,22 +104,22 @@
   <v-row justify="center">
     <v-col cols="12" sm="8" md="6">
       <div class="
-d-flex justify-center" style="margin-bottom: 65px;">
+  d-flex justify-center" style="margin-bottom: 65px;">
          <!-- Show reset button if showButton is true -->
          <v-btn color="#F5F5DC" style="color:#000;" @click="getquotes()" v-if="showButton">Reset</v-btn>
        </div>
      </v-col>
    </v-row>
    </template>
- <!-- Dynamic content and btn-->
- 
- 
+  <!-- Dynamic content and btn-->
+  
+  
    <!-- bottom nav -->
    <div>
      <v-bottom-navigation 
        fixed 
        style="background-color: white; box-shadow: none; border: none;">
- 
+  
       <!-- Home button -->
    <v-btn 
      value="nearby" 
@@ -113,7 +130,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
      <v-icon>mdi-home</v-icon>
      Home
    </v-btn>
-
+  
    <v-btn 
      value="nearby" 
      size="x-small" 
@@ -123,7 +140,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
      <v-icon>mdi-select-all</v-icon>
      All
    </v-btn>
-
+  
    <!-- Career button -->
    <v-btn 
      value="recent"  
@@ -134,7 +151,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
      <v-icon>mdi-briefcase</v-icon>
      Career
    </v-btn>
-
+  
    <!-- Family button -->
    <v-btn 
      value="favorites"  
@@ -145,7 +162,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
      <v-icon>mdi-human-male-female-child</v-icon>
      Family
    </v-btn>
-
+  
    <!-- Others button -->
    <v-btn 
      value="nearby" 
@@ -155,18 +172,18 @@ d-flex justify-center" style="margin-bottom: 65px;">
      <v-icon>mdi-dots-vertical</v-icon>
      Others
    </v-btn>
- </v-bottom-navigation>
+  </v-bottom-navigation>
    </div>
- <!-- bottom nav -->
- 
- 
+  <!-- bottom nav -->
+  
+  
    <!-- Category Modal -->
    <template>
      <div class="text-center">
        <v-dialog
          v-model="dialog">
          <v-card style="background-color: white !important;">
- 
+  
            <!-- Categories list --> <!-- For online use/display -->
            <template v-if="!offlineCategory">
              <div class="text-center" v-if="categories">
@@ -186,7 +203,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
               Nothing to see here.
              </div>
            </template>
- 
+  
            <!-- For offline use -->
            <template v-else>
              <div class="text-center">
@@ -201,20 +218,20 @@ d-flex justify-center" style="margin-bottom: 65px;">
                </v-chip>
              </div>
            </template>
- 
+  
          <!-- Close button -->
          <v-card-actions style="background-color: white !important; display: flex; justify-content: center; align-items: center;">
    <v-btn color="#F5F5DC" @click="dialog = false" style="color:black">Close</v-btn>
- </v-card-actions>
- 
+  </v-card-actions>
+  
        </v-card>
      </v-dialog>
    </div>
- </template>
- <!-- Category Modal-->
- 
- 
-   <!--Loading Overlay-->
+  </template>
+  <!-- Category Modal-->
+  
+  
+   <!--Loading Overlay--
      <template>
          <div class="text-center">
            <v-overlay :value="overlay">
@@ -224,8 +241,8 @@ d-flex justify-center" style="margin-bottom: 65px;">
            </v-overlay>
          </div>
          </template>
-         <!--Loading Overlay-->
- 
+         --Loading Overlay-->
+  
    
          <!--Err snackbar-->
      <v-snackbar
@@ -245,9 +262,9 @@ d-flex justify-center" style="margin-bottom: 65px;">
          </template>
      </v-snackbar>
      <!--Err snackbar-->
- 
- <!-- Verse url snackbar-->
- <v-snackbar
+  
+  <!-- Verse url snackbar-->
+  <v-snackbar
      :timeout="5000"
      :value="showSnackbar"
      color="#555"
@@ -274,9 +291,9 @@ d-flex justify-center" style="margin-bottom: 65px;">
        </v-btn>
      </template>
    </v-snackbar>
- <!-- Verse url snackbar-->
- 
- <template>
+  <!-- Verse url snackbar-->
+  
+  <template>
    <v-btn
      color="#F5F5DC"
      fab
@@ -290,24 +307,24 @@ d-flex justify-center" style="margin-bottom: 65px;">
    >
      <v-icon color="black">mdi-arrow-up</v-icon>
    </v-btn>
- </template>
- 
+  </template>
+  
        </v-col>
      </v-row>
    </v-container> <!--Gives the  page a centered look-->
- </v-app>
+  </v-app>
    </template>
    
    <style scoped>
- 
- 
- </style>
+  
+  
+  </style>
    
    <script>
- import axios from 'axios';
- import * as idb from 'idb-keyval'
- 
- export default {
+  import axios from 'axios';
+  import * as idb from 'idb-keyval'
+  
+  export default {
    head() {
      return {
    title: "PrayerPath - Quote God & Pray",
@@ -322,10 +339,10 @@ d-flex justify-center" style="margin-bottom: 65px;">
        content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
      }
    ]
- }
- 
+  }
+  
    },
- 
+  
    data() {
      return {
        showButton: false,
@@ -337,7 +354,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
        fixed: false,
        quotes: [],
        loading: true,
-       overlay: null,
+       overlay: '',
        showButton: null,
        dialog: false,
        categories: [],
@@ -345,35 +362,35 @@ d-flex justify-center" style="margin-bottom: 65px;">
        backend_url: this.$config.BACKEND_APP_URL,
      }
    },
- 
+  
    methods: {
- 
- async getquotes() {
- 
+  
+  async getquotes() {
+  
    this.overlay = true;
    this.showButton = false;
    this.scrollTop();
- var final_url = this.backend_url + '/api/quotes';
- 
- try {
- const res = await axios.get(final_url, {
- headers: {
- 'Content-Type': 'application/json',
- 'X-Authorization': this.key
- }
- });
- 
- this.quotes = res.data.data;
- //console.log('fresh quoate',this.quotes)
- this.showButton = true;
- this.overlay = false;
- 
- //add to indexeddb
- let savedQuotes = await idb.get('quotes') || [];
- if (savedQuotes.length + res.data.data.length > 100) {
+  var final_url = this.backend_url + '/api/quotes';
+  
+  try {
+  const res = await axios.get(final_url, {
+  headers: {
+  'Content-Type': 'application/json',
+  'X-Authorization': this.key
+  }
+  });
+  
+  this.quotes = res.data.data;
+  //console.log('fresh quoate',this.quotes)
+  this.showButton = true;
+  this.overlay = false;
+  
+  //add to indexeddb
+  let savedQuotes = await idb.get('quotes') || [];
+  if (savedQuotes.length + res.data.data.length > 100) {
    savedQuotes = savedQuotes.slice(0, 100 - res.data.data.length);
- }
- for (let i = 0; i < res.data.data.length; i++) {
+  }
+  for (let i = 0; i < res.data.data.length; i++) {
    let quote = res.data.data[i];
    let key = quote.id;
    let existingQuote = savedQuotes.find(q => q.id === key);
@@ -384,42 +401,42 @@ d-flex justify-center" style="margin-bottom: 65px;">
    } else {
      savedQuotes.push(quote);
    }
- }
- await idb.set('quotes', savedQuotes);
- //console.log('saved quotes', savedQuotes)
- //add to indexeddb
- 
- } catch (error) {
- 
- console.error(error);
- this.showButton = true;
- this.overlay = false;
- 
- //get from indexeddb
- try {
- const savedQuotes = await idb.get('quotes');
- 
- if (savedQuotes) {
- this.quotes = savedQuotes;
- //console.log('retrieved',savedQuotes)
- this.snackbar = true
- this.errSnackText = "Offline mode: You're out of Wi-Fi reach!"
- } else {
- console.log("No cached record/quotes found");
- this.errSnackText = 'No saved record found in this black-out'
- this.snackbar = true
- }
- 
- } catch (error) {
- console.error(error);
- }
- //get from indexeddb
- 
- }
- },
- 
+  }
+  await idb.set('quotes', savedQuotes);
+  //console.log('saved quotes', savedQuotes)
+  //add to indexeddb
+  
+  } catch (error) {
+  
+  console.error(error);
+  this.showButton = true;
+  this.overlay = false;
+  
+  //get from indexeddb
+  try {
+  const savedQuotes = await idb.get('quotes');
+  
+  if (savedQuotes) {
+  this.quotes = savedQuotes;
+  //console.log('retrieved',savedQuotes)
+  this.snackbar = true
+  this.errSnackText = "Offline mode: You're out of Wi-Fi reach!"
+  } else {
+  console.log("No cached record/quotes found");
+  this.errSnackText = 'No saved record found in this black-out'
+  this.snackbar = true
+  }
+  
+  } catch (error) {
+  console.error(error);
+  }
+  //get from indexeddb
+  
+  }
+  },
+  
      // getquotes method end
- 
+  
      scrollTop() {
        window.scroll({
          top: 0,
@@ -427,15 +444,15 @@ d-flex justify-center" style="margin-bottom: 65px;">
          behavior: 'smooth'
        });
      },
- 
+  
      async getQuotesByCat(category) {
        //if called from modal
        this.dialog = false;
- 
+  
        this.overlay = true;
        this.showButton = false;
        this.scrollTop();
- 
+  
        var final_url = this.backend_url + '/api/quotes' + '/' + category;
        try {
          const response = await axios.get(final_url, {
@@ -447,38 +464,38 @@ d-flex justify-center" style="margin-bottom: 65px;">
          this.quotes = response.data.data;
          this.showButton = true;
          this.overlay = false;
- 
- 
+  
+  
        } catch (error) {
          console.log(error)
          this.snackbar = true
          this.showButton = true
          this.overlay = false
- 
+  
    //get from indexeddb
- try {
- const savedQuotes = await idb.get('quotes');
- 
- if (savedQuotes) {
- this.quotes = savedQuotes.filter(quote => quote.category == category);
- //console.log('retrieved',savedQuotes)
- this.snackbar = true
- this.errSnackText = 'Offline mode:'+' '+'Data found for '+category
- } else {
- console.log("No saved quotes found");
- this.errSnackText = 'Offline mode: No result for'+' '+category
- }
- 
- } catch (error) {
- console.error(error);
- }
- //get from indexeddb
- 
+  try {
+  const savedQuotes = await idb.get('quotes');
+  
+  if (savedQuotes) {
+  this.quotes = savedQuotes.filter(quote => quote.category == category);
+  //console.log('retrieved',savedQuotes)
+  this.snackbar = true
+  this.errSnackText = 'Offline mode:'+' '+'Data found for '+category
+  } else {
+  console.log("No saved quotes found");
+  this.errSnackText = 'Offline mode: No result for'+' '+category
+  }
+  
+  } catch (error) {
+  console.error(error);
+  }
+  //get from indexeddb
+  
    }
- },
- 
+  },
+  
    //end
- 
+  
    async getCategories() {
        var final_url = this.backend_url + '/api/categories';
        try {
@@ -491,30 +508,30 @@ d-flex justify-center" style="margin-bottom: 65px;">
          this.categories = response.data.data;
        } catch (error) {
          console.log(error)
- 
- //get from indexeddb
- try {
- const savedQuotes = await idb.get('quotes');
- 
- if (savedQuotes) {
- this.quotes = savedQuotes;
- const categories = [...new Set(savedQuotes.map(quote => quote.category))];
- this.categories = categories;
- this.offlineCategory = true
- console.log('categories', this.categories);
- } else {
- console.log("No categories found.");
- }
- 
- } catch (error) {
- console.error(error);
- }
- //get from indexeddb
+  
+  //get from indexeddb
+  try {
+  const savedQuotes = await idb.get('quotes');
+  
+  if (savedQuotes) {
+  this.quotes = savedQuotes;
+  const categories = [...new Set(savedQuotes.map(quote => quote.category))];
+  this.categories = categories;
+  this.offlineCategory = true
+  console.log('categories', this.categories);
+  } else {
+  console.log("No categories found.");
+  }
+  
+  } catch (error) {
+  console.error(error);
+  }
+  //get from indexeddb
        }
      },
- 
+  
    //end
- 
+  
    promptRedirect(verse_url) {
          this.showSnackbar = true;
          this.verse_url = verse_url
@@ -522,7 +539,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
      redirect(event) {
       window.open(this.verse_url, "_blank");
      },
- 
+  
      handleScroll() {
        this.showButton = window.pageYOffset > 200;
      },
@@ -535,11 +552,11 @@ d-flex justify-center" style="margin-bottom: 65px;">
     this.getquotes()
     //get categories
     this.getCategories()
- 
+  
     window.addEventListener("scroll", this.handleScroll);
- 
+  
     },
- 
+  
    beforeDestroy() {
    window.removeEventListener("scroll", this.handleScroll);
    },        
