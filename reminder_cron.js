@@ -1,21 +1,22 @@
 const cron = require('node-cron');
 import axios from 'axios';
-const config = require("config");
 
 
 
 // cron.schedule('0 8,20 * * *', () => { //main
 //  console.log('Running a task at 8am and 8pm every day'); //main
 
-cron.schedule('*/40 * * * * *', () => {
-  console.log('Running a task every 40 seconds');
-  console.log(config.get("ONESIGNAL_APP_ID"),config.get("APP_URL"),config.get("ONESIGNAL_BASIC_KEY"));
-  sendNotification().then(() => {
+cron.schedule('*/10 * * * * *', () => {
+  console.log('Running a task every 10 seconds');
+ // console.log(config.get("ONESIGNAL_APP_ID"),config.get("APP_URL"),config.get("ONESIGNAL_BASIC_KEY"));
+ // console.log(process.env.NODE_ENV);
+
+  /*sendNotification().then(() => {
     console.log("Notification sent successfully");
   }).catch((error) => {
     console.error("Error sending notification:", error);
   });
-  
+  */
 });
 
 async function sendNotification() {

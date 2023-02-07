@@ -66,8 +66,8 @@ export default {
   // Options
 oneSignal: {
   init: {
-   // appId: '1d73fcce-b49c-4e97-ad4a-b8d5c516797d', //localhost
-    appId: "1b551de2-95af-4b32-8bc6-460848b60752", //https://prayerpath-app.herokuapp.com/
+    appId: '1d73fcce-b49c-4e97-ad4a-b8d5c516797d', //localhost
+    //appId: "1b551de2-95af-4b32-8bc6-460848b60752", //https://prayerpath-app.herokuapp.com/
     allowLocalhostAsSecureOrigin: true,
     persistNotification: false,
     welcomeNotification: {
