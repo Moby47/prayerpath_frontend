@@ -135,7 +135,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
    Career
  </v-btn>
 
- <!-- Family button -->
+ <!-- Family button 
  <v-btn 
    value="favorites"  
    size="x-small" 
@@ -144,7 +144,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
  >
    <v-icon>mdi-human-male-female-child</v-icon>
    Family
- </v-btn>
+ </v-btn>-->
 
  <!-- Others button -->
  <v-btn 
