@@ -2,7 +2,7 @@
   <v-app id="bg">
     <div>
       
-      <v-toolbar-title style="color:black" class="m-2"><v-icon color="black">mdi-hands-pray</v-icon> PrayerPath</v-toolbar-title>
+      <v-toolbar-title style="color:black" class="m-3"><v-icon color="black">mdi-hands-pray</v-icon> PrayerPath</v-toolbar-title>
       <div class="center-content animated tdExpandIn">
     <h1 style="color:black;">Quote God & Pray</h1>
     <h5 class="mt-6 text-center" style="color:black;">

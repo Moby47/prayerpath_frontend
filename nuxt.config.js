@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
-//import './static/reminder_cron.js'
-//import './static/quote_cron.js'
+import './reminder_cron.js'
+//import './quote_cron.js'
 
 
 export default {
@@ -23,8 +23,6 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-     // { rel: 'stylesheet', href:'https://fonts.googleapis.com/css2?family=Lato&display=swap'},
-     // { rel: 'stylesheet', href:'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'},
       { rel: 'stylesheet', href:'https://cdn.jsdelivr.net/gh/shakrmedia/tuesday@v1.1.0/build/tuesday.min.css'},
     ]
   },
@@ -39,7 +37,6 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     //'@/assets/css/custom.css',
-   // '@/assets/css/fonts.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -69,7 +66,7 @@ export default {
   // Options
 oneSignal: {
   init: {
-    //appId: '1d73fcce-b49c-4e97-ad4a-b8d5c516797d', //localhost
+   // appId: '1d73fcce-b49c-4e97-ad4a-b8d5c516797d', //localhost
     appId: "1b551de2-95af-4b32-8bc6-460848b60752", //https://prayerpath-app.herokuapp.com/
     allowLocalhostAsSecureOrigin: true,
     persistNotification: false,
@@ -114,7 +111,7 @@ oneSignal: {
       name: "PrayerPath",
       short_name: "PrayerPath",
       orientation: "portrait-primary",
-      background_color: "#f6f6f6",
+      background_color: "#ADD8E6",
       theme_color: "#ffffff",
       description: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith.",
       dir: "ltr",

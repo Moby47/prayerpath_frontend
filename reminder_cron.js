@@ -1,31 +1,39 @@
 const cron = require('node-cron');
 import axios from 'axios';
+const config = require("config");
 
-cron.schedule('0 8,20 * * *', () => {
-  console.log('Running a task at 8am and 8pm every day');
 
+
+// cron.schedule('0 8,20 * * *', () => { //main
+//  console.log('Running a task at 8am and 8pm every day'); //main
+
+cron.schedule('*/40 * * * * *', () => {
+  console.log('Running a task every 40 seconds');
+  console.log(config.get("ONESIGNAL_APP_ID"),config.get("APP_URL"),config.get("ONESIGNAL_BASIC_KEY"));
   sendNotification().then(() => {
     console.log("Notification sent successfully");
   }).catch((error) => {
     console.error("Error sending notification:", error);
   });
+  
 });
 
 async function sendNotification() {
   const data = {
-    app_id: process.env.ONESIGNAL_APP_ID,
-    contents: { en: '1 prayer a day is fine' },
+    app_id: config.get("ONESIGNAL_APP_ID"),
+    contents: { en: '1 prayer a day is a good step.' },
     headings: { en: 'Reminder' },
     included_segments: ['Subscribed Users'],
-    url: process.env.APP_URL,
+    url: config.get("APP_URL"),
     web_push_topic: 'tag',
-    chrome_web_image: `${process.env.APP_URL}/static/logo.png`, // 512 or >
+    //chrome_web_image: `${config.get("APP_URL")}/static/logo.png`, // 512 or >
+    chrome_web_image: `https://cdn.pixabay.com/photo/2018/06/30/10/06/jesus-3507364_960_720.jpg`, // 512 or >
   };
 
   try {
     const response = await axios.post('https://onesignal.com/api/v1/notifications', data, {
       headers: {
-        'Authorization': `Basic ${process.env.ONESIGNAL_BASIC_KEY}`,
+        'Authorization': `Basic ${config.get("ONESIGNAL_BASIC_KEY")}`,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
