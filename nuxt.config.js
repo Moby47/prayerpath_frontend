@@ -1,6 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
-import './reminder_cron.js'
+//import './reminder_cron.js'
 //import './quote_cron.js'
 
 
