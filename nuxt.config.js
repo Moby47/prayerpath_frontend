@@ -160,9 +160,7 @@ oneSignal: {
       BACKEND_APP_URL: process.env.BACKEND_APP_URL,
 
       APP_URL: process.env.APP_URL,
-    },
-  
-    privateRuntimeConfig: {
+
       BACKEND_API_KEY: process.env.BACKEND_API_KEY,
 
       OPENAI_API_KEY: process.env.OPENAI_API_KEY,
