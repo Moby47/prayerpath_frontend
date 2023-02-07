@@ -2,7 +2,7 @@
   <v-app id="bg">
     <div>
       
-      <v-toolbar-title style="color:black" class="m-4"><v-icon color="black">mdi-hands-pray</v-icon> PrayerPath</v-toolbar-title>
+      <v-toolbar-title style="color:black; margin:10px"><v-icon color="black">mdi-hands-pray</v-icon> PrayerPath</v-toolbar-title>
       <div class="center-content animated tdExpandIn">
     <h1 style="color:black;">Quote God & Pray</h1>
     <h5 class="mt-6 text-center" style="color:black;">
@@ -251,10 +251,6 @@ export default {
     //check if need be to run dall-e func
     this.getImageUrlsChecker()
     document.body.style.overflow = 'hidden';
-
-    console.log(this.$config.OPENAI_API_KEY)
-    console.log(this.$config.BACKEND_API_KEY)
-
   },
 
   beforeDestroy() {
