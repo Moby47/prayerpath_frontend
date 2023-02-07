@@ -3,8 +3,8 @@
   <div>
 
    <div class="center-content animated tdExpandIn">
-        <h1>Quote God & Pray</h1>
-        <h3 class="mt-6 text-center" style="font-size: 16px;">
+        <h1 style="color:black;">Quote God & Pray</h1>
+        <h3 class="mt-6 text-center" style="font-size: 16px; color:black;">
                 "God does not lie or change his mind, and always follows through on his promises."
               </h3>
               <v-chip-group>
@@ -21,6 +21,7 @@
             class="btn mt-14 mr-2 text-capitalize floater"
             :to="{ name: 'prayer'}"
             elevation="12"
+            color="#ADD8E6"
           >
             Talk to him
           </v-btn>
@@ -37,7 +38,7 @@
   }
   .btn  {
     padding: 8px 29px;
-    color: #eee;
+    color: #000;
     font-weight: 500;
     font-size: 17px;
     letter-spacing: 1px;
@@ -46,12 +47,15 @@
 .btn :hover {
     background: #333;
 }
-    #bg {
-            font-family: 'Nunito', sans-serif;
-            background-image: url("https://cdn.pixabay.com/photo/2016/11/21/16/09/bible-1846174_960_720.jpg");
-            background-size: cover;
-            height: 100vh;
-        }
+#bg {
+   font-family: 'Nunito', sans-serif;
+   background-image: url("https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg");
+   /*https://cdn.pixabay.com/photo/2018/06/30/10/06/jesus-3507364_960_720.jpg*/
+   background-size: cover;
+   background-position: center center;
+   height: 100vh;
+}
+
 
         .center-content {
             display: flex;
