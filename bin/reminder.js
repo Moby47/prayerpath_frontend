@@ -6,7 +6,6 @@ import axios from 'axios';
 
 console.log('passed axios');
 
-import axios from 'axios';
 
 axios.get('https://restcountries.com/v2/alpha/pe')
   .then(response => {
