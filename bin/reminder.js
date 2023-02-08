@@ -17,7 +17,8 @@ const data = {
 };
 
 const headers = {
-      'Authorization': `Basic ${process.env.ONESIGNAL_BASIC_KEY}`,
+  'Authorization': 'Basic ZmU2OTU3OWQtMjI2Ny00NjJmLWIzZWQtZTRlOGMzNTUxNmY4',
+
       'Content-Type': 'application/json',
       'Accept': 'application/json',
 };
