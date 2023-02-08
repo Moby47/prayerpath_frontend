@@ -11,7 +11,7 @@ const data = {
   included_segments: ['Subscribed Users'],
   url: process.env.APP_URL,
   web_push_topic: 'tag',
-  chrome_web_image: `https://cdn.pixabay.com/photo/2016/12/21/05/44/reminder-1922255_960_720.png`,
+  chrome_web_image: `https://cdn.pixabay.com/photo/2018/06/30/10/06/jesus-3507364_960_720.jpg`,
 };
 
 const headers = {

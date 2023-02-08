@@ -14,8 +14,8 @@ generateAndSaveQuotes().then(category => {
 
 
 async function generateAndSaveQuotes(){
-
 const category = ['Family', 'Hope', 'Grace', 'Prosperity', 'Marriage', 'Health', 'Career', 'Peace', 'Protection', 'Guidance', 'Joy', 'Wisdom', 'Strength', 'Blessing', 'Salvation'][Math.floor(Math.random() * 15)];
+
 const prompt = `Generate 1 Bible verses and prayer JSON data with reference, verse, prayer, category, and verse_url from biblegateway.com where God promised something good to humans and an associated prayer focused on holding God to that promise with firm belief and faith, for the '${category}' category. Just give me the JSON in this format: {"data": [{"reference": "...","verse": "...","prayer": "...","category": "...","verse_url": "..."},]}.`;
   
 const response = await axios.post('https://api.openai.com/v1/completions', {
@@ -53,15 +53,15 @@ else {
 };
 
 
-async function sendNotification(category) {
+async function sendNotification() {
   const data = {
     app_id: process.env.ONESIGNAL_APP_ID,
-    contents: { en: 'New quote added. Category: '+category+'. Click to view.' },
+    contents: { en: 'New quote added. Click to view.' },
     headings: { en: 'Update' },
     included_segments: ['Subscribed Users'],
     url: process.env.APP_URL+'/prayer',
     web_push_topic: 'tag',
-    chrome_web_image: `https://cdn.pixabay.com/photo/2017/01/31/19/22/business-2026646_960_720.png`, // 512 or >
+    chrome_web_image: `https://cdn.pixabay.com/photo/2018/04/12/18/13/application-3314290_960_720.png`, // 512 or >
   };
 
   try {
@@ -73,7 +73,7 @@ async function sendNotification(category) {
       },
     });
 
-    console.log('Notification sent for update on: '+category, response.data);
+    console.log('Notification sent', response.data);
   } catch (error) {
     console.error('Error sending notification:', error);
   }
