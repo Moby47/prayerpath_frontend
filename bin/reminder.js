@@ -26,10 +26,12 @@ axios.post('https://onesignal.com/api/v1/notifications', data, {headers})
 .then(response => {
   console.log(response.data);
   console.log('Got response - Success');
+  console.log('headers',headers);
 })
 .catch(error => {
-  console.error(error);
+  console.error(error.response.data);
   console.log('Got error');
+  console.log('headers',headers);
 });
 
 /*
