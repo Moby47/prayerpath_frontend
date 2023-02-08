@@ -5,6 +5,20 @@ console.log('entered reminder cron');
 import axios from 'axios';
 
 console.log('passed axios');
+
+import axios from 'axios';
+
+axios.get('https://restcountries.com/v2/alpha/pe')
+  .then(response => {
+    console.log(response.data);
+    console.log('got response');
+  })
+  .catch(error => {
+    console.error(error);
+    console.log('got error');
+  });
+
+
 /*
 sendNotification().then(() => {
     console.log("sendNotification() completed");
