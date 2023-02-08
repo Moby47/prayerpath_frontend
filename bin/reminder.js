@@ -5,7 +5,7 @@ console.log('entered reminder cron');
 import axios from 'axios';
 
 console.log('passed axios');
-
+/*
 sendNotification().then(() => {
     console.log("sendNotification() completed");
   }).catch((error) => {
@@ -40,3 +40,4 @@ sendNotification().then(() => {
     }
   }
   
+*/
