@@ -1,3 +1,5 @@
+#!/usr/bin/env node -r esm
+
 console.log('entered reminder cron');
 
 import axios from 'axios';
