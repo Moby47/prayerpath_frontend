@@ -1,11 +1,13 @@
-#!/usr/bin/env node
+#!/usr/bin/env node -r esm
 
 console.log('entered reminder cron');
 
-import axios from 'axios';
+//import axios from 'axios';
+var axios = require('axios')
+console.log('passed axios');
 
 sendNotification().then(() => {
-    console.log("sendNotification() ran successfully");
+    console.log("sendNotification() completed");
   }).catch((error) => {
     console.error("sendNotification() failed to run successfully:", error);
   });
@@ -38,4 +40,3 @@ sendNotification().then(() => {
     }
   }
   
-console.log('exited reminder cron');
