@@ -46,12 +46,12 @@ if(responseFromBackend.status === 200) {
   //send notifications
   const data = {
     app_id: process.env.ONESIGNAL_APP_ID,
-    contents: { en: 'New quote added for: '+category+'. Click to view.' },
+    contents: { en: 'New quote added for: '+category+'. View now.' },
     headings: { en: 'Update' },
     included_segments: ['Subscribed Users'],
     url: process.env.APP_URL+'/prayer',
     web_push_topic: 'tag',
-    chrome_web_image: `https://cdn.pixabay.com/photo/2018/04/12/18/13/application-3314290_960_720.png`, // 512 or >
+    chrome_web_image: `https://cdn.pixabay.com/photo/2016/11/29/08/17/bible-1868359_960_720.jpg`, // 512 or >
     chrome_web_badge: 'https://res.cloudinary.com/ddvotdlwm/image/upload/v1675935424/PrayerPath/ilsbobcrzemxhaihgwxs.png',// 72 or >
   };
 
