@@ -4,12 +4,10 @@
 
 import axios from 'axios';
 
-generateAndSaveQuotes().then(category => {
-  console.log("Quote generation and saving completed.");
-  //send push notification
-  sendNotification(category)
+generateAndSaveQuotes().then(() => {
+console.log("generateAndSaveQuotes() ran and completed.");
 }).catch((error) => {
-  console.error("Error getting/saving quotes", error);
+console.error("Error getting/saving quotes", error);
 });
 
 
@@ -45,18 +43,10 @@ const responseFromBackend = await axios.post(process.env.BACKEND_APP_URL+'/api/s
    // check if the data was successfully saved
 if(responseFromBackend.status === 200) {
   console.log("Data saved successfully! For category: "+ category)
-}
-else {
-  console.error("Error saving data")
-}
-
-};
-
-
-async function sendNotification() {
+  //send notifications
   const data = {
     app_id: process.env.ONESIGNAL_APP_ID,
-    contents: { en: 'New quote added. Click to view.' },
+    contents: { en: 'New quote added for: '+category+'. Click to view.' },
     headings: { en: 'Update' },
     included_segments: ['Subscribed Users'],
     url: process.env.APP_URL+'/prayer',
@@ -78,7 +68,14 @@ async function sendNotification() {
   } catch (error) {
     console.error('Error sending notification:', error);
   }
+  //send notifications
+}
+else {
+  console.error("Error saving data")
+}
+
 };
+
 
 
 /* const cron = require('node-cron');
