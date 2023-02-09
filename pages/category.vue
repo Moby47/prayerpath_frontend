@@ -416,7 +416,7 @@ export default {
       key: this.$config.BACKEND_API_KEY,
       backend_url: this.$config.BACKEND_APP_URL,
       current_offset: 0,
-      load_more_limit: 2, //determines how many is fetched initially
+      load_more_limit: 4, //determines how many is fetched initially
      offlineCategory: false,
      errSnackText:'',
      verse_url:'',
