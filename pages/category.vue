@@ -284,6 +284,7 @@
          <!--Err snackbar-->
      <v-snackbar
      :timeout="4500"
+     shaped
      color="#555"
        v-model="snackbar" >
        {{errSnackText}}
@@ -465,7 +466,7 @@ export default {
        this.showLoadButton=true
 
         if (response.data.data.length === 0) {
-         this.errSnackText = 'Alas, no more results for '+this.category
+         this.errSnackText = "No more results? Trust in the Lord to fill the void - That's all for "+this.category
          this.snackbar = true
         }
       } catch (error) {
@@ -482,10 +483,10 @@ if (savedQuotes) {
 this.quotes = savedQuotes.filter(quote => quote.category == category);
 //console.log('retrieved',savedQuotes)
 this.snackbar = true
-this.errSnackText = 'Offline mode:'+' '+'Data found for '+category
+this.errSnackText = "Praise the Lord, offline mode saves the day - Data found for "+category
 } else {
 console.log("No saved quotes found");
-this.errSnackText = 'Offline mode: No result for'+' '+category
+this.errSnackText = "All else fails? Trust in God - Offline mode: No results found for "+category
 }
 
 } catch (error) {

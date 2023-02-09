@@ -273,6 +273,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
        <!--Err snackbar-->
    <v-snackbar
    :timeout="4500"
+   shaped
    color="#555"
      v-model="snackbar" >
      {{errSnackText}}
@@ -453,7 +454,7 @@ this.showLoadButton=true
 this.overlay = false;
 
 if (res.data.data.length === 0) {
-       this.errSnackText = 'Alas, no more results found.'
+       this.errSnackText = "Alas, our search has come up empty - let's ask the Lord for a miracle!"
        this.snackbar = true
       }
 
@@ -493,10 +494,10 @@ if (savedQuotes) {
 this.quotes = savedQuotes;
 //console.log('retrieved',savedQuotes)
 this.snackbar = true
-this.errSnackText = "Offline mode: You're out of Wi-Fi reach!"
+this.errSnackText = "Off the grid? Don't fret, God's got us - Offline mode."
 } else {
 console.log("No cached record/quotes found");
-this.errSnackText = 'No saved record found in this black-out'
+this.errSnackText = "Blackout? Trust in God - No saved records found."
 this.snackbar = true
 }
 
