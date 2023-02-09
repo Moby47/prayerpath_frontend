@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const data = {
   app_id: process.env.ONESIGNAL_APP_ID,
-  contents: { en: '1 prayer a day is a good step, click and say a Prayer.' },
+  contents: { en: '1 prayer a day is a good step, pray now.' },
   headings: { en: 'Reminder' },
   included_segments: ['Subscribed Users'],
   url: process.env.APP_URL,
