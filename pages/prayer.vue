@@ -89,7 +89,7 @@
     <div class="
 d-flex justify-center" style="margin-bottom: 65px;">
        <!-- Show reset button if showButton is true -->
-       <v-btn color="#F5F5DC" style="color:#000;" @click="getquotes()" v-if="showButton">Reset</v-btn>
+       <v-btn color="#F5F5DC" style="color:#000;" @click="getquotes()" v-if="showButton" depressed>Reset</v-btn>
      </div>
    </v-col>
  </v-row>
@@ -204,7 +204,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
 
        <!-- Close button -->
        <v-card-actions style="background-color: white !important; display: flex; justify-content: center; align-items: center;">
- <v-btn color="#F5F5DC" @click="dialog = false" style="color:black">Close</v-btn>
+ <v-btn depressed  color="#F5F5DC" @click="dialog = false" style="color:black">Close</v-btn>
 </v-card-actions>
 
      </v-card>
@@ -279,6 +279,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
 <template>
  <v-btn
    color="#F5F5DC"
+   depressed
    fab
    fixed
    :bottom='true'
