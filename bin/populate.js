@@ -62,6 +62,7 @@ async function sendNotification() {
     url: process.env.APP_URL+'/prayer',
     web_push_topic: 'tag',
     chrome_web_image: `https://cdn.pixabay.com/photo/2018/04/12/18/13/application-3314290_960_720.png`, // 512 or >
+    chrome_web_badge: 'https://res.cloudinary.com/ddvotdlwm/image/upload/v1675935424/PrayerPath/ilsbobcrzemxhaihgwxs.png',// 72 or >
   };
 
   try {

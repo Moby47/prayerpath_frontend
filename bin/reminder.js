@@ -12,6 +12,7 @@ const data = {
   url: process.env.APP_URL,
   web_push_topic: 'tag',
   chrome_web_image: `https://cdn.pixabay.com/photo/2018/06/30/10/06/jesus-3507364_960_720.jpg`,
+  chrome_web_badge: 'https://res.cloudinary.com/ddvotdlwm/image/upload/v1675935424/PrayerPath/ilsbobcrzemxhaihgwxs.png',// 72 or >
 };
 
 const headers = {
