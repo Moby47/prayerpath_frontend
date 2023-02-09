@@ -16,7 +16,7 @@
 <v-row justify="center" align="center">
   <v-col cols="12" sm="8" md="6" class="others-font">
     <v-card
-      class="mx-auto"
+      class="mx-auto animated tdFadeIn"
       color="#ADD8E6"
       :elevation="0" :shadow="false"
       py-4
@@ -41,8 +41,7 @@
       size="x-small"
       text-color="black"
     >
-      <v-icon>mdi-book-cross</v-icon>
-      {{quote.reference}} (NIV)
+    {{quote.reference}}<b>&nbsp NIV</b>
     </v-chip>
 
     <div style="display: flex; flex-direction: row;" class="mt-1">
@@ -55,7 +54,7 @@
         text-color="black"
         class="mr-1"
       >
-        <v-icon>mdi-book-cross</v-icon>
+        
         KJV
       </v-chip>
       <v-chip
@@ -66,7 +65,7 @@
         text-color="black"
         class="mr-1"
       >
-        <v-icon>mdi-book-cross</v-icon>
+        
         NKJV
       </v-chip>
 
@@ -78,7 +77,7 @@
         text-color="black"
         class="mr-1"
       >
-        <v-icon>mdi-book-cross</v-icon>
+        
         NLT
       </v-chip>
     
@@ -130,7 +129,7 @@
     <div class="
 d-flex justify-center" style="margin-bottom: 65px;">
        <!-- Show reset button if showButton is true -->
-       <v-btn color="#F5F5DC" style="color:#000;" @click="getquotes()" v-if="showButton" depressed>Reset</v-btn>
+       <v-btn color="#F5F5DC" style="color:#000;" @click="loadMore()" v-if="showLoadButton" depressed>More</v-btn>
      </div>
    </v-col>
  </v-row>
@@ -144,7 +143,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
      fixed 
      style="background-color: white; box-shadow: none; border: none;">
 
-    <!-- Home button -->
+    <!-- Home button 
  <v-btn 
    value="nearby" 
    size="x-small" 
@@ -153,16 +152,16 @@ d-flex justify-center" style="margin-bottom: 65px;">
  >
    <v-icon>mdi-home</v-icon>
    Home
- </v-btn>
+ </v-btn>-->
 
  <v-btn 
    value="nearby" 
    size="x-small" 
    style="color: black !important;"
-   @click="getquotes()"
+   @click="gotocat('Strength')"
  >
-   <v-icon>mdi-select-all</v-icon>
-   All
+   <v-icon>mdi-weight-lifter</v-icon>
+   Strength
  </v-btn>
 
  <!-- Career button -->
@@ -170,22 +169,22 @@ d-flex justify-center" style="margin-bottom: 65px;">
    value="recent"  
    size="x-small" 
    style="color: black !important;"
-   @click="getQuotesByCat('Career')"
+   @click="gotocat('Career')"
  >
    <v-icon>mdi-briefcase</v-icon>
    Career
  </v-btn>
 
- <!-- Family button 
+ <!-- Family button -->
  <v-btn 
    value="favorites"  
    size="x-small" 
    style="color: black !important;"
-   @click="getQuotesByCat('Family')"
+   @click="gotocat('Family')"
  >
    <v-icon>mdi-human-male-female-child</v-icon>
    Family
- </v-btn>-->
+ </v-btn>
 
  <!-- Others button -->
  <v-btn 
@@ -218,7 +217,7 @@ d-flex justify-center" style="margin-bottom: 65px;">
                text-color="black"
                v-for='category in categories' 
                v-bind:key='category.id'
-               @click="getQuotesByCat(category.category)"
+               @click="gotocat(category.category)"
              >
                {{category.category}}
              </v-chip>
@@ -230,16 +229,19 @@ d-flex justify-center" style="margin-bottom: 65px;">
 
          <!-- For offline use -->
          <template v-else>
-           <div class="text-center">
+           <div class="text-center" v-if="categories">
              <v-chip
                class="ma-2"
                color="#9AC0D1"
                text-color="black"
                v-for="category in categories" :key="category"
-               @click="getQuotesByCat(category)"
+               @click="gotocat(category)"
              >
                {{category}}
              </v-chip>
+           </div>
+           <div class="text-center" style="color: black !important;" v-else>
+            Nothing to see here.
            </div>
          </template>
 
@@ -325,6 +327,23 @@ d-flex justify-center" style="margin-bottom: 65px;">
    fixed
    :bottom='true'
    small
+   :left='true'
+   :to="{ name: 'index'}"
+   v-if="showButton"
+   :style="{ bottom: '70px', right: '30px' }"
+ >
+   <v-icon color="black">mdi-home</v-icon>
+ </v-btn>
+</template>
+
+<template>
+ <v-btn
+   color="#F5F5DC"
+   depressed
+   fab
+   fixed
+   :bottom='true'
+   small
    :right='true'
    @click="scrollTop()"
    v-if="showButton"
@@ -380,7 +399,6 @@ export default {
 
  data() {
    return {
-     showButton: false,
      offlineCategory: false,
      errSnackText:'',
      verse_url:'',
@@ -390,11 +408,15 @@ export default {
      quotes: [],
      loading: true,
      overlay: null,
-     showButton: null,
+     showButton: true,
      dialog: false,
      categories: [],
      key: this.$config.BACKEND_API_KEY,
      backend_url: this.$config.BACKEND_APP_URL,
+     current_offset: 0,
+    load_more_limit: 2, //determines how many is fetched initially
+    fromLoadMore:null,
+    showLoadButton:null,
    }
  },
 
@@ -404,8 +426,17 @@ async getquotes() {
 
  this.overlay = true;
  this.showButton = false;
- this.scrollTop();
-var final_url = this.backend_url + '/api/quotes';
+ 
+
+ if(this.fromLoadMore != true){
+      this.scrollTop();
+  }
+  //kill from loadmor
+  this.fromLoadMore = null
+  
+
+//var final_url = this.backend_url + '/api/quotes';
+var final_url = `${this.backend_url}/api/quotes?offset=${this.current_offset}&limit=${this.load_more_limit}`;
 
 try {
 const res = await axios.get(final_url, {
@@ -415,10 +446,16 @@ headers: {
 }
 });
 
-this.quotes = res.data.data;
-//console.log('fresh quoate',this.quotes)
+this.quotes = this.quotes.concat(res.data.data);
+
 this.showButton = true;
+this.showLoadButton=true
 this.overlay = false;
+
+if (res.data.data.length === 0) {
+       this.errSnackText = 'Alas, no more results found.'
+       this.snackbar = true
+      }
 
 //add to indexeddb
 let savedQuotes = await idb.get('quotes') || [];
@@ -445,6 +482,7 @@ await idb.set('quotes', savedQuotes);
 
 console.error(error);
 this.showButton = true;
+this.showLoadButton=true
 this.overlay = false;
 
 //get from indexeddb
@@ -480,54 +518,12 @@ console.error(error);
      });
    },
 
-   async getQuotesByCat(category) {
-     //if called from modal
-     this.dialog = false;
+   loadMore() {
+      this.fromLoadMore = true
+    this.current_offset += this.load_more_limit;
 
-     this.overlay = true;
-     this.showButton = false;
-     this.scrollTop();
-
-     var final_url = this.backend_url + '/api/quotes' + '/' + category;
-     try {
-       const response = await axios.get(final_url, {
-         headers: {
-           'Content-Type': 'application/json',
-           'X-Authorization': this.key
-         }
-       });
-       this.quotes = response.data.data;
-       this.showButton = true;
-       this.overlay = false;
-
-
-     } catch (error) {
-       console.log(error)
-       this.snackbar = true
-       this.showButton = true
-       this.overlay = false
-
- //get from indexeddb
-try {
-const savedQuotes = await idb.get('quotes');
-
-if (savedQuotes) {
-this.quotes = savedQuotes.filter(quote => quote.category == category);
-//console.log('retrieved',savedQuotes)
-this.snackbar = true
-this.errSnackText = 'Offline mode:'+' '+'Data found for '+category
-} else {
-console.log("No saved quotes found");
-this.errSnackText = 'Offline mode: No result for'+' '+category
-}
-
-} catch (error) {
-console.error(error);
-}
-//get from indexeddb
-
- }
-},
+    this.getquotes();
+  },
 
  //end
 
@@ -584,6 +580,15 @@ console.error(error);
    handleScroll() {
      this.showButton = window.pageYOffset > 200;
    },
+
+   gotocat(category){
+      this.$router.push({
+      path: '/category',
+      query: {
+        category: category
+      }
+    })
+  },
         
  },
  //  method end
