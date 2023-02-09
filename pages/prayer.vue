@@ -25,26 +25,67 @@
       v-bind:key="quote.id"
     >
       <div class="d-flex justify-between">
+        
         <v-card-actions class="flex-grow-1 flex-column align-start">
-          <div class="text-h6" style="color: #000;">
-            God's Word:
-          </div>
-          <div class="text-body-1 verse-font" style="color: #000; word-wrap: break-word;">
-            {{quote.verse}}
-          </div>
-          <a :href="quote.verse_url" target="_blank" style="text-decoration: none;">
-            <v-chip
-              @click.prevent="promptRedirect(quote.verse_url)"
-              color="#F5F5DC"
-              label
-              size="x-small"
-              text-color="black"
-            >
-              <v-icon>mdi-link</v-icon>
-              {{quote.reference}}
-            </v-chip>
-          </a>
-        </v-card-actions>
+  <div class="text-h6" style="color: #000;">
+    God's Word:
+  </div>
+  <div class="text-body-1 verse-font" style="color: #000; word-wrap: break-word;">
+    {{quote.verse}}
+  </div>
+  
+    <v-chip
+      @click.prevent="promptRedirect(quote.verse_url,'NIV')"
+      color="#F5F5DC"
+      label
+      size="x-small"
+      text-color="black"
+    >
+      <v-icon>mdi-book-cross</v-icon>
+      {{quote.reference}} (NIV)
+    </v-chip>
+
+    <div style="display: flex; flex-direction: row;" class="mt-1">
+    
+      <v-chip
+        @click.prevent="promptRedirect(quote.verse_url,'KJV')"
+        color="#F5F5DC"
+        label
+        size="x-small"
+        text-color="black"
+        class="mr-1"
+      >
+        <v-icon>mdi-book-cross</v-icon>
+        KJV
+      </v-chip>
+      <v-chip
+        @click.prevent="promptRedirect(quote.verse_url,'NKJV')"
+        color="#F5F5DC"
+        label
+        size="x-small"
+        text-color="black"
+        class="mr-1"
+      >
+        <v-icon>mdi-book-cross</v-icon>
+        NKJV
+      </v-chip>
+
+      <v-chip
+        @click.prevent="promptRedirect(quote.verse_url,'NLT')"
+        color="#F5F5DC"
+        label
+        size="x-small"
+        text-color="black"
+        class="mr-1"
+      >
+        <v-icon>mdi-book-cross</v-icon>
+        NLT
+      </v-chip>
+    
+
+  </div>
+ 
+</v-card-actions>
 
         <v-img
           v-if="quote.imageurl"
@@ -526,9 +567,15 @@ console.error(error);
 
  //end
 
- promptRedirect(verse_url) {
+ promptRedirect(verse_url,version) {
        this.showSnackbar = true;
-       this.verse_url = verse_url
+       if(version == 'NIV'){
+        this.verse_url = verse_url
+       }else{
+        let updatedUrl = verse_url.slice(0, -3);
+        this.verse_url = updatedUrl + version;
+       }
+       
    },
    redirect(event) {
     window.open(this.verse_url, "_blank");
