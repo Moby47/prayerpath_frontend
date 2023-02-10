@@ -268,14 +268,12 @@ for (let i = 0; i < res.data.data.length; i++) {
  let key = quote.id;
  let existingQuote = savedQuotes.find(q => q.id === key);
  if (existingQuote) {
-   let newKey = Math.floor((Math.random() * 900900) + 1);
-   quote.id = newKey;
-   savedQuotes.push(quote);
- } else {
-   savedQuotes.push(quote);
+   continue;
  }
+ savedQuotes.push(quote);
 }
 await idb.set('quotes', savedQuotes);
+
 //console.log('saved quotes', savedQuotes)
 //add to indexeddb
 
