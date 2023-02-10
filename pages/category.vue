@@ -167,9 +167,9 @@ import * as idb from 'idb-keyval';
 
 export default {
   components: {
-    FloatingButton
+    AppBar
   },
-  
+
   head() {
     return {
       title: "PrayerPath - Quote God & Pray",
