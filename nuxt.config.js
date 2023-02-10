@@ -111,7 +111,7 @@ oneSignal: {
       short_name: "PrayerPath",
       orientation: "portrait-primary",
       background_color: "#ffffff",
-      theme_color: "#ADD8E6",
+      theme_color: "#ffffff",
       description: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith.",
       dir: "ltr",
     },
