@@ -42,7 +42,7 @@
         <!-- Close button -->
         <v-card-actions style="background-color: white !important; display: flex; justify-content: center; align-items: center;">
    <v-btn depressed  color="#F5F5DC" @click="dialog = false" style="color:black" v-if="categories.length > 0">Close</v-btn>
-   <v-btn depressed  color="#F5F5DC" @click="dialog = false" style="color:black" v-if="categories.length === 0">Try again later</v-btn>
+   <v-btn depressed  color="#F5F5DC" @click="dialog = false" style="color:black" v-if="categories.length === 0">Try again later - Refresh</v-btn>
 
   </v-card-actions>
   
