@@ -65,7 +65,7 @@
       </div>
 
       <!-- CategoryModal Component -->
-      <categorymodal ref="categoryModal" @category-selected="gotocat"/>
+      <categorymodal ref="categorymodal" @category-selected="gotocat"/>
 
       <!-- LoadingOverlay Component -->
       <loadinglayer :overlay="overlay"/>
@@ -226,7 +226,7 @@ export default {
 
   methods: {
     openCategoryModal() {
-      this.$refs.categoryModal.dialog = true;
+      this.$refs.categorymodal.dialog = true;
     },
 
     async getQuotesByCat() {

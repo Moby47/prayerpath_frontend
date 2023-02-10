@@ -66,7 +66,7 @@
           </div>
           
           <!-- CategoryModal Component -->
-      <categorymodal ref="categoryModal" @category-selected="gotocat"/>
+      <categorymodal ref="categorymodal" @category-selected="gotocat"/>
 
       <!-- LoadingOverlay Component -->
       <loadinglayer :overlay="overlay"/>
@@ -225,7 +225,7 @@ export default {
  methods: {
 
   openCategoryModal () {
-    this.$refs.categoryModal.dialog = true;
+    this.$refs.categorymodal.dialog = true;
   },
 
 async getquotes() {
@@ -260,7 +260,7 @@ this.overlay = false;
 
 if (res.data.data.length === 0) {
        this.snackText = "Alas, our search has come up empty - let's ask the Lord for a miracle!"
-       this.$refs.MessageSnackBar.snackbar = true;
+       this.$refs.messagebar.snackbar = true;
       }
 
 //add to indexeddb
@@ -296,13 +296,13 @@ const savedQuotes = await idb.get('quotes');
 if (savedQuotes) {
 this.quotes = savedQuotes;
 //console.log('retrieved',savedQuotes)
-this.$refs.MessageSnackBar.snackbar = true;
+this.$refs.messagebar.snackbar = true;
 this.snackText = "Off the grid? Don't fret, God's got us - Offline mode."
 this.showLoadButton=false
 } else {
 console.log("No cached record/quotes found");
 this.snackText = "Blackout? Trust in God - No saved records found."
-this.$refs.MessageSnackBar.snackbar = true;
+this.$refs.messagebar.snackbar = true;
 this.showLoadButton=false
 }
 
