@@ -160,10 +160,26 @@
 </style>
  
  <script>
+
+import appbar from "~/components/appbar.vue";
+import categorymodal from "~/components/categorymodal.vue";
+import loadingoverlay from "~/components/loadingoverlay.vue";
+import messagesnackbar from "~/components/messagesnackbar.vue";
+import quotecard from "~/components/quotecard.vue";
+
+
 import axios from 'axios';
 import * as idb from 'idb-keyval'
 
 export default {
+  components: {
+    appbar,
+    categorymodal,
+    loadingoverlay,
+    messagesnackbar,
+    quotecard,
+  },
+  
  head() {
    return {
  title: "PrayerPath - Quote God & Pray",

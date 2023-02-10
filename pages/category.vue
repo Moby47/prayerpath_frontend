@@ -7,7 +7,7 @@
           <appbar />
   
          <!-- QuoteCard Component -->
-         <QuoteCard 
+         <quotecard 
         :quotes="quotes"
         :showLoadButton="showLoadButton"
         @load-more="loadMore"
@@ -65,13 +65,13 @@
       </div>
 
       <!-- CategoryModal Component -->
-      <CategoryModal ref="categoryModal" @category-selected="gotocat"/>
+      <categorymodal ref="categoryModal" @category-selected="gotocat"/>
 
       <!-- LoadingOverlay Component -->
-      <LoadingOverlay :overlay="overlay"/>
+      <loadingoverlay :overlay="overlay"/>
 
       <!-- MessageSnackBar Component -->
-      <MessageSnackBar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
+      <messagesnackbar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
 
       <!-- Verse URL Snackbar -->
       <v-snackbar
@@ -161,8 +161,12 @@
   <script>
 
 import appbar from "~/components/appbar.vue";
-//import { AppBar } from '@/components/AppBar.vue'
-//import AppBar from '/components/AppBar.vue'
+import categorymodal from "~/components/categorymodal.vue";
+import loadingoverlay from "~/components/loadingoverlay.vue";
+import messagesnackbar from "~/components/messagesnackbar.vue";
+import quotecard from "~/components/quotecard.vue";
+//import { appbar } from '@/components/appbar.vue'
+//import appbar from '/components/appbar.vue'
 
 
 import axios from 'axios';
@@ -170,7 +174,11 @@ import * as idb from 'idb-keyval';
 
 export default {
   components: {
-    appbar
+    appbar,
+    categorymodal,
+    loadingoverlay,
+    messagesnackbar,
+    quotecard,
   },
 
   head() {
