@@ -261,19 +261,25 @@ export default {
 
  //get from indexeddb
 try {
-const savedQuotes = await idb.get('quotes');
+  const savedQuotes = await idb.get('quotes');
 
 if (savedQuotes) {
-this.quotes = savedQuotes.filter(quote => quote.category == this.category);
-//console.log('retrieved',savedQuotes)
-this.$refs.MessageSnackBar.snackbar = true;
-this.snackText = "Praise the Lord, offline mode saves the day - Data found for "+this.category
-//off loadmore btn
-this.showLoadButton=false
+  this.quotes = savedQuotes.filter(quote => quote.category == this.category);
+  if (this.quotes.length) {
+    this.$refs.MessageSnackBar.snackbar = true;
+    this.snackText = "Praise the Lord, offline mode saves the day - Data found for " + this.category;
+    this.showLoadButton = false;
+  } else {
+    console.log("No saved quotes found for the specified category");
+    this.snackText = "God's got you, offline too - No results for " + this.category + ", keep the faith!"
+    this.$refs.MessageSnackBar.snackbar = true;
+    this.showLoadButton = false;
+  }
 } else {
-console.log("No saved quotes found");
-this.snackText = "All else fails? Trust in God - Offline mode: No results found for "+this.category
+  console.log("No saved quotes found");
+  this.snackText = "All else fails? Trust in God - Offline mode: No results found for " + this.category;
 }
+
 
 } catch (error) {
 console.error(error);
