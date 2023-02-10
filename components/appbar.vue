@@ -36,7 +36,7 @@
           </v-list-item-icon>
   
           <v-list-item-content>
-            <v-list-item-title>Favourites (Coming soon)</v-list-item-title>
+            <v-list-item-title><!--Favourites--> (Coming soon)</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -51,7 +51,7 @@
           </v-list-item-icon>
   
           <v-list-item-content>
-            <v-list-item-title>Feature Request (Coming soon)</v-list-item-title>
+            <v-list-item-title><!--Feature Request--> (Coming soon)</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
