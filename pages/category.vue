@@ -3,8 +3,8 @@
     <v-container> <!-- Centers the home page -->
       <v-row justify="center" align="center">
         <v-col>
-          <!-- AppBar Component -->
-          <AppBar />
+          <!-- Appbar Component -->
+          <Appbar />
   
          <!-- QuoteCard Component -->
          <QuoteCard 
@@ -160,14 +160,14 @@
   
   <script>
 
-import AppBar from "~/components/AppBar.vue";
+import Appbar from "~/components/Appbar.vue";
 
 import axios from 'axios';
 import * as idb from 'idb-keyval';
 
 export default {
   components: {
-    AppBar
+    Appbar
   },
 
   head() {
