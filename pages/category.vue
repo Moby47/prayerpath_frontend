@@ -4,10 +4,10 @@
    <v-row justify="center" align="center">
      <v-col>
      
-   <appbar/>
+   <AppBar/>
   
   
-   <quotecard
+   <QuoteCard
       :quotes="quotes"
       :showLoadButton="showLoadButton"
       @load-more="loadMore"
@@ -69,30 +69,22 @@
   
   
    <!-- Category Modal -->
-    <categorymodal ref="categoryModal" @category-selected="gotocat"/>
+    <CategoryModal ref="categoryModal" @category-selected="gotocat"/>
   <!-- Category Modal-->
   
   
    <!--Loading Overlay-->
-     <template>
-         <div class="text-center">
-           <v-overlay :value="overlay">
-             <v-progress-linear indeterminate size="64" color="#F5F5DC"  height="10"></v-progress-linear>
-             <br>
-             Loading...
-           </v-overlay>
-         </div>
-         </template>
+   <LoadingOverlay :overlay="overlay"/>
          <!--Loading Overlay-->
   
    
-         <!--Err snackbar-->
+         <!-- snackbar-->
      <v-snackbar
      :timeout="4500"
      shaped
      color="#555"
        v-model="snackbar" >
-       {{errSnackText}}
+       {{SnackText}}
        <template v-slot:action="{ attrs }">
          <v-btn
          color="#F5F5DC"
@@ -104,7 +96,7 @@
          </v-btn>
          </template>
      </v-snackbar>
-     <!--Err snackbar-->
+     <!-- snackbar-->
   
   <!-- Verse url snackbar-->
   <v-snackbar
@@ -223,7 +215,7 @@ export default {
       current_offset: 0,
       load_more_limit: 4, //determines how many is fetched initially
      offlineCategory: false,
-     errSnackText:'',
+     SnackText:'',
      verse_url:'',
      showSnackbar: false,
      snackbar: false,
@@ -275,7 +267,7 @@ export default {
        this.showLoadButton=true
 
         if (response.data.data.length === 0) {
-         this.errSnackText = "No more results? Trust in the Lord to fill the void - That's all for "+this.category
+         this.SnackText = "No more results? Trust in the Lord to fill the void - That's all for "+this.category
          this.snackbar = true
         }
       } catch (error) {
@@ -292,10 +284,10 @@ if (savedQuotes) {
 this.quotes = savedQuotes.filter(quote => quote.category == category);
 //console.log('retrieved',savedQuotes)
 this.snackbar = true
-this.errSnackText = "Praise the Lord, offline mode saves the day - Data found for "+category
+this.SnackText = "Praise the Lord, offline mode saves the day - Data found for "+category
 } else {
 console.log("No saved quotes found");
-this.errSnackText = "All else fails? Trust in God - Offline mode: No results found for "+category
+this.SnackText = "All else fails? Trust in God - Offline mode: No results found for "+category
 }
 
 } catch (error) {
