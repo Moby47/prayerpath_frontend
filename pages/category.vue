@@ -112,10 +112,39 @@
    </v-snackbar>
   <!-- Verse url snackbar-->
   
-  <HomeBtn />
+  <template>
+   <v-btn
+     color="#F5F5DC"
+     depressed
+     fab
+     fixed
+     :bottom='true'
+     small
+     :left='true'
+     :to="{ name: 'index'}"
+     :style="{ bottom: '70px', right: '30px' }"
+   >
+     <v-icon color="black">mdi-home</v-icon>
+   </v-btn>
+  </template>
 
 
-  <ScrollToTop />
+  <template>
+   <v-btn
+     color="#F5F5DC"
+     depressed
+     fab
+     fixed
+     :bottom='true'
+     small
+     :right='true'
+     @click="scrollTop()"
+     v-if="showButton"
+     :style="{ bottom: '70px', right: '30px' }"
+   >
+     <v-icon color="black">mdi-arrow-up</v-icon>
+   </v-btn>
+  </template>
   
        </v-col>
      </v-row>
