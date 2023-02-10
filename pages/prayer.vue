@@ -1,159 +1,148 @@
 <template>
   <v-app style="background-color: white;">
-     <v-container> <!--Gives the home page a centered look-->
- <v-row justify="center" align="center">
-   <v-col>
-   
-<!--app bar-->
-<AppBar/>
+    <v-container> <!-- Provides centered look for the page -->
+      <v-row justify="center" align="center">
+        <v-col>
+          <!-- App bar component -->
+          <AppBar/>
 
+          <!-- Quote card component with quotes, showLoadButton properties and load-more, prompt-redirect events -->
+          <QuoteCard
+            :quotes="quotes"
+            :showLoadButton="showLoadButton"
+            @load-more="loadMore"
+            @prompt-redirect="promptRedirect"
+          />
 
-<QuoteCard
-      :quotes="quotes"
-      :showLoadButton="showLoadButton"
-      @load-more="loadMore"
-      @prompt-redirect="promptRedirect"
-    />
-  <!-- Dynamic content and btn-->
+          <!-- Bottom navigation bar with buttons for Strength, Career, Family and Others categories -->
+          <div>
+            <v-bottom-navigation 
+              fixed 
+              style="background-color: white; box-shadow: none; border: none;">
+              
+              <!-- Strength category button -->
+              <v-btn 
+                value="nearby" 
+                size="x-small" 
+                style="color: black !important;"
+                @click="gotocat('Strength')"
+              >
+                <v-icon>mdi-weight-lifter</v-icon>
+                Strength
+              </v-btn>
+              
+              <!-- Career category button -->
+              <v-btn 
+                value="recent"  
+                size="x-small" 
+                style="color: black !important;"
+                @click="gotocat('Career')"
+              >
+                <v-icon>mdi-briefcase</v-icon>
+                Career
+              </v-btn>
+              
+              <!-- Family category button -->
+              <v-btn 
+                value="favorites"  
+                size="x-small" 
+                style="color: black !important;"
+                @click="gotocat('Family')"
+              >
+                <v-icon>mdi-human-male-female-child</v-icon>
+                Family
+              </v-btn>
+              
+              <!-- Others category button -->
+              <v-btn 
+                value="nearby" 
+                size="x-small" 
+                style="color: black !important;" 
+                @click="openCategoryModal()">
+                <v-icon>mdi-dots-vertical</v-icon>
+                Others
+              </v-btn>
+            </v-bottom-navigation>
+          </div>
+          
+          <!-- Category modal component -->
+          <CategoryModal ref="categoryModal" @category-selected="gotocat"/>
 
+          <!-- Loading overlay component -->
+          <LoadingOverlay :overlay="overlay"/>
 
- <!-- bottom nav -->
- <div>
-   <v-bottom-navigation 
-     fixed 
-     style="background-color: white; box-shadow: none; border: none;">
+          <!-- Message snackbar component -->
+          <MessageSnackBar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
 
-    
+          <!-- Snackbar for verse url -->
+          <v-snackbar
+            :timeout="5000"
+            :value="showSnackbar"
+            color="#555"
+            v-model="showSnackbar"
+          >
+            This leads to biblegateway.
+            <template v-slot:action="{ attrs }">
+              <v-btn
+                color="#F5F5DC"
+                text
+                @click="showSnackbar = false"
+            v-bind="attrs"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+          color="#F5F5DC"
+          dark
+          text
+          @click="redirect"
+          v-bind="attrs"
+          >
+          Continue
+          </v-btn>
+          </template>
+          </v-snackbar>
 
- <v-btn 
-   value="nearby" 
-   size="x-small" 
-   style="color: black !important;"
-   @click="gotocat('Strength')"
- >
-   <v-icon>mdi-weight-lifter</v-icon>
-   Strength
- </v-btn>
-
- <!-- Career button -->
- <v-btn 
-   value="recent"  
-   size="x-small" 
-   style="color: black !important;"
-   @click="gotocat('Career')"
- >
-   <v-icon>mdi-briefcase</v-icon>
-   Career
- </v-btn>
-
- <!-- Family button -->
- <v-btn 
-   value="favorites"  
-   size="x-small" 
-   style="color: black !important;"
-   @click="gotocat('Family')"
- >
-   <v-icon>mdi-human-male-female-child</v-icon>
-   Family
- </v-btn>
-
- <!-- Others button -->
- <v-btn 
-   value="nearby" 
-   size="x-small" 
-   style="color: black !important;" 
-   @click="openCategoryModal()">
-   <v-icon>mdi-dots-vertical</v-icon>
-   Others
- </v-btn>
-</v-bottom-navigation>
- </div>
-<!-- bottom nav -->
-
-
-  <!-- Category Modal -->
-  <CategoryModal ref="categoryModal" @category-selected="gotocat"/>
-  <!-- Category Modal-->
-  
-  
-   <!--Loading Overlay-->
-   <LoadingOverlay :overlay="overlay"/>
-         <!--Loading Overlay-->
-  
-   
-         <!--Message snackbar-->
-         <MessageSnackBar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
-     <!--Message snackbar-->
-
-
-<!-- Verse url snackbar-->
-<v-snackbar
-   :timeout="5000"
-   :value="showSnackbar"
-   color="#555"
-   v-model="showSnackbar"
- >
-   This leads to biblegateway.
-   <template v-slot:action="{ attrs }">
-     <v-btn
-       color="#F5F5DC"
-       text
-       @click="showSnackbar = false"
-       v-bind="attrs"
-     >
-       Cancel
-     </v-btn>
-     <v-btn
-       color="#F5F5DC"
-       dark
-       text
-       @click="redirect"
-       v-bind="attrs"
-     >
-       Continue
-     </v-btn>
-   </template>
- </v-snackbar>
-<!-- Verse url snackbar-->
-
-<template>
- <v-btn
-   color="#F5F5DC"
-   depressed
-   fab
-   fixed
-   :bottom='true'
-   small
-   :left='true'
-   :to="{ name: 'index'}"
-   :style="{ bottom: '70px', right: '30px' }"
- >
-   <v-icon color="black">mdi-home</v-icon>
- </v-btn>
-</template>
-
-<template>
- <v-btn
-   color="#F5F5DC"
-   depressed
-   fab
-   fixed
-   :bottom='true'
-   small
-   :right='true'
-   @click="scrollTop()"
-   v-if="showButton"
-   :style="{ bottom: '70px', right: '30px' }"
- >
-   <v-icon color="black">mdi-arrow-up</v-icon>
- </v-btn>
-</template>
-
-     </v-col>
-   </v-row>
- </v-container> <!--Gives the  page a centered look-->
-</v-app>
- </template>
+          <!-- Home button -->
+          <template>
+            <v-btn
+              color="#F5F5DC"
+              depressed
+              fab
+              fixed
+              :bottom="true"
+              small
+              :left="true"
+              :to="{ name: 'index'}"
+              :style="{ bottom: '70px', right: '30px' }"
+            >
+              <v-icon color="black">mdi-home</v-icon>
+            </v-btn>
+          </template>
+          <!-- Scroll to top button -->
+          <template>
+            <v-btn
+              color="#F5F5DC"
+              depressed
+              fab
+              fixed
+              :bottom="true"
+              small
+              :right="true"
+              @click="scrollTop()"
+              v-if="showButton"
+              :style="{ bottom: '70px', right: '30px' }"
+            >
+              <v-icon color="black">mdi-arrow-up</v-icon>
+            </v-btn>
+          </template>
+          <!-- Close container -->
+          </v-col>
+          </v-row>
+          </v-container> <!-- Gives the page a centered look -->
+          <!-- Close v-app -->
+          </v-app>
+          </template>
  
  <style scoped>
 
