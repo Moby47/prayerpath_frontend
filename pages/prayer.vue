@@ -3,16 +3,16 @@
     <v-container> <!-- Provides centered look for the page -->
       <v-row justify="center" align="center">
         <v-col>
-          <!-- App bar component -->
-          <AppBar/>
-
-          <!-- Quote card component with quotes, showLoadButton properties and load-more, prompt-redirect events -->
-          <QuoteCard
-            :quotes="quotes"
-            :showLoadButton="showLoadButton"
-            @load-more="loadMore"
-            @prompt-redirect="promptRedirect"
-          />
+          <!-- appbar Component -->
+          <appbar />
+    
+          <!-- QuoteCard Component -->
+          <quotecard 
+          :quotes="quotes"
+          :showLoadButton="showLoadButton"
+          @load-more="loadMore"
+          @prompt-redirect="promptRedirect"
+        />
 
           <!-- Bottom navigation bar with buttons for Strength, Career, Family and Others categories -->
           <div>
@@ -65,14 +65,14 @@
             </v-bottom-navigation>
           </div>
           
-          <!-- Category modal component -->
-          <CategoryModal ref="categoryModal" @category-selected="gotocat"/>
+          <!-- CategoryModal Component -->
+      <categorymodal ref="categoryModal" @category-selected="gotocat"/>
 
-          <!-- Loading overlay component -->
-          <LoadingOverlay :overlay="overlay"/>
+      <!-- LoadingOverlay Component -->
+      <loadingoverlay :overlay="overlay"/>
 
-          <!-- Message snackbar component -->
-          <MessageSnackBar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
+      <!-- MessageSnackBar Component -->
+      <messagesnackbar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
 
           <!-- Snackbar for verse url -->
           <v-snackbar
@@ -179,7 +179,7 @@ export default {
     messagesnackbar,
     quotecard,
   },
-  
+
  head() {
    return {
  title: "PrayerPath - Quote God & Pray",
