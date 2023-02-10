@@ -20,7 +20,7 @@
     props: {
       timeout: {
         type: Number,
-        default: 4500,
+        default: 5000,
       },
       snackText: {
         type: String,

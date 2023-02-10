@@ -82,7 +82,7 @@
   
    
          <!--Message snackbar-->
-         <MessageSnackBar :timeout="4500" :snackText="snackText"  ref="MessageSnackBar" />
+         <MessageSnackBar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
      <!--Message snackbar-->
 
 
