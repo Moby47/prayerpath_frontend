@@ -162,8 +162,8 @@
 
 import appbar from "~/components/appbar.vue";
 import categorymodal from "~/components/categorymodal.vue";
-import loadingoverlay from "~/components/loadingoverlay.vue";
-import messagesnackbar from "~/components/messagesnackbar.vue";
+//import loadingoverlay from "~/components/loadingoverlay.vue";
+//import messagesnackbar from "~/components/messagesnackbar.vue";
 import quotecard from "~/components/quotecard.vue";
 //import { appbar } from '@/components/appbar.vue'
 //import appbar from '/components/appbar.vue'
@@ -176,8 +176,8 @@ export default {
   components: {
     appbar,
     categorymodal,
-    loadingoverlay,
-    messagesnackbar,
+   // loadingoverlay,
+   // messagesnackbar,
     quotecard,
   },
 
