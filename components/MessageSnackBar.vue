@@ -2,6 +2,7 @@
     <v-snackbar
       :timeout="timeout"
       shaped
+      top
       color="#555"
       v-model="snackbar"
     >
