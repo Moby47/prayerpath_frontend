@@ -22,17 +22,6 @@
        fixed 
        style="background-color: white; box-shadow: none; border: none;">
   
-     <!-- Home button 
- <v-btn 
-   value="nearby" 
-   size="x-small" 
-   style="color: black !important;"
-   :to="{ name: 'index'}"
- >
-   <v-icon>mdi-home</v-icon>
-   Home
- </v-btn>-->
-
  <v-btn 
    value="nearby" 
    size="x-small" 
@@ -42,17 +31,7 @@
    <v-icon>mdi-weight-lifter</v-icon>
    Strength
  </v-btn>
-  <!--
-   <v-btn 
-     value="nearby" 
-     size="x-small" 
-     style="color: black !important;"
-     @click="getquotes()"
-   >
-     <v-icon>mdi-select-all</v-icon>
-     All
-   </v-btn>-->
-  
+
    <!-- Career button -->
    <v-btn 
      value="recent"  
@@ -80,7 +59,7 @@
      value="nearby" 
      size="x-small" 
      style="color: black !important;" 
-     @click="dialog = true">
+     @click="openCategoryModal()">
      <v-icon>mdi-dots-vertical</v-icon>
      Others
    </v-btn>
@@ -90,59 +69,7 @@
   
   
    <!-- Category Modal -->
-   <template>
-     <div class="text-center">
-       <v-dialog
-         v-model="dialog">
-         <v-card style="background-color: white !important;">
-  
-           <!-- Categories list --> <!-- For online use/display -->
-           <template v-if="!offlineCategory">
-             <div class="text-center" v-if="categories">
-               <!-- Loop through categories and display each as a chip -->
-               <v-chip
-                 class="ma-2"
-                 color="#ADD8E6"
-                 text-color="black"
-                 v-for='category in categories' 
-                 v-bind:key='category.id'
-                 @click="gotocat(category.category)"
-               >
-                 {{category.category}}
-               </v-chip>
-             </div>
-             <div class="text-center" style="color: black !important;" v-else>
-              Nothing to see here.
-             </div>
-           </template>
-  
-           <!-- For offline use -->
-           <template v-else>
-             <div class="text-center" v-if="categories">
-               <v-chip
-                 class="ma-2"
-                 color="#9AC0D1"
-                 text-color="black"
-                 v-for="category in categories" :key="category"
-                 @click="gotocat(category)"
-               >
-                 {{category}}
-               </v-chip>
-             </div>
-             <div class="text-center" style="color: black !important;" v-else>
-              Nothing to see here.
-             </div>
-           </template>
-  
-         <!-- Close button -->
-         <v-card-actions style="background-color: white !important; display: flex; justify-content: center; align-items: center;">
-   <v-btn depressed  color="#F5F5DC" @click="dialog = false" style="color:black">Close</v-btn>
-  </v-card-actions>
-  
-       </v-card>
-     </v-dialog>
-   </div>
-  </template>
+    <categorymodal ref="categoryModal" @category-selected="gotocat"/>
   <!-- Category Modal-->
   
   
@@ -314,6 +241,9 @@ export default {
   },
 
   methods: {
+    openCategoryModal () {
+    this.$refs.categoryModal.dialog = true;
+  },
     async getQuotesByCat() {
 
         //if called from modal
@@ -382,39 +312,7 @@ console.error(error);
       this.getQuotesByCat();
     },
 
-    async getCategories() {
-     var final_url = this.backend_url + '/api/categories';
-     try {
-       const response = await axios.get(final_url, {
-         headers: {
-           'Content-Type': 'application/json',
-           'X-Authorization': this.key
-         }
-       });
-       this.categories = response.data.data;
-     } catch (error) {
-       console.log(error)
-
-//get from indexeddb
-try {
-const savedQuotes = await idb.get('quotes');
-
-if (savedQuotes) {
-this.quotes = savedQuotes;
-const categories = [...new Set(savedQuotes.map(quote => quote.category))];
-this.categories = categories;
-this.offlineCategory = true
-console.log('categories', this.categories);
-} else {
-console.log("No categories found.");
-}
-
-} catch (error) {
-console.error(error);
-}
-//get from indexeddb
-     }
-   },
+  
 
     scrollTop() {
      window.scroll({
@@ -458,7 +356,6 @@ console.error(error);
     this.category = this.$route.query.category;
     this.getQuotesByCat();
 
-    this.getCategories()
 
   window.addEventListener("scroll", this.handleScroll);
 
