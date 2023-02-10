@@ -26,10 +26,10 @@
    value="nearby" 
    size="x-small" 
    style="color: black !important;"
-   @click="gotocat('Strength')"
+   :to="{ name: 'prayer'}"
  >
-   <v-icon>mdi-weight-lifter</v-icon>
-   Strength
+   <v-icon>mdi-select-all</v-icon>
+   All
  </v-btn>
 
    <!-- Career button -->
@@ -121,11 +121,11 @@
      :bottom='true'
      small
      :left='true'
-     :to="{ name: 'prayer'}"
+     :to="{ name: 'index'}"
      v-if="showButton"
      :style="{ bottom: '70px', right: '30px' }"
    >
-     <v-icon color="black">mdi-refresh</v-icon>
+     <v-icon color="black">mdi-home</v-icon>
    </v-btn>
   </template>
 

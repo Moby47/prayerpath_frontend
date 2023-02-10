@@ -23,16 +23,7 @@
      fixed 
      style="background-color: white; box-shadow: none; border: none;">
 
-    <!-- Home button 
- <v-btn 
-   value="nearby" 
-   size="x-small" 
-   style="color: black !important;"
-   :to="{ name: 'index'}"
- >
-   <v-icon>mdi-home</v-icon>
-   Home
- </v-btn>-->
+    
 
  <v-btn 
    value="nearby" 
