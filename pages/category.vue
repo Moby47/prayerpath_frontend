@@ -232,7 +232,7 @@ export default {
      loading: true,
      overlay: null,
      showButton: null,
-     dialog: false,
+    // dialog: false,
      categories: [],
      fromLoadMore:null,
      showLoadButton:null,
