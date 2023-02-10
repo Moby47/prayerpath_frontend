@@ -69,10 +69,10 @@
       <categorymodal ref="categoryModal" @category-selected="gotocat"/>
 
       <!-- LoadingOverlay Component -->
-      <loadingoverlay :overlay="overlay"/>
+      <loadinglayer :overlay="overlay"/>
 
-      <!-- MessageSnackBar Component -->
-      <messagesnackbar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
+      <!-- messagebar Component -->
+      <messagebar :timeout="5000" :snackText="snackText"  ref="messagebar" />
 
           <!-- Snackbar for verse url -->
           <v-snackbar
@@ -163,8 +163,8 @@
 
 import appbar from "~/components/appbar.vue";
 import categorymodal from "~/components/categorymodal.vue";
-//import loadingoverlay from "~/components/loadingoverlay.vue";
-//import messagesnackbar from "~/components/messagesnackbar.vue";
+import loadinglayer from "~/components/loadinglayer.vue";
+import messagebar from "~/components/messagebar.vue";
 import quotecard from "~/components/quotecard.vue";
 
 
@@ -175,8 +175,8 @@ export default {
   components: {
     appbar,
     categorymodal,
-  //  loadingoverlay,
-   // messagesnackbar,
+    loadinglayer,
+    messagebar,
     quotecard,
   },
 

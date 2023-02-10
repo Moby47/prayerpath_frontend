@@ -68,10 +68,10 @@
       <categorymodal ref="categoryModal" @category-selected="gotocat"/>
 
       <!-- LoadingOverlay Component -->
-      <loadingoverlay :overlay="overlay"/>
+      <loadinglayer :overlay="overlay"/>
 
-      <!-- MessageSnackBar Component -->
-      <messagesnackbar :timeout="5000" :snackText="snackText"  ref="MessageSnackBar" />
+      <!-- messagebar Component -->
+      <messagebar :timeout="5000" :snackText="snackText"  ref="messagebar" />
 
       <!-- Verse URL Snackbar -->
       <v-snackbar
@@ -162,9 +162,10 @@
 
 import appbar from "~/components/appbar.vue";
 import categorymodal from "~/components/categorymodal.vue";
-//import loadingoverlay from "~/components/loadingoverlay.vue";
-//import messagesnackbar from "~/components/messagesnackbar.vue";
+import loadinglayer from "~/components/loadinglayer.vue";
+import messagebar from "~/components/messagebar.vue";
 import quotecard from "~/components/quotecard.vue";
+
 //import { appbar } from '@/components/appbar.vue'
 //import appbar from '/components/appbar.vue'
 
@@ -176,8 +177,8 @@ export default {
   components: {
     appbar,
     categorymodal,
-   // loadingoverlay,
-   // messagesnackbar,
+    loadinglayer,
+    messagebar,
     quotecard,
   },
 
@@ -258,10 +259,10 @@ export default {
 
         if (response.data.data.length === 0) {
           this.snackText = "No more results? Trust in the Lord to fill the void - That's all for " + this.category
-          this.$refs.MessageSnackBar.snackbar = true;
+          this.$refs.messagebar.snackbar = true;
         }
       } catch (error) {
-        this.$refs.MessageSnackBar.snackbar = true;
+        this.$refs.messagebar.snackbar = true;
         this.showButton = true;
         this.overlay = false;
         this.showLoadButton = true;
@@ -274,19 +275,19 @@ try {
 if (savedQuotes) {
   this.quotes = savedQuotes.filter(quote => quote.category == this.category);
   if (this.quotes.length) {
-    this.$refs.MessageSnackBar.snackbar = true;
+    this.$refs.messagebar.snackbar = true;
     this.snackText = "Praise the Lord, offline mode saves the day - Data found for " + this.category;
     this.showLoadButton = false;
   } else {
     console.log("No saved quotes found for the specified category");
     this.snackText = "God's got you, offline too - No results for " + this.category + ", keep the faith!"
-    this.$refs.MessageSnackBar.snackbar = true;
+    this.$refs.messagebar.snackbar = true;
     this.showLoadButton = false;
   }
 } else {
   console.log("No saved quotes found");
   this.snackText = "All else fails? Trust in God - Offline mode: No results found for " + this.category;
-  this.$refs.MessageSnackBar.snackbar = true;
+  this.$refs.messagebar.snackbar = true;
   this.showLoadButton=false
 }
 
