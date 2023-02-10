@@ -278,6 +278,8 @@ if (savedQuotes) {
 } else {
   console.log("No saved quotes found");
   this.snackText = "All else fails? Trust in God - Offline mode: No results found for " + this.category;
+  this.$refs.MessageSnackBar.snackbar = true;
+  this.showLoadButton=false
 }
 
 

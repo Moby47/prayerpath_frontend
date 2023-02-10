@@ -298,6 +298,7 @@ this.showLoadButton=false
 console.log("No cached record/quotes found");
 this.snackText = "Blackout? Trust in God - No saved records found."
 this.$refs.MessageSnackBar.snackbar = true;
+this.showLoadButton=false
 }
 
 } catch (error) {
