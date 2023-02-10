@@ -255,7 +255,7 @@ this.overlay = false;
 
 if (res.data.data.length === 0) {
        this.snackText = "Alas, our search has come up empty - let's ask the Lord for a miracle!"
-       this.snackbar = true
+       this.$refs.MessageSnackBar.snackbar = true;
       }
 
 //add to indexeddb
@@ -291,13 +291,13 @@ const savedQuotes = await idb.get('quotes');
 if (savedQuotes) {
 this.quotes = savedQuotes;
 //console.log('retrieved',savedQuotes)
-this.snackbar = true
+this.$refs.MessageSnackBar.snackbar = true;
 this.snackText = "Off the grid? Don't fret, God's got us - Offline mode."
 this.showLoadButton=false
 } else {
 console.log("No cached record/quotes found");
 this.snackText = "Blackout? Trust in God - No saved records found."
-this.snackbar = true
+this.$refs.MessageSnackBar.snackbar = true;
 }
 
 } catch (error) {
@@ -340,7 +340,7 @@ console.error(error);
      } catch (error) {
        console.log(error)
 
-//get from indexeddb
+//get only categories from indexeddb
 try {
 const savedQuotes = await idb.get('quotes');
 
