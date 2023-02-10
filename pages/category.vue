@@ -78,13 +78,13 @@
          <!--Loading Overlay-->
   
    
-         <!-- snackbar-->
+         <!--Err snackbar-->
      <v-snackbar
      :timeout="4500"
      shaped
      color="#555"
        v-model="snackbar" >
-       {{SnackText}}
+       {{errSnackText}}
        <template v-slot:action="{ attrs }">
          <v-btn
          color="#F5F5DC"
@@ -96,7 +96,7 @@
          </v-btn>
          </template>
      </v-snackbar>
-     <!-- snackbar-->
+     <!--Err snackbar-->
   
   <!-- Verse url snackbar-->
   <v-snackbar
@@ -215,7 +215,7 @@ export default {
       current_offset: 0,
       load_more_limit: 4, //determines how many is fetched initially
      offlineCategory: false,
-     SnackText:'',
+     errSnackText:'',
      verse_url:'',
      showSnackbar: false,
      snackbar: false,
@@ -267,7 +267,7 @@ export default {
        this.showLoadButton=true
 
         if (response.data.data.length === 0) {
-         this.SnackText = "No more results? Trust in the Lord to fill the void - That's all for "+this.category
+         this.errSnackText = "No more results? Trust in the Lord to fill the void - That's all for "+this.category
          this.snackbar = true
         }
       } catch (error) {
@@ -281,13 +281,15 @@ try {
 const savedQuotes = await idb.get('quotes');
 
 if (savedQuotes) {
-this.quotes = savedQuotes.filter(quote => quote.category == category);
+this.quotes = savedQuotes.filter(quote => quote.category == this.category);
 //console.log('retrieved',savedQuotes)
 this.snackbar = true
-this.SnackText = "Praise the Lord, offline mode saves the day - Data found for "+category
+this.errSnackText = "Praise the Lord, offline mode saves the day - Data found for "+this.category
+//off loadmore btn
+this.showLoadButton=false
 } else {
 console.log("No saved quotes found");
-this.SnackText = "All else fails? Trust in God - Offline mode: No results found for "+category
+this.errSnackText = "All else fails? Trust in God - Offline mode: No results found for "+this.category
 }
 
 } catch (error) {

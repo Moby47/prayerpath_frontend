@@ -548,6 +548,7 @@ this.quotes = savedQuotes;
 //console.log('retrieved',savedQuotes)
 this.snackbar = true
 this.errSnackText = "Off the grid? Don't fret, God's got us - Offline mode."
+this.showLoadButton=false
 } else {
 console.log("No cached record/quotes found");
 this.errSnackText = "Blackout? Trust in God - No saved records found."

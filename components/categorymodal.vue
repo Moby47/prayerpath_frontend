@@ -96,7 +96,7 @@ this.quotes = savedQuotes;
 const categories = [...new Set(savedQuotes.map(quote => quote.category))];
 this.categories = categories;
 this.offlineCategory = true
-console.log('categories', this.categories);
+//console.log('categories', this.categories);
 } else {
 console.log("No categories found.");
 }
