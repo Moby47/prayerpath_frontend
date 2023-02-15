@@ -99,16 +99,50 @@
   
         <v-card-actions class="text-body-2 prayer-font" style="color: #000;">
           {{quote.prayer}}
+          
         </v-card-actions>
-        <v-chip
-          class="ma-2"
-          label
-          color="#9AC0D1"
-          style=" font-size: 12px; padding: 3px;"
-          text-color="black"
-        >
-          Prayer For {{quote.category}}
-        </v-chip>
+        
+   <v-card-actions class="d-flex">
+  <v-chip
+    label
+    color="#9AC0D1"
+    style=" font-size: 12px; padding: 3px;"
+    text-color="black"
+  >
+    Prayer For {{quote.category}}
+  </v-chip>
+
+  <div style="flex: 1;"></div>
+
+  <v-icon  
+  class="mr-3"
+  color="red"
+  >
+  mdi-heart</v-icon>
+
+  <v-icon  
+  class="mr-3"
+  color="#000"
+  >
+  mdi-content-copy</v-icon>
+
+  <v-icon  
+  class="mr-3"
+  color="blue"
+  >
+  mdi-comment</v-icon>
+
+  <v-icon  
+  class="mr-3"
+  color="green"
+  >
+  mdi-share-variant</v-icon>
+
+</v-card-actions>
+
+
+
+      
       </v-card>
     </v-col>
   </v-row>
