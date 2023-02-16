@@ -510,7 +510,7 @@
    mounted(){
 
    this.id = this.$route.query.id
-   this.url = this.app_url + '/' + this.id;
+   this.url = this.app_url + '/discussion?id=' + this.id;
 
     //get quote
     this.getquote()
