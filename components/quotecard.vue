@@ -125,12 +125,18 @@
   color="#000"
   >
   mdi-content-copy</v-icon>
-
-  <v-icon  
-  class="mr-3"
-  color="blue"
-  >
-  mdi-comment</v-icon>
+ 
+  <router-link
+  :to="{ name: 'discussion', query: { id: quote.id } }"
+  tag="span"
+>
+      <v-icon
+        class="mr-3"
+        color="blue"
+      >
+        mdi-comment
+      </v-icon>
+</router-link>
 
   <v-icon  
   class="mr-3"
