@@ -51,7 +51,6 @@
           text-color="black"
           class="mr-1"
         >
-          
           KJV
         </v-chip>
         <v-chip
@@ -62,7 +61,6 @@
           text-color="black"
           class="mr-1"
         >
-          
           NKJV
         </v-chip>
   
@@ -74,7 +72,6 @@
           text-color="black"
           class="mr-1"
         >
-          
           NLT
         </v-chip>
       
@@ -142,18 +139,10 @@
   mdi-share-variant</v-icon>
 
 </v-card-actions>
-
-
-
       
       </v-card>
     </v-col>
   </v-row>
-
-
-
-
-
 
     </div>
   </template>
@@ -165,13 +154,15 @@
         <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6" class="others-font">
      
-        <p style='color:blue;'>  {{ url }} {{id}}</p>
-  
-            <template>
-  <div class="comments">
-    <Disqus shortname="prayerpath" :url="url" :identifier="id"/>
+      
+  <!--Disqus-->
+<template>
+  <div style="margin-bottom: 85px;">
+    <div id="disqus_thread"></div>
   </div>
 </template>
+  <!--Disqus-->
+
 
     </v-col>
   </v-row>
@@ -358,6 +349,8 @@
       app_url: this.$config.APP_URL,
      }
    },
+
+   
   
    methods: {
   
@@ -390,24 +383,6 @@
          this.snackText = "Alas, our search has come up empty - let's ask the Lord for a miracle!"
          this.$refs.messagebar.snackbar = true;
         }
-  /*
-  //add to indexeddb
-  let savedQuotes = await idb.get('quotes') || [];
-  if (savedQuotes.length + res.data.data.length > 100) {
-   savedQuotes = savedQuotes.slice(0, 100 - res.data.data.length);
-  }
-  for (let i = 0; i < res.data.data.length; i++) {
-   let quote = res.data.data[i];
-   let key = quote.id;
-   let existingQuote = savedQuotes.find(q => q.id === key);
-   if (existingQuote) {
-     continue;
-   }
-   savedQuotes.push(quote);
-  }
-  await idb.set('quotes', savedQuotes);
-  */
-  //add to indexeddb
   
   } catch (error) {
   
@@ -415,29 +390,32 @@
   this.showButton = true;
   this.overlay = false;
   
-  /*
+  
   //get from indexeddb
   try {
   const savedQuotes = await idb.get('quotes');
   
   if (savedQuotes) {
-  this.quotes = savedQuotes;
-  //console.log('retrieved',savedQuotes)
-  this.$refs.messagebar.snackbar = true;
-  this.snackText = "Off the grid? Don't fret, God's got us - Offline mode."
-  this.showLoadButton=false
+  this.quote = savedQuotes.filter(quote => quote.id == this.id);
+  if (this.quote.length) {
+    this.$refs.messagebar.snackbar = true;
+    this.snackText = "Praise the Lord, offline mode saves the day - Data found";
   } else {
-  console.log("No cached record/quotes found");
-  this.snackText = "Blackout? Trust in God - No saved records found."
-  this.$refs.messagebar.snackbar = true;
-  this.showLoadButton=false
+    console.log("No data found");
+    this.snackText = "God's got you, offline too - No results found, keep the faith!"
+    this.$refs.messagebar.snackbar = true;
   }
-  
+} else {
+  console.log("No saved quote found");
+  this.snackText = "All else fails? Trust in God - Offline mode: No results found";
+  this.$refs.messagebar.snackbar = true;
+}
+
   } catch (error) {
   console.error(error);
   }
   //get from indexeddb
-  */
+  
   }
   },
   
@@ -476,7 +454,6 @@
   const categories = [...new Set(savedQuotes.map(quote => quote.category))];
   this.categories = categories;
   this.offlineCategory = true
-  console.log('categories', this.categories);
   } else {
   console.log("No categories found.");
   }
@@ -510,7 +487,17 @@
    mounted(){
 
    this.id = this.$route.query.id
-   this.url = this.app_url + '/discussion?id=' + this.id;
+ 
+   //load up disqus
+  const disqus_config = function () {
+    this.page.url = window.location.href;
+    this.page.identifier = this.id;
+  };
+  const script = document.createElement('script');
+  script.src = 'https://prayerpath.disqus.com/embed.js';
+  script.setAttribute('data-timestamp', +new Date());
+  (document.head || document.body).appendChild(script);
+
 
     //get quote
     this.getquote()
