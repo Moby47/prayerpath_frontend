@@ -111,12 +111,12 @@
   >
     Prayer For {{quote.category}}
   </v-chip>
-
   <div style="flex: 1;"></div>
 
   <v-icon  
   class="mr-3"
   color="red"
+  @click="saveQuote(quote)"
   >
   mdi-heart</v-icon>
 
@@ -145,13 +145,41 @@
   mdi-share-variant</v-icon>
 
 </v-card-actions>
-
-
-
       
       </v-card>
     </v-col>
   </v-row>
+
+  <v-snackbar
+        :timeout="5000"
+        :value="showSnackbar"
+        color="#555"
+        v-model="showSnackbar"
+        top
+      >
+        {{snackText}}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="#F5F5DC"
+            text
+            @click="showSnackbar = false"
+            v-bind="attrs"
+          >
+            No
+          </v-btn>
+          <v-btn
+          color="#F5F5DC"
+          dark
+          text
+          :to="{ name: 'favourite'}"
+          v-bind="attrs"
+          >
+          Yes
+          </v-btn>
+          </template>
+          </v-snackbar>
+
+
   <v-row justify="center">
     <v-col cols="12" sm="8" md="6">
       <div class="
@@ -165,6 +193,9 @@
   </template>
   
   <script>
+
+import * as idb from 'idb-keyval'
+
   export default {
     name: "QuoteCard",
     props: {
@@ -177,6 +208,14 @@
         default: false,
       },
     },
+
+    data() {
+    return {
+      snackText: '',
+      showSnackbar: false,
+    };
+  },
+   
     methods: {
       loadMore() {
         this.$emit("load-more");
@@ -184,6 +223,33 @@
       promptRedirect(url, version) {
         this.$emit("prompt-redirect", url, version);
       },
+
+      async saveQuote(quote) {
+        this.$nuxt.$loading.start()
+
+      let savedQuotes = await idb.get('fav') || [];
+      if (savedQuotes.length >= 5) {
+        this.snackText = 'Lo and behold, only 5 quotes may be saved. View favorites?'
+        this.showSnackbar = true
+        this.$nuxt.$loading.finish()
+        return;
+      }
+      let key = quote.id;
+      let existingQuote = savedQuotes.find(q => q.id === key);
+      if (existingQuote) {
+        this.snackText = 'Verily, verily, this quote is already amongst thy favorites. View now?'
+        this.showSnackbar = true
+        this.$nuxt.$loading.finish()
+        return;
+      }
+      savedQuotes.push(quote);
+      await idb.set('fav', savedQuotes);
+      
+      this.$nuxt.$loading.finish()
+    },
+  
+    
+
     },
   };
   </script>
