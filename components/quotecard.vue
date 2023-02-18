@@ -229,7 +229,7 @@ import * as idb from 'idb-keyval'
 
       let savedQuotes = await idb.get('fav') || [];
       if (savedQuotes.length >= 5) {
-        this.snackText = 'Lo and behold, only 5 quotes may be saved. View favorites?'
+        this.snackText = 'Lo and behold, only 5 quotes may be saved. View Favourites?'
         this.showSnackbar = true
         this.$nuxt.$loading.finish()
         return;
@@ -237,14 +237,15 @@ import * as idb from 'idb-keyval'
       let key = quote.id;
       let existingQuote = savedQuotes.find(q => q.id === key);
       if (existingQuote) {
-        this.snackText = 'Verily, verily, this quote is already amongst thy favorites. View now?'
+        this.snackText = 'Verily, verily, this quote is already amongst thy Favourites. View now?'
         this.showSnackbar = true
         this.$nuxt.$loading.finish()
         return;
       }
       savedQuotes.push(quote);
       await idb.set('fav', savedQuotes);
-      
+      this.snackText = 'Quote added to thy Favourites. View now?'
+        this.showSnackbar = true
       this.$nuxt.$loading.finish()
     },
   

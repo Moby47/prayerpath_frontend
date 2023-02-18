@@ -123,6 +123,7 @@
   <v-icon  
   class="mr-3"
   color="red"
+  @click="saveQuote(quote)"
   >
   mdi-heart</v-icon>
 
@@ -200,7 +201,7 @@
                 
                 <!-- Family category button -->
                 <v-btn 
-                  value="favorites"  
+                  value="Favourites"  
                   size="x-small" 
                   style="color: black !important;"
                   @click="gotocat('Family')"
@@ -230,7 +231,34 @@
         <!-- messagebar Component -->
         <messagebar :timeout="5000" :snackText="snackText"  ref="messagebar" />
   
-          
+        <v-snackbar
+        :timeout="5000"
+        :value="showSnackbar"
+        color="#555"
+        v-model="showSnackbar"
+        top
+      >
+        {{snackText}}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="#F5F5DC"
+            text
+            @click="showSnackbar = false"
+            v-bind="attrs"
+          >
+            No
+          </v-btn>
+          <v-btn
+          color="#F5F5DC"
+          dark
+          text
+          :to="{ name: 'favourite'}"
+          v-bind="attrs"
+          >
+          Yes
+          </v-btn>
+          </template>
+          </v-snackbar>
   
             <!-- Home button -->
             <template>
@@ -347,6 +375,9 @@
       quote: [],
       url:'',
       app_url: this.$config.APP_URL,
+
+      snackText: '',
+      showSnackbar: false,
      }
    },
 
@@ -418,6 +449,31 @@
   
   }
   },
+
+  async saveQuote(quote) {
+        this.$nuxt.$loading.start()
+
+      let savedQuotes = await idb.get('fav') || [];
+      if (savedQuotes.length >= 5) {
+        this.snackText = 'Lo and behold, only 5 quotes may be saved. View Favourites?'
+        this.showSnackbar = true
+        this.$nuxt.$loading.finish()
+        return;
+      }
+      let key = quote.id;
+      let existingQuote = savedQuotes.find(q => q.id === key);
+      if (existingQuote) {
+        this.snackText = 'Verily, verily, this quote is already amongst thy Favourites. View now?'
+        this.showSnackbar = true
+        this.$nuxt.$loading.finish()
+        return;
+      }
+      savedQuotes.push(quote);
+      await idb.set('fav', savedQuotes);
+      
+      this.$nuxt.$loading.finish()
+    },
+  
   
      // getquotes method end
   

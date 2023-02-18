@@ -29,14 +29,44 @@
       <v-list dense>
         <v-list-item
           link
-          :to="'/favourites'"
+          :to="'/'"
+        >
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+  
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-list dense>
+        <v-list-item
+          link
+          :to="'/prayer'"
+        >
+          <v-list-item-icon>
+            <v-icon>mdi-book-cross</v-icon>
+          </v-list-item-icon>
+  
+          <v-list-item-content>
+            <v-list-item-title>All Prayers</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-list dense>
+        <v-list-item
+          link
+          :to="'/favourite'"
         >
           <v-list-item-icon>
             <v-icon>mdi-heart</v-icon>
           </v-list-item-icon>
   
           <v-list-item-content>
-            <v-list-item-title><!--Favourites--> (Coming soon)</v-list-item-title>
+            <v-list-item-title>Favourites</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

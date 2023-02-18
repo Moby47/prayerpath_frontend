@@ -26,7 +26,7 @@
             style="color: black !important;"
             :to="{ name: 'prayer'}"
           >
-            <v-icon>mdi-select-all</v-icon>
+            <v-icon>mdi-book-cross</v-icon>
             All
           </v-btn>
 
@@ -43,7 +43,7 @@
 
           <!-- Family button -->
           <v-btn 
-            value="favorites"  
+            value="Favourites"  
             size="x-small" 
             style="color: black !important;"
             @click="gotocat('Family')"
