@@ -156,13 +156,15 @@
 </v-card-actions>
       
       </v-card>
+
+      <h4 style="color:black">{{ redirectMessage }} {{ countdown }}</h4>
+
     </v-col>
   </v-row>
-
     </div>
   </template>
 
-  <h4 style="color:black">{{ redirectMessage }} {{ countdown }}</h4>
+  
   
             <!-- Bottom navigation bar with buttons for Strength, Career, Family and Others categories -->
             <div>
