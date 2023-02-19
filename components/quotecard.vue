@@ -113,18 +113,20 @@
   </v-chip>
   <div style="flex: 1;"></div>
 
+  <v-btn icon>
   <v-icon  
   class="mr-3"
   color="red"
   @click="saveQuote(quote)"
   >
-  mdi-heart</v-icon>
+  mdi-heart</v-icon></v-btn>
 
+  <v-btn icon>
   <v-icon  
   class="mr-3"
   color="#000"
   >
-  mdi-content-copy</v-icon>
+  mdi-content-copy</v-icon></v-btn>
  
   <router-link
   :to="{ name: 'discussion', query: { id: quote.id } }"
@@ -138,11 +140,8 @@
       </v-icon>
 </router-link>
 
-  <v-icon  
-  class="mr-3"
-  color="green"
-  >
-  mdi-share-variant</v-icon>
+ <!--Social Share-->
+<share :quote="quote"/>
 
 </v-card-actions>
       
@@ -192,11 +191,18 @@
     </div>
   </template>
   
+ 
+
   <script>
+
+import share from '@/components/share.vue'
 
 import * as idb from 'idb-keyval'
 
   export default {
+    components: {
+      share
+  },
     name: "QuoteCard",
     props: {
       quotes: {

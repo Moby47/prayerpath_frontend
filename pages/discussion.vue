@@ -133,11 +133,8 @@
   >
   mdi-content-copy</v-icon>
 
-  <v-icon  
-  class="mr-3"
-  color="green"
-  >
-  mdi-share-variant</v-icon>
+  <!--Social Share-->
+<share :quote="quote"/>
 
 </v-card-actions>
       
@@ -323,7 +320,8 @@
   import loadinglayer from "~/components/loadinglayer.vue";
   import messagebar from "~/components/messagebar.vue";
   
-  
+  import share from '@/components/share.vue'
+
   import axios from 'axios';
   import * as idb from 'idb-keyval'
   
@@ -333,6 +331,7 @@
       categorymodal,
       loadinglayer,
       messagebar,
+      share,
     },
   
    head() {

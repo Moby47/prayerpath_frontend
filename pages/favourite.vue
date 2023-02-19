@@ -147,11 +147,8 @@
       </v-icon>
 </router-link>
 
-  <v-icon  
-  class="mr-3"
-  color="green"
-  >
-  mdi-share-variant</v-icon>
+  <!--Social Share-->
+<share :quote="quote"/>
 
 </v-card-actions>
       
@@ -319,6 +316,7 @@
   import messagebar from "~/components/messagebar.vue";
   import quotecard from "~/components/quotecard.vue";
   
+  import share from '@/components/share.vue'
   
   import axios from 'axios';
   import * as idb from 'idb-keyval'
@@ -330,6 +328,7 @@
       loadinglayer,
       messagebar,
       quotecard,
+      share,
     },
   
    head() {

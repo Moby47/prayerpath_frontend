@@ -62,6 +62,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/cloudinary',
+    'vue-social-sharing/nuxt'
   ],
 
   // Options
