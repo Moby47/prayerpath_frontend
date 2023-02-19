@@ -113,20 +113,20 @@
   </v-chip>
   <div style="flex: 1;"></div>
 
-  <v-btn icon>
+  
   <v-icon  
   class="mr-3"
   color="red"
   @click="saveQuote(quote)"
   >
-  mdi-heart</v-icon></v-btn>
+  mdi-heart</v-icon>
 
-  <v-btn icon>
+  
   <v-icon  
   class="mr-3"
   color="#000"
   >
-  mdi-content-copy</v-icon></v-btn>
+  mdi-content-copy</v-icon>
  
   <router-link
   :to="{ name: 'discussion', query: { id: quote.id } }"
