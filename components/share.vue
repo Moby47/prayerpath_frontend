@@ -41,6 +41,22 @@
           </ShareNetwork>
         </v-list-item-title>
       </v-list-item>
+
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon color="#075e54">mdi-facebook-messenger</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>
+          <ShareNetwork
+            network="messenger"
+            :url="`${app_url}/discussion?id=${quote.id}`"
+            style="text-decoration: none !important; color:#0084ff;"
+          >
+          Messenger
+          </ShareNetwork>
+        </v-list-item-title>
+      </v-list-item>
+
       <v-list-item link>
         <v-list-item-icon>
           <v-icon color="#00acee">mdi-twitter</v-icon>
