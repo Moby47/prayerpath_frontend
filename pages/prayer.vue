@@ -44,7 +44,7 @@
               
               <!-- Family category button -->
               <v-btn 
-                value="favorites"  
+                value="Favourites"  
                 size="x-small" 
                 style="color: black !important;"
                 @click="gotocat('Family')"

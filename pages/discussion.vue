@@ -6,20 +6,18 @@
             <!-- appbar Component -->
             <appbar />
       
-            <v-card-title style="color:black" v-if="quotes.id">Your Favourites</v-card-title>
-           
-            <!-- QuoteCard  -->
+            <!--  Quote -->
             <template>
     <div>
-        <v-row justify="center" align="center" class="mb-10">
-    <v-col cols="12" sm="8" md="6" class="others-font mb-10">
+        <v-row justify="center" align="center">
+    <v-col cols="12" sm="8" md="6" class="others-font">
       <v-card
         class="mx-auto animated tdFadeIn"
         color="#ADD8E6"
         :elevation="0" :shadow="false"
         py-4
         style="margin: 10px;"
-        v-for="quote in quotes"
+        v-for="quote in quote"
         v-bind:key="quote.id"
       >
         <div class="d-flex justify-between">
@@ -124,10 +122,10 @@
 
   <v-icon  
   class="mr-3"
-  color="#f91605"
-  @click="deleteQuote(quote.id)"
+  color="red"
+  @click="saveQuote(quote)"
   >
-  mdi-delete</v-icon>
+  mdi-heart</v-icon>
 
   <v-icon  
   class="mr-3"
@@ -135,34 +133,41 @@
   >
   mdi-content-copy</v-icon>
 
-  <router-link
-  :to="{ name: 'discussion', query: { id: quote.id } }"
-  tag="span"
->
-      <v-icon
-        class="mr-3"
-        color="blue"
-      >
-        mdi-comment
-      </v-icon>
-</router-link>
-
   <!--Social Share-->
 <share :quote="quote"/>
 
 </v-card-actions>
       
       </v-card>
+    </v-col>
+  </v-row>
 
-      <h4 style="color:black">{{ redirectMessage }} {{ countdown }}</h4>
+    </div>
+  </template>
+  
+
+  <!--Disqus-->
+  <template>
+    <div>
+        <v-row justify="center" align="center">
+    <v-col cols="12" sm="8" md="6" class="others-font">
+     
+      
+  <!--Disqus-->
+<template>
+  <div style="margin-bottom: 85px;">
+    <div id="disqus_thread"></div>
+  </div>
+</template>
+  <!--Disqus-->
+
 
     </v-col>
   </v-row>
+
     </div>
   </template>
 
-  
-  
             <!-- Bottom navigation bar with buttons for Strength, Career, Family and Others categories -->
             <div>
               <v-bottom-navigation 
@@ -171,14 +176,14 @@
                 
                 <!-- Strength category button -->
                 <v-btn 
-                  value="nearby" 
-                  size="x-small" 
-                  style="color: black !important;"
-                  @click="gotocat('Strength')"
-                >
-                  <v-icon>mdi-weight-lifter</v-icon>
-                  Strength
-                </v-btn>
+                value="nearby" 
+                size="x-small" 
+                style="color: black !important;"
+                :to="{ name: 'prayer'}"
+            >
+                <v-icon>mdi-select-all</v-icon>
+                All
+            </v-btn>
                 
                 <!-- Career category button -->
                 <v-btn 
@@ -223,34 +228,34 @@
         <!-- messagebar Component -->
         <messagebar :timeout="5000" :snackText="snackText"  ref="messagebar" />
   
-            <!-- Snackbar for verse url -->
-            <v-snackbar
-              :timeout="5000"
-              :value="showSnackbar"
-              color="#555"
-              v-model="showSnackbar"
-            >
-              This leads to biblegateway.
-              <template v-slot:action="{ attrs }">
-                <v-btn
-                  color="#F5F5DC"
-                  text
-                  @click="showSnackbar = false"
-              v-bind="attrs"
-            >
-              Cancel
-            </v-btn>
-            <v-btn
+        <v-snackbar
+        :timeout="5000"
+        :value="showSnackbar"
+        color="#555"
+        v-model="showSnackbar"
+        top
+      >
+        {{snackText}}
+        <template v-slot:action="{ attrs }">
+          <v-btn
             color="#F5F5DC"
-            dark
             text
-            @click="redirect"
+            @click="showSnackbar = false"
             v-bind="attrs"
-            >
-            Continue
-            </v-btn>
-            </template>
-            </v-snackbar>
+          >
+            No
+          </v-btn>
+          <v-btn
+          color="#F5F5DC"
+          dark
+          text
+          :to="{ name: 'favourite'}"
+          v-bind="attrs"
+          >
+          Yes
+          </v-btn>
+          </template>
+          </v-snackbar>
   
             <!-- Home button -->
             <template>
@@ -314,10 +319,9 @@
   import categorymodal from "~/components/categorymodal.vue";
   import loadinglayer from "~/components/loadinglayer.vue";
   import messagebar from "~/components/messagebar.vue";
-  import quotecard from "~/components/quotecard.vue";
   
   import share from '@/components/share.vue'
-  
+
   import axios from 'axios';
   import * as idb from 'idb-keyval'
   
@@ -327,7 +331,6 @@
       categorymodal,
       loadinglayer,
       messagebar,
-      quotecard,
       share,
     },
   
@@ -357,7 +360,7 @@
        showSnackbar: false,
        snackbar: false,
        fixed: false,
-       quotes: [],
+      
        loading: true,
        overlay: null,
        showButton: true,
@@ -367,10 +370,17 @@
        backend_url: this.$config.BACKEND_APP_URL,
       drawer: false,
 
-      countdown: '',
-      redirectMessage: '',
+      id:'',
+      quote: [],
+      url:'',
+      app_url: this.$config.APP_URL,
+
+      snackText: '',
+      showSnackbar: false,
      }
    },
+
+   
   
    methods: {
   
@@ -378,38 +388,91 @@
       this.$refs.categorymodal.dialog = true;
     },
   
-  async getquotes() {
+  async getquote() {
+  
+   this.overlay = true;
+   this.showButton = false;
+   
+  
+  var final_url = `${this.backend_url}/api/quote/${this.id}`;
+  
+  try {
+  const res = await axios.get(final_url, {
+  headers: {
+  'Content-Type': 'application/json',
+  'X-Authorization': this.key
+  }
+  });
+  
+  this.quote = this.quote.concat(res.data.data);
+  
+  this.showButton = true;
+  this.overlay = false;
+  
+  if (res.data.data.length === 0) {
+         this.snackText = "Alas, our search has come up empty - let's ask the Lord for a miracle!"
+         this.$refs.messagebar.snackbar = true;
+        }
+  
+  } catch (error) {
+  
+  console.error(error);
+  this.showButton = true;
+  this.overlay = false;
+  
+  
   //get from indexeddb
- // this.$nuxt.$loading.start()
-try {
-const savedQuotes = await idb.get('fav');
-
-if (savedQuotes && savedQuotes.length > 0) {
-this.quotes = savedQuotes;
+  try {
+  const savedQuotes = await idb.get('quotes');
+  
+  if (savedQuotes) {
+  this.quote = savedQuotes.filter(quote => quote.id == this.id);
+  if (this.quote.length) {
+    this.$refs.messagebar.snackbar = true;
+    this.snackText = "Praise the Lord, offline mode saves the day - Data found";
+  } else {
+    console.log("No data found");
+    this.snackText = "God's got you, offline too - No results found, keep the faith!"
+    this.$refs.messagebar.snackbar = true;
+  }
 } else {
-console.log("No fav record found");
-this.snackText = "Thy favourites list is barren, like the desert sands."
- this.$refs.messagebar.snackbar = true;
-
- //timeout to prayer page
- this.redirectMessage = 'Redirecting in'
- this.countdown = 5
- this.timer = setInterval(() => {
-      this.countdown--;
-      if (this.countdown === 0) {
-        clearInterval(this.timer);
-        this.$router.push('/prayer');
-      }
-    }, 1000);
-
+  console.log("No saved quote found");
+  this.snackText = "All else fails? Trust in God - Offline mode: No results found";
+  this.$refs.messagebar.snackbar = true;
 }
 
-} catch (error) {
-console.error(error);
-}
-//this.$nuxt.$loading.finish()
-//get from indexeddb
+  } catch (error) {
+  console.error(error);
+  }
+  //get from indexeddb
+  
+  }
   },
+
+  async saveQuote(quote) {
+        this.$nuxt.$loading.start()
+
+      let savedQuotes = await idb.get('fav') || [];
+      if (savedQuotes.length >= 5) {
+        this.snackText = 'Lo and behold, only 5 quotes may be saved. View Favourites?'
+        this.showSnackbar = true
+        this.$nuxt.$loading.finish()
+        return;
+      }
+      let key = quote.id;
+      let existingQuote = savedQuotes.find(q => q.id === key);
+      if (existingQuote) {
+        this.snackText = 'Verily, verily, this quote is already amongst thy Favourites. View now?'
+        this.showSnackbar = true
+        this.$nuxt.$loading.finish()
+        return;
+      }
+      savedQuotes.push(quote);
+      await idb.set('fav', savedQuotes);
+      
+      this.$nuxt.$loading.finish()
+    },
+  
   
      // getquotes method end
   
@@ -421,12 +484,6 @@ console.error(error);
        });
      },
   
-     loadMore() {
-        this.fromLoadMore = true
-      this.current_offset += this.load_more_limit;
-  
-      this.getquotes();
-    },
   
    //end
   
@@ -452,7 +509,6 @@ console.error(error);
   const categories = [...new Set(savedQuotes.map(quote => quote.category))];
   this.categories = categories;
   this.offlineCategory = true
-  console.log('categories', this.categories);
   } else {
   console.log("No categories found.");
   }
@@ -466,19 +522,6 @@ console.error(error);
   
    //end
   
-   promptRedirect(verse_url,version) {
-         this.showSnackbar = true;
-         if(version == 'NIV'){
-          this.verse_url = verse_url
-         }else{
-          let updatedUrl = verse_url.slice(0, -3);
-          this.verse_url = updatedUrl + version;
-         }
-         
-     },
-     redirect(event) {
-      window.open(this.verse_url, "_blank");
-     },
   
      handleScroll() {
        this.showButton = window.pageYOffset > 200;
@@ -492,30 +535,28 @@ console.error(error);
         }
       })
     },
-
-    async deleteQuote(id) {
-      this.$nuxt.$loading.start()
-
-      let savedQuotes = await idb.get('fav') || [];
-      let index = savedQuotes.findIndex(q => q.id === id);
-      if (index !== -1) {
-        savedQuotes.splice(index, 1);
-        await idb.set('fav', savedQuotes);
-      }
-      
- this.snackText = "The quote hath been removed!"
- this.$refs.messagebar.snackbar = true;
-
-      this.$nuxt.$loading.finish()
-      this.getquotes()
-    },
           
    },
    //  method end
    
    mounted(){
-    //get quotes
-    this.getquotes()
+
+   this.id = this.$route.query.id
+ 
+   //load up disqus
+  const disqus_config = function () {
+    this.page.url = window.location.href;
+    this.page.identifier = this.id;
+  };
+  const script = document.createElement('script');
+  script.src = 'https://prayerpath.disqus.com/embed.js';
+  script.setAttribute('data-timestamp', +new Date());
+  (document.head || document.body).appendChild(script);
+
+
+    //get quote
+    this.getquote()
+
     //get categories
     this.getCategories()
   
