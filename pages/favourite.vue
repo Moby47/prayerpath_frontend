@@ -28,7 +28,7 @@
     <div class="text-h6" style="color: #000;">
       God's Word:
     </div>
-    <div class=" verse-font" style="color: #000; word-wrap: break-word;">
+    <div class="verse" style="color: #000; word-wrap: break-word;">
       {{quote.verse}}
     </div>
     
@@ -82,33 +82,20 @@
    
   </v-card-actions>
   
-          <v-img
-            v-if="quote.imageurl"
-            contain
-            height="50px"
-            :lazy-src="quote.imageurl"
-            :src="quote.imageurl"
-            style="flex-basis: 80px"
-            class="flex-grow-0 mr-1 mt-2"
-          ></v-img>
-  
-          <v-img
-            v-else
-            contain
-            height="50px"
-            lazy-src="https://cdn.pixabay.com/photo/2014/04/02/10/44/hands-304398_960_720.png"
-            src="https://cdn.pixabay.com/photo/2014/04/02/10/44/hands-304398_960_720.png"
-            style="flex-basis: 80px"
-            class="flex-grow-0 mr-1 mt-2"
-          ></v-img>
+    
         </div>
   
         <v-divider></v-divider>
   
-        <v-card-actions class="text-body-2 prayer-font" style="color: #000;">
-          {{quote.prayer}}
-          
-        </v-card-actions>
+        <v-card-actions v-if="quote.imageurl" class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${quote.imageurl})` }">
+  <div style="background-color: rgba(0,0,0,0.60); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+  <span style="position: relative; z-index: 1;">{{quote.prayer}}</span>
+</v-card-actions>
+
+<v-card-actions v-else class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${backgroundImage})` }">
+  <div style="background-color: rgba(0,0,0,0.60); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+  <span style="position: relative; z-index: 1;">{{quote.prayer}}</span>
+</v-card-actions>
         
    <v-card-actions class="d-flex">
   <v-chip
@@ -295,17 +282,6 @@
    
    <style scoped>
   
-  .verse-font {
-    font-family: 'Lato', sans-serif !important;
-  }
-  .prayer-font {
-    font-family: Georgia, 'Times New Roman', Times, serif !important;
-  }
-  
-  .others-font {
-    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
-  }
-  
   </style>
    
    <script>
@@ -369,6 +345,7 @@
 
       countdown: '',
       redirectMessage: '',
+      backgroundImage: 'https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg',
      }
    },
   

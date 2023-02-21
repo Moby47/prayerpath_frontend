@@ -146,17 +146,6 @@
  
  <style scoped>
 
-.verse-font {
-  font-family: 'Lato', sans-serif !important;
-}
-.prayer-font {
-  font-family: Georgia, 'Times New Roman', Times, serif !important;
-}
-
-.others-font {
-  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
-}
-
 </style>
  
  <script>
