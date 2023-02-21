@@ -70,6 +70,56 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      
+<!--Emotions-->
+      <v-list dense>
+  <v-menu offset-y>
+    <template v-slot:activator="{ on }">
+      <v-list-item v-on="on">
+        <v-list-item-icon>
+          <v-icon>mdi-head-heart</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Emotions</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </template>
+
+    <v-list>
+      <v-list-item
+        link
+        :to="'/emotions/1'"
+      >
+        <v-list-item-title>Option 1</v-list-item-title>
+      </v-list-item>
+      <v-list-item
+        link
+        :to="'/emotions/2'"
+      >
+        <v-list-item-title>Option 2</v-list-item-title>
+      </v-list-item>
+      <v-list-item
+        link
+        :to="'/emotions/3'"
+      >
+        <v-list-item-title>Option 3</v-list-item-title>
+      </v-list-item>
+      <v-list-item
+        link
+        :to="'/emotions/4'"
+      >
+        <v-list-item-title>Option 4</v-list-item-title>
+      </v-list-item>
+      <v-list-item
+        link
+        :to="'/emotions/5'"
+      >
+        <v-list-item-title>Option 5</v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-menu>
+</v-list>
+<!--Emotions-->
   
       <v-list dense>
         <v-list-item
