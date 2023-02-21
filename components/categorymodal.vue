@@ -1,5 +1,7 @@
 <template>
     <div class="text-center">
+
+
       <v-dialog
         v-model="dialog">
         <v-card style="background-color: white !important;">
@@ -18,6 +20,16 @@
               >
                 {{category.category}}
               </v-chip>
+
+              <v-chip
+                class="ma-2"
+                color="#000"
+                text-color="white"
+                @click="showMultiple()"
+              >
+               Multiple Categories
+              </v-chip>
+
             </div>
             <div class="text-center" style="color: black !important;" v-else>
              Nothing to see here.
@@ -36,6 +48,16 @@
               >
                 {{category}}
               </v-chip>
+
+              <v-chip
+                class="ma-2"
+                color="#000"
+                text-color="white"
+                @click="showMultiple()"
+              >
+               Multiple Categories
+              </v-chip>
+              
             </div>
           </template>
   
@@ -48,6 +70,72 @@
   
       </v-card>
     </v-dialog>
+
+
+    
+    <!--Multiple selection modal-->
+    <v-dialog
+        v-model="multipleModal">
+        <v-card style="background-color: white !important;">
+  
+          <!-- Categories list --> <!-- For online use/display -->
+          <template v-if="!offlineCategory">
+            <div class="text-center" v-if="categories">
+              <!-- Loop through categories and display each as a switch -->
+  <v-card flat style="background-color: black;">
+    <v-card-text>
+      <v-container fluid>
+        <v-row>
+          <v-col
+            cols="12"
+            sm="4"
+            md="4"
+            v-for='category in categories' 
+            v-bind:key='category.id'
+          >
+            <v-switch
+              v-model="multipleCategories"
+              :label="category.category"
+              color="#ADD8E6"
+              :value="category.category"
+              hide-details
+            ></v-switch>
+          </v-col>
+         
+        </v-row>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+
+            </div>
+            <div class="text-center" style="color: black !important;" v-else>
+             Nothing to see here.
+            </div>
+          </template>
+  
+          <!-- For offline use -->
+          <template v-else>
+            <div class="text-center" v-if="categories">
+              <div class="text-center" style="color: black !important;">
+          Feature offline
+        </div>
+            </div>
+          </template>
+  
+        <!-- Close/find button -->
+        <v-card-actions style="background-color: white !important; display: flex; justify-content: center; align-items: center;">
+
+    <v-btn depressed  color="#F5F5DC"  @click="pushCategory()" style="color:black" v-if="categories.length > 0">Search</v-btn>
+
+   <v-btn depressed  color="#F5F5DC" @click="multipleModal = false" style="color:black" v-if="categories.length > 0">Close</v-btn>
+   <v-btn depressed  color="#F5F5DC" @click="multipleModal = false" style="color:black" v-if="categories.length === 0">Try again later - Refresh</v-btn>
+
+  </v-card-actions>
+      </v-card>
+    </v-dialog>
+ <!--Multiple selection modal-->
+
     </div>
   </template>
   
@@ -64,12 +152,31 @@ import * as idb from 'idb-keyval';
         offlineCategory: false,
         key: this.$config.BACKEND_API_KEY,
       backend_url: this.$config.BACKEND_APP_URL,
+
+      multipleModal:false,
+      multipleCategories:[]
       };
     },
     methods: {
       gotocat(category) {
         this.dialog = false
         this.$emit('category-selected', category);
+      },
+
+      showMultiple() {
+        this.dialog = false
+        this.multipleModal = true
+      },
+
+      pushCategory(){
+        this.multipleModal = false
+        const route = {
+        name: 'multplecategories',
+        query: {
+          categories: JSON.stringify(this.multipleCategories),
+        },
+      };
+      this.$router.push(route)
       },
 
 
