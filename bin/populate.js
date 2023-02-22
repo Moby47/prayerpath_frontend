@@ -12,10 +12,11 @@ console.error("Error getting/saving quotes", error);
 
 
 async function generateAndSaveQuotes(){
-const category = ['Family', 'Hope', 'Suplication', 'Grace', 'Prosperity', 'Marriage', 'Health', 'Career', 'Peace', 'Protection', 'Guidance', 'Joy', 'Wisdom', 'Strength', 'Blessing', 'Salvation'][Math.floor(Math.random() * 15)];
+const category = ['Family', 'Hope', 'Suplication', 'Grace', 'Prosperity', 'Marriage', 'Health', 'Career', 'Peace', 'Protection', 'Guidance', 'Joy', 'Wisdom', 'Strength', 'Blessing', 'Salvation', 'Fertility', 'Healing'][Math.floor(Math.random() * 15)];
 
-const prompt = `Generate 1 Bible verses and prayer JSON data with reference, verse, prayer, category, and verse_url from biblegateway.com where God promised something good to humans and an associated prayer focused on holding God to that promise with firm belief and faith, for the '${category}' category. Just give me the JSON in this format: {"data": [{"reference": "...","verse": "...","prayer": "...","category": "...","verse_url": "..."},]}.`;
-  
+//prompt before emotion and sermon
+//const prompt = `Generate 1 Bible verses and prayer JSON data with reference, verse, prayer, category, and verse_url from biblegateway.com where God promised something good to humans and an associated prayer focused on holding God to that promise with firm belief and faith, for the '${category}' category. Just give me the JSON in this format: {"data": [{"reference": "...","verse": "...","prayer": "...","category": "...","verse_url": "..."},]}.`;
+const prompt =`Generate 1 Bible verses and prayer JSON data with reference, verse, prayer, emotion, category, sermon and verse_url from biblegateway.com where God promised something good to humans and an associated prayer focused on holding God to that promise with firm belief and faith, for the '${category}' category. Let the concise sermon sound like an experienced pastor with humour and based on the verse and prayer. Here are the emotions you can use: Sad, Angry, Fearful, Anxious, Stressed, Lonely, Excited, Grateful, Hopeful, Sick. Just give me the JSON in this format: {"data": [{"reference": "...","verse": "...","prayer": "...","emotion": "...","category": "...","sermon": "...","verse_url": "..."},]}. No explaination needed before or after the JSON is given.`;
 const response = await axios.post('https://api.openai.com/v1/completions', {
     prompt,
     model: 'text-davinci-003',
@@ -28,8 +29,9 @@ const response = await axios.post('https://api.openai.com/v1/completions', {
   });
 
   const data = response.data.choices[0].text;
+  
 // Format recieved: {"data": [{"reference": "Luke 18:27","verse": "What is impossible with man is possible with God.”","prayer": "Heavenly Father, thank you for being a God of the impossible. Help me to trust in You and never give up hope in Your ability to do the impossible things. I can rest in Your promise and confidently put my faith in Your power and Your goodness. In Your Name I pray. Amen.","category": "Grace","verse_url": "https://www.biblegateway.com/passage/?search=Luke+18%3A27&version=ESV"}]}
-//console.log(data)
+//console.log('from open ai',data)
   
    // pass the data from api to your laravel backend
 const responseFromBackend = await axios.post(process.env.BACKEND_APP_URL+'/api/save-quotes', {
@@ -71,7 +73,7 @@ if(responseFromBackend.status === 200) {
   //send notifications
 }
 else {
-  console.error("Error saving data")
+  console.error("Error saving/processing data in backend")
 }
 
 };

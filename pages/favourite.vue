@@ -78,15 +78,32 @@
         >
           NLT
         </v-chip>
-      
-  
     </div>
-   
   </v-card-actions>
   
-    
+  <v-img
+          contain
+          height="50px"
+          lazy-src="https://cdn.pixabay.com/photo/2016/12/13/21/34/preacher-1905176_960_720.jpg"
+          src="https://cdn.pixabay.com/photo/2016/12/13/21/34/preacher-1905176_960_720.jpg"
+          style="flex-basis: 50px; border-radius: 50%;"
+          class="mr-2 mt-4 pulse"
+          @click="showSermon(quote)"
+        ></v-img>
+
+      <v-dialog v-model="showDialog" max-width="500">
+      <v-card>
+        <v-card-title>Sermon</v-card-title>
+        <v-card-text>
+          {{sermon}}
+        </v-card-text>
+        <v-card-actions>
+        <!--  <v-btn color="primary" text @click="showDialog = false">Close</v-btn>-->
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
         </div>
-  
         <v-divider></v-divider>
   
         <v-card-actions v-if="quote.imageurl" class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${quote.imageurl})` }">
@@ -349,10 +366,17 @@
       countdown: '',
       redirectMessage: '',
       backgroundImage: 'https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg',
-     }
-   },
-  
-   methods: {
+      showDialog: false,
+      sermon:'',
+    };
+  },
+   
+    methods: {
+
+      showSermon(quote){
+        this.sermon = quote.sermon
+        this.showDialog = true
+      },
   
     openCategoryModal () {
       this.$refs.categorymodal.dialog = true;

@@ -3,7 +3,8 @@
 
 
       <v-dialog
-        v-model="dialog">
+        v-model="dialog"
+        transition="dialog-top-transition">
         <v-card style="background-color: white !important;">
   
           <!-- Categories list --> <!-- For online use/display -->
@@ -75,6 +76,7 @@
     
     <!--Multiple selection modal-->
     <v-dialog
+    transition="dialog-top-transition"
         v-model="multipleModal">
         <v-card style="background-color: white !important;">
   
