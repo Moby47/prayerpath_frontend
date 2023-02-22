@@ -175,13 +175,13 @@
     </div>
   </template>
 
-            <!-- Bottom navigation bar with buttons for Strength, Peace, Family and Others categories -->
+            <!-- Bottom navigation bar with buttons for Peace, Family and Others categories -->
             <div>
               <v-bottom-navigation 
                 fixed 
                 style="background-color: white; box-shadow: none; border: none;">
                 
-                <!-- Strength category button -->
+               
                 <v-btn 
                 value="nearby" 
                 size="x-small" 

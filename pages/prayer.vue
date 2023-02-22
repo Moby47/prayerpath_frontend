@@ -16,21 +16,21 @@
           @prompt-redirect="promptRedirect"
         />
 
-          <!-- Bottom navigation bar with buttons for Strength, Peace, Family and Others categories -->
+          <!-- Bottom navigation bar with buttons for Hope, Peace, Family and Others categories -->
           <div>
             <v-bottom-navigation 
               fixed 
               style="background-color: white; box-shadow: none; border: none;">
               
-              <!-- Strength category button -->
+              <!-- Hope category button -->
               <v-btn 
                 value="nearby" 
                 size="x-small" 
                 style="color: black !important;"
-                @click="gotocat('Strength')"
+                @click="gotocat('Hope')"
               >
-                <v-icon>mdi-weight-lifter</v-icon>
-                Strength
+                <v-icon>mdi-hand-heart</v-icon>
+                Hope
               </v-btn>
               
               <!-- Peace category button -->

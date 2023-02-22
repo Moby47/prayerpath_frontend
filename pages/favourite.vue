@@ -170,7 +170,7 @@
 
   
   
-            <!-- Bottom navigation bar with buttons for Strength, Peace, Family and Others categories -->
+            <!-- Bottom navigation bar with buttons for Peace, Family and Others categories -->
             <div>
               <v-bottom-navigation 
                 fixed 
