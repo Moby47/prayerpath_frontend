@@ -88,40 +88,18 @@
     <v-list>
       <v-list-item
         link
-        :to="'/emotions/1'"
+        :to="{ name: 'emotion', query: { emotion: emotion.emotion } }"
+        v-for='emotion in emotions' 
+       v-bind:key='emotion.id'
       >
-        <v-list-item-title>Option 1</v-list-item-title>
-      </v-list-item>
-      <v-list-item
-        link
-        :to="'/emotions/2'"
-      >
-        <v-list-item-title>Option 2</v-list-item-title>
-      </v-list-item>
-      <v-list-item
-        link
-        :to="'/emotions/3'"
-      >
-        <v-list-item-title>Option 3</v-list-item-title>
-      </v-list-item>
-      <v-list-item
-        link
-        :to="'/emotions/4'"
-      >
-        <v-list-item-title>Option 4</v-list-item-title>
-      </v-list-item>
-      <v-list-item
-        link
-        :to="'/emotions/5'"
-      >
-        <v-list-item-title>Option 5</v-list-item-title>
+        <v-list-item-title>{{emotion.emotion}}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>
 </v-list>
 <!--Emotions-->
   
-      <v-list dense>
+    <!--  <v-list dense>
         <v-list-item
           link
           :to="'/feature-request'"
@@ -131,22 +109,72 @@
           </v-list-item-icon>
   
           <v-list-item-content>
-            <v-list-item-title><!--Feature Request--> (Coming soon)</v-list-item-title>
+            <v-list-item-title>Feature Request</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-      </v-list>
+      </v-list>-->
   
     </v-navigation-drawer>
     </div>
   </template>
   
   <script>
+
+import axios from 'axios';
+import * as idb from 'idb-keyval';
+
   export default {
     data() {
       return {
-        drawer: false
+        drawer: false,
+        emotions:[],
+        key: this.$config.BACKEND_API_KEY,
+      backend_url: this.$config.BACKEND_APP_URL,
       }
-    }
+    },
+    methods: {
+
+      async getEmotions() {
+     var final_url = this.backend_url + '/api/emotions';
+     try {
+       const response = await axios.get(final_url, {
+         headers: {
+           'Content-Type': 'application/json',
+           'X-Authorization': this.key
+         }
+       });
+       this.emotions = response.data.data;
+     } catch (error) {
+       console.log(error)
+
+//get from indexeddb
+try {
+const savedQuotes = await idb.get('quotes');
+
+if (savedQuotes) {
+this.quotes = savedQuotes;
+const emotions = [...new Set(savedQuotes.map(quote => quote.emotion))];
+this.emotions = emotions;
+//this.offlineCategory = true
+//console.log('categories', this.categories);
+} else {
+console.log("No emotions found.");
+}
+
+} catch (error) {
+console.error(error);
+}
+//get from indexeddb
+     }
+   },
+
+    },
+
+    mounted() {
+    
+    this.getEmotions()
+
+  },
   }
   </script>
   

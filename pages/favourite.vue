@@ -5,7 +5,9 @@
           <v-col>
             <!-- appbar Component -->
             <appbar />
-      
+
+            <h4 style="color:black">Favourites ❤️️</h4>
+
             <v-card-title style="color:black" v-if="quotes.id">Your Favourites</v-card-title>
            
             <!-- QuoteCard  -->
@@ -14,7 +16,7 @@
         <v-row justify="center" align="center" class="mb-10">
     <v-col cols="12" sm="8" md="6" class="others-font mb-10">
       <v-card
-        class="mx-auto animated tdFadeIn"
+        class="mx-auto animated tdFadeIn mb-5"
         color="#ADD8E6"
         :elevation="0" :shadow="false"
         py-4
@@ -88,12 +90,12 @@
         <v-divider></v-divider>
   
         <v-card-actions v-if="quote.imageurl" class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${quote.imageurl})` }">
-  <div style="background-color: rgba(0,0,0,0.60); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+  <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
   <span style="position: relative; z-index: 1;">{{quote.prayer}}</span>
 </v-card-actions>
 
 <v-card-actions v-else class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${backgroundImage})` }">
-  <div style="background-color: rgba(0,0,0,0.60); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+  <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
   <span style="position: relative; z-index: 1;">{{quote.prayer}}</span>
 </v-card-actions>
         
@@ -103,6 +105,7 @@
     color="#9AC0D1"
     style=" font-size: 12px; padding: 3px;"
     text-color="black"
+    @click="gotocat(quote.category)"
   >
     Prayer For {{quote.category}}
   </v-chip>
@@ -156,16 +159,16 @@
                 fixed 
                 style="background-color: white; box-shadow: none; border: none;">
                 
-                <!-- Strength category button -->
+                <!-- home  button -->
                 <v-btn 
-                  value="nearby" 
-                  size="x-small" 
-                  style="color: black !important;"
-                  @click="gotocat('Strength')"
-                >
-                  <v-icon>mdi-weight-lifter</v-icon>
-                  Strength
-                </v-btn>
+            value="nearby" 
+            size="x-small" 
+            style="color: black !important;"
+            :to="{ name: 'prayer'}"
+          >
+            <v-icon>mdi-book-cross</v-icon>
+            All
+          </v-btn>
                 
                 <!-- Career category button -->
                 <v-btn 

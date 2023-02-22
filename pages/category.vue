@@ -6,6 +6,7 @@
           <!-- appbar Component -->
           <appbar />
   
+          <h4 style="color:black">Category: {{ this.category }} 🙂</h4>
          <!-- QuoteCard Component -->
          <quotecard 
         :quotes="quotes"

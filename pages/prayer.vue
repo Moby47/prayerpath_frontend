@@ -5,7 +5,9 @@
         <v-col>
           <!-- appbar Component -->
           <appbar />
-    
+
+          <h4 style="color:black">Showing all categories 🎉</h4>
+
           <!-- QuoteCard Component -->
           <quotecard 
           :quotes="quotes"

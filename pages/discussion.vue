@@ -6,6 +6,7 @@
             <!-- appbar Component -->
             <appbar />
       
+            <h4 style="color:black">Share your thoughts below 🤔</h4>
             <!--  Quote -->
             <template>
     <div>
@@ -86,12 +87,12 @@
         <v-divider></v-divider>
   
         <v-card-actions v-if="quote.imageurl" class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${quote.imageurl})` }">
-  <div style="background-color: rgba(0,0,0,0.60); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+  <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
   <span style="position: relative; z-index: 1;">{{quote.prayer}}</span>
 </v-card-actions>
 
 <v-card-actions v-else class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${backgroundImage})` }">
-  <div style="background-color: rgba(0,0,0,0.60); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+  <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
   <span style="position: relative; z-index: 1;">{{quote.prayer}}</span>
 </v-card-actions>
         
@@ -101,6 +102,7 @@
     color="#9AC0D1"
     style=" font-size: 12px; padding: 3px;"
     text-color="black"
+    @click="gotocat(quote.category)"
   >
     Prayer For {{quote.category}}
   </v-chip>
@@ -168,7 +170,7 @@
                 style="color: black !important;"
                 :to="{ name: 'prayer'}"
             >
-                <v-icon>mdi-select-all</v-icon>
+            <v-icon>mdi-book-cross</v-icon>
                 All
             </v-btn>
                 
