@@ -30,15 +30,15 @@
               All
             </v-btn>
   
-            <!-- Career button -->
+            <!-- Peace button -->
             <v-btn 
               value="recent"  
               size="x-small" 
               style="color: black !important;"
-              @click="gotocat('Career')"
+              @click="gotocat('Peace')"
             >
-              <v-icon>mdi-briefcase</v-icon>
-              Career
+              <v-icon>mdi-peace</v-icon>
+              Peace
             </v-btn>
   
             <!-- Family button -->

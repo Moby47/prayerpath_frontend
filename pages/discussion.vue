@@ -175,7 +175,7 @@
     </div>
   </template>
 
-            <!-- Bottom navigation bar with buttons for Strength, Career, Family and Others categories -->
+            <!-- Bottom navigation bar with buttons for Strength, Peace, Family and Others categories -->
             <div>
               <v-bottom-navigation 
                 fixed 
@@ -192,15 +192,15 @@
                 All
             </v-btn>
                 
-                <!-- Career category button -->
+                <!-- Peace category button -->
                 <v-btn 
                   value="recent"  
                   size="x-small" 
                   style="color: black !important;"
-                  @click="gotocat('Career')"
+                  @click="gotocat('Peace')"
                 >
-                  <v-icon>mdi-briefcase</v-icon>
-                  Career
+                  <v-icon>mdi-peace</v-icon>
+                  Peace
                 </v-btn>
                 
                 <!-- Family category button -->
