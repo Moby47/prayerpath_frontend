@@ -6,7 +6,7 @@
           <!-- appbar Component -->
           <appbar />
  
-  <h4 style="color:black">You are view for: {{ multipleCategories.join(', ') }} 😊</h4>
+  <h4 style="color:black">You are viewing: {{ multipleCategories.join(', ') }} 😊</h4>
          <!-- QuoteCard Component -->
          <quotecard 
         :quotes="quotes"
