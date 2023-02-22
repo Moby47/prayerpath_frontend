@@ -164,7 +164,7 @@ export default {
           const response = await axios.post('https://api.openai.com/v1/images/generations', {
             prompt: 'Show a person experiencing ' + this.category +' through their faith in God.',
             n: this.categoryCount,
-            size: '256x256',
+            size: '512x512',
           }, {
             headers: {
               'Content-Type': 'application/json',
@@ -181,12 +181,12 @@ export default {
           for (const url of this.imageUrls) {
             try {
               const result = await this.$cloudinary.upload(url, {
-                public_id: `image_${new Date().getTime()}`,
+                public_id: `PrayerPath/image_${new Date().getTime()}`,
                 upload_preset: 'ml_default',
                 resource_type: 'auto',
               });
               newUrls.push(result.secure_url);
-              console.log('New Cloudinary URLs:', newUrls);
+             // console.log('New Cloudinary URLs:', newUrls);
             } catch (error) {
               console.error(`Error uploading image: ${error}`);
             }
