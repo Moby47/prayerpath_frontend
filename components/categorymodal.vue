@@ -138,6 +138,25 @@
     </v-dialog>
  <!--Multiple selection modal-->
 
+  <!--info snackbar-->
+  <template>
+    <v-snackbar
+      :timeout="5000"
+      shaped
+      top
+      color="#555"
+      v-model="infoSnackbar"
+    >
+      {{ snackText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="#F5F5DC" text v-bind="attrs" @click="infoSnackbar = false">
+          Ok
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </template>
+
+
     </div>
   </template>
   
@@ -149,6 +168,9 @@ import * as idb from 'idb-keyval';
   export default {
     data() {
       return {
+        infoSnackbar:false,
+        snackText:'',
+
         dialog: false,
         categories: [],
         offlineCategory: false,
@@ -170,16 +192,22 @@ import * as idb from 'idb-keyval';
         this.multipleModal = true
       },
 
-      pushCategory(){
-        this.multipleModal = false
-        const route = {
+        pushCategory() {
+      if (this.multipleCategories.length === 0) {
+        this.snackText = "Please make a selection"
+        this.infoSnackbar = true
+        return;
+      }
+
+      this.multipleModal = false;
+      const route = {
         name: 'multplecategories',
         query: {
           categories: JSON.stringify(this.multipleCategories),
         },
       };
-      this.$router.push(route)
-      },
+      this.$router.push(route);
+    },
 
 
       async getCategories() {

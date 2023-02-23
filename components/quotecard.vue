@@ -153,6 +153,7 @@
   <v-icon  
   class="mr-3"
   color="#000"
+  @click="copyContent(quote)"
   >
   mdi-content-copy</v-icon>
  
@@ -206,6 +207,24 @@
           </template>
           </v-snackbar>
 
+
+          <!--copy snackbar-->
+          <template>
+    <v-snackbar
+      :timeout="5000"
+      shaped
+      top
+      color="#555"
+      v-model="copySnackbar"
+    >
+      {{ snackText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="#F5F5DC" text v-bind="attrs" @click="copySnackbar = false">
+          Ok
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </template>
 
   <v-row justify="center">
     <v-col cols="12" sm="8" md="6">
@@ -318,10 +337,27 @@ import * as idb from 'idb-keyval'
       backgroundImage: 'https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg',
       showDialog: false,
       sermon:'',
+      copySnackbar:false
     };
   },
    
     methods: {
+
+      async copyContent(quote) {
+      const sentence1 = quote.verse
+      const sentence2 = quote.prayer
+      const text = sentence1 + "\n" + "\n" + sentence2; // concatenate sentences with a newline character
+      try {
+        await navigator.clipboard.writeText(text);
+        this.snackText = 'Quote and Prayer copied.'
+        this.copySnackbar = true
+      } catch (err) {
+        console.error("Failed to copy sentences: ", err);
+        this.snackText = 'Copying to clipboard is not supported in this browser. Please copy the Quote and prayer manually.'
+        this.copySnackbar = true
+      }
+    },
+
 
       showSermon(quote){
         this.sermon = quote.sermon

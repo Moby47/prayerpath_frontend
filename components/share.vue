@@ -31,7 +31,7 @@
           <ShareNetwork
             network="facebook"
             :url="`${app_url}/discussion?id=${quote.id}`"
-            title="Say hello to Quote God & Pray! 🙏👋"
+            title="Get your dose of divine inspiration with Quote God & Pray! 🙏🙌"
             description="Stay inspired and connected with God's promises and prayers on the go."
             quote="Stay inspired and connected with God's promises and prayers on the go. 🙌"
             hashtags="faith, inspiration, dailydevotional, bibleverse, prayer, spiritualgrowth, christianapp, devotionals, godisgood, blessed"
@@ -51,6 +51,7 @@
             network="messenger"
             :url="`${app_url}/discussion?id=${quote.id}`"
             style="text-decoration: none !important; color:#0084ff;"
+            title="Get your dose of divine inspiration with Quote God & Pray! 🙏🙌"
           >
           Messenger
           </ShareNetwork>
@@ -83,7 +84,7 @@ export default {
     quote: {
       type: Object,
       required: true
-    }
+    },
   },
   data() {
     return {
