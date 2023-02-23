@@ -81,15 +81,20 @@
     </div>
   </v-card-actions>
   
-  <v-img
-          contain
-          height="50px"
-          lazy-src="https://cdn.pixabay.com/photo/2016/12/13/21/34/preacher-1905176_960_720.jpg"
-          src="https://cdn.pixabay.com/photo/2016/12/13/21/34/preacher-1905176_960_720.jpg"
-          style="flex-basis: 50px; border-radius: 50%;"
-          class="mr-2 mt-4 pulse"
-          @click="showSermon(quote)"
-        ></v-img>
+  <v-btn
+  icon
+  class="d-flex justify-center align-center mt-1 mr-1"
+  style="width: 50px; height: 50px; border-radius: 50%; background-color: #F5F5DC;"
+  @click="showSermon(quote)"
+>
+  <v-icon
+    color="#000"
+    size="25"
+    class="pulse"
+  >
+    mdi-book-cross
+  </v-icon>
+</v-btn>
 
       <v-dialog v-model="showDialog" max-width="500">
       <v-card>
@@ -151,7 +156,7 @@
         class="mr-3"
         color="blue"
       >
-        mdi-comment
+        mdi-comment-multiple
       </v-icon>
 </router-link>
 
