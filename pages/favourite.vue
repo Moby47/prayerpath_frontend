@@ -10,6 +10,8 @@
 
             <v-card-title style="color:black" v-if="quotes.id">Your Favourites</v-card-title>
            
+            <h4 style="color:black">{{ redirectMessage }} {{ countdown }}</h4>
+            
             <!-- QuoteCard  -->
             <template>
     <div>
@@ -167,7 +169,7 @@
       
       </v-card>
 
-      <h4 style="color:black">{{ redirectMessage }} {{ countdown }}</h4>
+      
 
     </v-col>
   </v-row>
