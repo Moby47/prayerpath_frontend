@@ -5,7 +5,8 @@
         <v-col>
           <!-- appbar Component -->
           <appbar />
-  
+ 
+  <h4 style="color:black">You are viewing: {{ multipleCategories.join(', ') }} 😊</h4>
          <!-- QuoteCard Component -->
          <quotecard 
         :quotes="quotes"
@@ -30,15 +31,15 @@
             All
           </v-btn>
 
-          <!-- Career button -->
+          <!-- Peace button -->
           <v-btn 
             value="recent"  
             size="x-small" 
             style="color: black !important;"
-            @click="gotocat('Career')"
+            @click="gotocat('Peace')"
           >
-            <v-icon>mdi-briefcase</v-icon>
-            Career
+            <v-icon>mdi-peace</v-icon>
+            Peace
           </v-btn>
 
           <!-- Family button -->

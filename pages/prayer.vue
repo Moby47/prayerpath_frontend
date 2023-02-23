@@ -5,7 +5,9 @@
         <v-col>
           <!-- appbar Component -->
           <appbar />
-    
+
+          <h4 style="color:black">Showing all categories 🎉</h4>
+
           <!-- QuoteCard Component -->
           <quotecard 
           :quotes="quotes"
@@ -14,32 +16,32 @@
           @prompt-redirect="promptRedirect"
         />
 
-          <!-- Bottom navigation bar with buttons for Strength, Career, Family and Others categories -->
+          <!-- Bottom navigation bar with buttons for Hope, Peace, Family and Others categories -->
           <div>
             <v-bottom-navigation 
               fixed 
               style="background-color: white; box-shadow: none; border: none;">
               
-              <!-- Strength category button -->
+              <!-- Hope category button -->
               <v-btn 
                 value="nearby" 
                 size="x-small" 
                 style="color: black !important;"
-                @click="gotocat('Strength')"
+                @click="gotocat('Hope')"
               >
-                <v-icon>mdi-weight-lifter</v-icon>
-                Strength
+                <v-icon>mdi-hand-heart</v-icon>
+                Hope
               </v-btn>
               
-              <!-- Career category button -->
+              <!-- Peace category button -->
               <v-btn 
                 value="recent"  
                 size="x-small" 
                 style="color: black !important;"
-                @click="gotocat('Career')"
+                @click="gotocat('Peace')"
               >
-                <v-icon>mdi-briefcase</v-icon>
-                Career
+                <v-icon>mdi-peace</v-icon>
+                Peace
               </v-btn>
               
               <!-- Family category button -->

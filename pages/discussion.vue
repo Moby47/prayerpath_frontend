@@ -6,6 +6,7 @@
             <!-- appbar Component -->
             <appbar />
       
+            <h4 style="color:black">Share your thoughts below 🤔</h4>
             <!--  Quote -->
             <template>
     <div>
@@ -75,23 +76,46 @@
           NLT
         </v-chip>
       
-  
     </div>
-   
   </v-card-actions>
   
+  <v-btn
+  icon
+  class="d-flex justify-center align-center mt-1 mr-1"
+  style="width: 50px; height: 50px; border-radius: 50%; background-color: #F5F5DC;"
+  @click="showSermon(quote)"
+>
+  <v-icon
+    color="#000"
+    size="25"
+    class="pulse"
+  >
+    mdi-book-cross
+  </v-icon>
+</v-btn>
+
+      <v-dialog v-model="showDialog" max-width="500">
+      <v-card>
+        <v-card-title>Sermon</v-card-title>
+        <v-card-text>
+          {{sermon}}
+        </v-card-text>
+        <v-card-actions>
+        <!--  <v-btn color="primary" text @click="showDialog = false">Close</v-btn>-->
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
          
         </div>
-  
         <v-divider></v-divider>
   
         <v-card-actions v-if="quote.imageurl" class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${quote.imageurl})` }">
-  <div style="background-color: rgba(0,0,0,0.60); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+  <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
   <span style="position: relative; z-index: 1;">{{quote.prayer}}</span>
 </v-card-actions>
 
 <v-card-actions v-else class="prayer" style="color: #fff; position: relative; height: auto; display: flex; flex-direction: column;" :style="{ backgroundImage: `url(${backgroundImage})` }">
-  <div style="background-color: rgba(0,0,0,0.60); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+  <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
   <span style="position: relative; z-index: 1;">{{quote.prayer}}</span>
 </v-card-actions>
         
@@ -101,6 +125,7 @@
     color="#9AC0D1"
     style=" font-size: 12px; padding: 3px;"
     text-color="black"
+    @click="gotocat(quote.category)"
   >
     Prayer For {{quote.category}}
   </v-chip>
@@ -117,6 +142,7 @@
   <v-icon  
   class="mr-3"
   color="#000"
+  @click="copyContent(quote)"
   >
   mdi-content-copy</v-icon>
 
@@ -155,32 +181,32 @@
     </div>
   </template>
 
-            <!-- Bottom navigation bar with buttons for Strength, Career, Family and Others categories -->
+            <!-- Bottom navigation bar with buttons for Peace, Family and Others categories -->
             <div>
               <v-bottom-navigation 
                 fixed 
                 style="background-color: white; box-shadow: none; border: none;">
                 
-                <!-- Strength category button -->
+               
                 <v-btn 
                 value="nearby" 
                 size="x-small" 
                 style="color: black !important;"
                 :to="{ name: 'prayer'}"
             >
-                <v-icon>mdi-select-all</v-icon>
+            <v-icon>mdi-book-cross</v-icon>
                 All
             </v-btn>
                 
-                <!-- Career category button -->
+                <!-- Peace category button -->
                 <v-btn 
                   value="recent"  
                   size="x-small" 
                   style="color: black !important;"
-                  @click="gotocat('Career')"
+                  @click="gotocat('Peace')"
                 >
-                  <v-icon>mdi-briefcase</v-icon>
-                  Career
+                  <v-icon>mdi-peace</v-icon>
+                  Peace
                 </v-btn>
                 
                 <!-- Family category button -->
@@ -243,6 +269,27 @@
           </v-btn>
           </template>
           </v-snackbar>
+  
+
+
+          <!--copy snackbar-->
+          <template>
+    <v-snackbar
+      :timeout="5000"
+      shaped
+      top
+      color="#555"
+      v-model="copySnackbar"
+    >
+      {{ snackText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="#F5F5DC" text v-bind="attrs" @click="copySnackbar = false">
+          Ok
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </template>
+
   
             <!-- Home button -->
             <template>
@@ -351,16 +398,37 @@
       url:'',
       app_url: this.$config.APP_URL,
 
-      snackText: '',
       showSnackbar: false,
 
       backgroundImage: 'https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg',
-     }
-   },
+      showDialog: false,
+      sermon:'',
 
+      copySnackbar:false
+    };
+  },
    
-  
-   methods: {
+    methods: {
+
+      async copyContent(quote) {
+      const sentence1 = quote.verse
+      const sentence2 = quote.prayer
+      const text = sentence1 + "\n" + "\n" + sentence2; // concatenate sentences with a newline character
+      try {
+        await navigator.clipboard.writeText(text);
+        this.snackText = 'Quote and Prayer copied.'
+        this.copySnackbar = true
+      } catch (err) {
+        console.error("Failed to copy sentences: ", err);
+        this.snackText = 'Copying to clipboard is not supported in this browser. Please copy the Quote and prayer manually.'
+        this.copySnackbar = true
+      }
+    },
+
+      showSermon(quote){
+        this.sermon = quote.sermon
+        this.showDialog = true
+      },
   
     openCategoryModal () {
       this.$refs.categorymodal.dialog = true;
