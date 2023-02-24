@@ -78,6 +78,7 @@
           :timeout="5000"
           :value="showSnackbar"
           color="#555"
+          top
           v-model="showSnackbar"
         >
           This leads to biblegateway.
@@ -184,16 +185,16 @@
   
     head() {
       return {
-        title: "PrayerPath - Quote God & Pray",
+        title: "PrayerPath - Emotion-based Prayers",
         meta: [
-          {
-            hid: 'description',
-            name: 'description',
-            content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith."
-          },
-          {
-            name: 'keywords',
-            content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
+        {
+        hid: 'description',
+        name: 'description',
+        content: "Find prayers based on your current emotion with PrayerPath. Get daily quotes and prayers from the Bible to help you navigate your spiritual journey."
+        },
+        {
+        name: 'keywords',
+        content: 'emotion-based prayers, bible, quotes, faith, inspiration, God, devotional, daily, motivation, religious'
           }
         ]
       }
@@ -255,6 +256,7 @@
             },
           });
           this.quotes = this.quotes.concat(response.data.data);
+          
           this.showButton = true;
           this.overlay = false;
           this.showLoadButton = true;
@@ -263,6 +265,25 @@
             this.snackText = "Trust in the Lord to fill the void - That's all for " + this.emotion
             this.$refs.messagebar.snackbar = true;
           }
+
+// save to indexedDB for offline use
+let savedQuotes = await idb.get('quotes') || [];
+      if (savedQuotes.length + response.data.data.length > 100) {
+      savedQuotes = savedQuotes.slice(0, 100 - response.data.data.length);
+      }
+      for (let i = 0; i < response.data.data.length; i++) {
+      let quote = response.data.data[i];
+      let key = quote.id;
+      let existingQuote = savedQuotes.find(q => q.id === key);
+      if (existingQuote) {
+        continue;
+      }
+      savedQuotes.push(quote);
+      }
+      await idb.set('quotes', savedQuotes);
+
+        // // save to indexedDB for offline use
+
         } catch (error) {
           this.$refs.messagebar.snackbar = true;
           this.showButton = true;

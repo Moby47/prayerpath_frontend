@@ -81,6 +81,7 @@
             :timeout="5000"
             :value="showSnackbar"
             color="#555"
+            top
             v-model="showSnackbar"
           >
             This leads to biblegateway.
@@ -342,7 +343,7 @@ try {
 const savedQuotes = await idb.get('quotes');
 
 if (savedQuotes) {
-this.quotes = savedQuotes;
+//this.quotes = savedQuotes;
 const categories = [...new Set(savedQuotes.map(quote => quote.category))];
 this.categories = categories;
 this.offlineCategory = true

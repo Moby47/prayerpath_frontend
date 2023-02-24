@@ -359,16 +359,16 @@
   
    head() {
      return {
-   title: "PrayerPath - Quote God & Pray",
-   meta: [
-     {
-       hid: 'description',
-       name: 'description',
-       content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith."
-     },
-     {
-       name: 'keywords',
-       content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
+      title: "PrayerPath - Community Chat",
+      meta: [
+      {
+      hid: 'description',
+      name: 'description',
+      content: "Connect with other believers and discuss the quotes and prayers that inspire you. Join the PrayerPath community chat and grow your faith together."
+      },
+      {
+      name: 'keywords',
+      content: 'community chat, bible, quotes, prayers, faith, inspiration, God, devotional, daily, motivation, religious, discussion'
      }
    ]
   }
@@ -551,7 +551,7 @@
   const savedQuotes = await idb.get('quotes');
   
   if (savedQuotes) {
-  this.quotes = savedQuotes;
+  //this.quotes = savedQuotes;
   const categories = [...new Set(savedQuotes.map(quote => quote.category))];
   this.categories = categories;
   this.offlineCategory = true

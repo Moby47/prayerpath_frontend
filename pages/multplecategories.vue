@@ -78,6 +78,7 @@
       <v-snackbar
         :timeout="5000"
         :value="showSnackbar"
+        top
         color="#555"
         v-model="showSnackbar"
       >

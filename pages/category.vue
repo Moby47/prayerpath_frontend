@@ -79,6 +79,7 @@
         :timeout="5000"
         :value="showSnackbar"
         color="#555"
+        top
         v-model="showSnackbar"
       >
         This leads to biblegateway.
@@ -254,6 +255,7 @@ export default {
           },
         });
         this.quotes = this.quotes.concat(response.data.data);
+        
         this.showButton = true;
         this.overlay = false;
         this.showLoadButton = true;
@@ -262,6 +264,26 @@ export default {
           this.snackText = "No more results? Trust in the Lord to fill the void - That's all for " + this.category
           this.$refs.messagebar.snackbar = true;
         }
+
+        // save to indexedDB for offline use
+              let savedQuotes = await idb.get('quotes') || [];
+      if (savedQuotes.length + response.data.data.length > 100) {
+      savedQuotes = savedQuotes.slice(0, 100 - response.data.data.length);
+      }
+      for (let i = 0; i < response.data.data.length; i++) {
+      let quote = response.data.data[i];
+      let key = quote.id;
+      let existingQuote = savedQuotes.find(q => q.id === key);
+      if (existingQuote) {
+        continue;
+      }
+      savedQuotes.push(quote);
+      }
+      await idb.set('quotes', savedQuotes);
+
+        // // save to indexedDB for offline use
+
+
       } catch (error) {
         this.$refs.messagebar.snackbar = true;
         this.showButton = true;
