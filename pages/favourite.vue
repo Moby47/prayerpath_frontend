@@ -351,16 +351,16 @@
   
    head() {
      return {
-   title: "PrayerPath - Quote God & Pray",
-   meta: [
-     {
-       hid: 'description',
-       name: 'description',
-       content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith."
-     },
-     {
-       name: 'keywords',
-       content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
+      title: "PrayerPath - Favourite Prayers",
+      meta: [
+      {
+      hid: 'description',
+      name: 'description',
+      content: "Access your favourite prayers anytime with PrayerPath. Save your favourite quotes and prayers from the Bible to stay inspired on your spiritual journey."
+      },
+      {
+      name: 'keywords',
+      content: 'favourite prayers, bible, quotes, faith, inspiration, God, devotional, daily, motivation, religious'
      }
    ]
   }

@@ -184,16 +184,16 @@
   
     head() {
       return {
-        title: "PrayerPath - Quote God & Pray",
+        title: "PrayerPath - Emotion-based Prayers",
         meta: [
-          {
-            hid: 'description',
-            name: 'description',
-            content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith."
-          },
-          {
-            name: 'keywords',
-            content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
+        {
+        hid: 'description',
+        name: 'description',
+        content: "Find prayers based on your current emotion with PrayerPath. Get daily quotes and prayers from the Bible to help you navigate your spiritual journey."
+        },
+        {
+        name: 'keywords',
+        content: 'emotion-based prayers, bible, quotes, faith, inspiration, God, devotional, daily, motivation, religious'
           }
         ]
       }
