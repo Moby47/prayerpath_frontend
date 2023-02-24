@@ -169,7 +169,7 @@ this.quotes = savedQuotes;
 const emotions = [...new Set(savedQuotes.map(quote => quote.emotion))];
 
 this.emotionsOffline = emotions;
-console.log('emotionsOffline', this.emotionsOffline);
+//console.log('emotionsOffline', this.emotionsOffline);
 //this.offlineCategory = true
 
 } else {

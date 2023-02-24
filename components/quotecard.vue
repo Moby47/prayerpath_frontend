@@ -110,17 +110,8 @@
 
 
 
-      <v-dialog v-model="showDialog" max-width="500">
-      <v-card>
-        <v-card-title>Sermon</v-card-title>
-        <v-card-text>
-          {{sermon}}
-        </v-card-text>
-        <v-card-actions>
-        <!--  <v-btn color="primary" text @click="showDialog = false">Close</v-btn>-->
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+
+
 
         </div>
         <v-divider></v-divider>
@@ -232,6 +223,18 @@
       </template>
     </v-snackbar>
   </template>
+
+  <v-dialog v-model="showDialog" max-width="500">
+  <v-card>
+    <v-card-title>Sermon</v-card-title>
+    <v-card-text>
+      {{ sermon }}
+    </v-card-text>
+    <v-card-actions>
+      <!--  <v-btn color="primary" text @click="showDialog = false">Close</v-btn>-->
+    </v-card-actions>
+  </v-card>
+</v-dialog>
 
   <v-row justify="center">
     <v-col cols="12" sm="8" md="6">
