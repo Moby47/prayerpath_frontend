@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "org.prayerpath.twa",
+                     "sha256_cert_fingerprints": ["74:97:CC:50:1D:3C:6B:FB:1B:06:3B:51:12:7B:D7:B3:90:9A:63:79:81:87:DB:04:83:08:C5:FA:7E:F4:1E:C3"] }
+      }
+]
