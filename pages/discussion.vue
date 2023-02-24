@@ -551,7 +551,7 @@
   const savedQuotes = await idb.get('quotes');
   
   if (savedQuotes) {
-  this.quotes = savedQuotes;
+  //this.quotes = savedQuotes;
   const categories = [...new Set(savedQuotes.map(quote => quote.category))];
   this.categories = categories;
   this.offlineCategory = true
