@@ -85,7 +85,7 @@
       </v-list-item>
     </template>
 
-    <v-list>
+    <v-list v-if="emotions.length > 0">
       <v-list-item
         link
         :to="{ name: 'emotion', query: { emotion: emotion.emotion } }"
@@ -95,6 +95,18 @@
         <v-list-item-title>{{emotion.emotion}}</v-list-item-title>
       </v-list-item>
     </v-list>
+
+    <v-list v-if="emotionsOffline.length > 0">
+      <v-list-item
+        link
+        v-for="emotion in emotionsOffline" 
+        :key="emotion"
+        :to="{ name: 'emotion', query: { emotion: emotion } }"
+      >
+        <v-list-item-title>{{emotion}}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+
   </v-menu>
 </v-list>
 <!--Emotions-->
@@ -128,6 +140,7 @@ import * as idb from 'idb-keyval';
       return {
         drawer: false,
         emotions:[],
+        emotionsOffline:[],
         key: this.$config.BACKEND_API_KEY,
       backend_url: this.$config.BACKEND_APP_URL,
       }
@@ -154,9 +167,11 @@ const savedQuotes = await idb.get('quotes');
 if (savedQuotes) {
 this.quotes = savedQuotes;
 const emotions = [...new Set(savedQuotes.map(quote => quote.emotion))];
-this.emotions = emotions;
+
+this.emotionsOffline = emotions;
+console.log('emotionsOffline', this.emotionsOffline);
 //this.offlineCategory = true
-//console.log('categories', this.categories);
+
 } else {
 console.log("No emotions found.");
 }
