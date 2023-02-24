@@ -81,6 +81,7 @@
             :timeout="5000"
             :value="showSnackbar"
             color="#555"
+            top
             v-model="showSnackbar"
           >
             This leads to biblegateway.
