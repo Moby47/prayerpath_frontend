@@ -1,19 +1,46 @@
 <template>
-  <v-app dark>
-    <div id="bg">
- <div class="center-content" style="color:black;">
-      <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-      <v-btn :to="{ name: 'index'}" class="button">
-      Home page
-    </v-btn>
+  <div class="bg-white">
+
+    <!-- App Header -->
+    <div class="appHeader no-border transparent position-absolute">
+        <div class="left">
+        </div>
+        <div class="pageTitle">
+            <img src="~/static/logo.png" alt="logo" class="logo"> PrayerPath
+        </div>
+        <div class="right">
+        </div>
     </div>
+    <!-- * App Header -->
+
+    <!-- App Capsule -->
+    <div id="appCapsule">
+
+        <div class="error-page">
+            <img src="https://cdn.pixabay.com/photo/2016/09/16/19/15/gear-1674891_960_720.png" alt="alt" class="imaged square w200">
+            
+            <div class="text mb-5">
+              <h1 v-if="error.statusCode === 404">
+         {{ pageNotFound }}
+       </h1>
+       <h1 v-else>
+         {{ otherError }}
+       </h1>
+            </div>
+
+            <div class="fixed-footer">
+                <div class="row">
+                    <div class="col-12">
+                        <router-link :to="{ name: 'index'}" class="btn btn-primary btn-lg btn-block">Go Home</router-link>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- * App Capsule -->
+
   </div>
-  </v-app>
 </template>
 
 <script>
@@ -43,34 +70,8 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-size: 20px;
+.fixed-footer{
+    background: none;
+    min-height:500px;
 }
-#bg {
-            font-family: 'Nunito', sans-serif;
-            background-image: url("https://cdn.pixabay.com/photo/2016/09/16/19/15/gear-1674891_960_720.png");
-            background-size: cover;
-            height: 100vh;
-        }
-
-        .center-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .button {
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
 </style>

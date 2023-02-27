@@ -1,20 +1,20 @@
 <template>
     <div>
-    
-        <!--
+
+            <!--
 <apploader/>
 -->
-  
+     
 <appheader/>
 
     <!-- App Capsule -->
     <div id="appCapsule">
 
         <div class="header-large-title">
-            <h4 class="subtitle">Share your thoughts</h4>
+            <h4 class="subtitle">Showing multi cats:</h4>
         </div>
 
-      <appmaincardsin/>
+      <appmaincard/>
      
 
       <appfooter/>
@@ -35,7 +35,7 @@
 
 import appsidebar from "~/components/appsidebar.vue";
 import appshare from "~/components/appshare.vue";
-import appmaincardsin from "~/components/appmaincardsin.vue";
+import appmaincard from "~/components/appmaincard.vue";
 import apploader from "~/components/apploader.vue";
 import appheader from "~/components/appheader.vue";
 import appfooter from "~/components/appfooter.vue";
@@ -48,7 +48,7 @@ export default {
   components: {
     appsidebar,
     appshare,
-    appmaincardsin,
+    appmaincard,
     apploader,
     appheader,
     appfooter,
@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      
+        
     }
   },
   methods: {
@@ -67,10 +67,18 @@ export default {
 
 
   mounted() {
-   
+    
 
     },
 
+  beforeRouteLeave(to, from, next) {
+    document.body.classList.remove('modal-open');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    if (modalBackdrop) {
+      modalBackdrop.remove();
+    }
+    next();
+  },
 
 }
 </script>
