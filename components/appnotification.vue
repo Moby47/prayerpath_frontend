@@ -1,7 +1,7 @@
 <template>
     <div>
 
-                <!-- ios style info-->
+                <!-- General info-->
                 <div id="info" class="notification-box">
                     <div class="notification-dialog ios-style">
                         <div class="notification-header">
@@ -23,7 +23,7 @@
                 <!-- * ios style -->
 
 
-                 <!-- ios style info-->
+                 <!-- No record-->
                  <div id="noRecord" class="notification-box">
                     <div class="notification-dialog ios-style">
                         <div class="notification-header">
@@ -43,6 +43,7 @@
                     </div>
                 </div>
                 <!-- * ios style -->
+                
 
 
               

@@ -66,6 +66,8 @@ a {
 .fab-button .fab {
     margin-bottom: 50px;
     background: #3f51b5;
+    width: 40px;
+    height: 40px;
 }
 
 </style>

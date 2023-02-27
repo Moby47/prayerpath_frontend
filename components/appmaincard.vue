@@ -55,7 +55,7 @@ v-else
                     <v-icon class="color-red" @click="saveQuote(quote)">mdi-heart</v-icon>
                   </div>
                   <div class="col-2">
-                       <v-icon  @click="copyContent(quote)">mdi-content-copy</v-icon>
+                       <v-icon @click="copyContent(quote)">mdi-content-copy</v-icon>
                   </div>
                   <div class="col-2">
                     <router-link
@@ -112,6 +112,69 @@ v-else
 </div>
 
 
+ <!-- No fav info-->
+ <div id="favInfo" class="notification-box">
+                    <div class="notification-dialog ios-style">
+                        <div class="notification-header">
+                            <div class="right">
+                                <span>just now</span>
+                            </div>
+                        </div>
+                        <div class="notification-content">
+                            <div class="in">
+                                <h3 class="subtitle">Notice</h3>
+                                <div class="text">
+                                    {{notificationMessage}}
+                                </div>
+                            </div>
+      <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExODI5NWJhZTk2ZjlhODRjZTFlZTZkMzJmNDQzOWI4NDhiZWI0ODViZSZjdD1n/eKrgVyZ7zLvJrgZNZn/giphy.gif" alt="image" class="imaged w64">
+                        </div>
+                    </div>
+                </div>
+                <!-- * ios style -->
+
+                 <!-- Fav saved successfully-->
+ <div id="favSaved" class="notification-box">
+                    <div class="notification-dialog ios-style">
+                        <div class="notification-header">
+                            <div class="right">
+                                <span>just now</span>
+                            </div>
+                        </div>
+                        <div class="notification-content">
+                            <div class="in">
+                                <h3 class="subtitle">Success</h3>
+                                <div class="text">
+                                    {{notificationMessage}}
+                                </div>
+                            </div>
+      <img src="https://media3.giphy.com/media/9T3kjrLQH2JUQmMwsU/200w.webp?cid=ecf05e47qazde3iyi8uo7ceubxt5cmueotgulpra9t73kpiw&rid=200w.webp&ct=g" alt="image" class="imaged w64">
+                        </div>
+                    </div>
+                </div>
+                <!-- * ios style -->
+
+                <!-- Copied to successfully-->
+ <div id="copied" class="notification-box">
+                    <div class="notification-dialog ios-style">
+                        <div class="notification-header">
+                            <div class="right">
+                                <span>just now</span>
+                            </div>
+                        </div>
+                        <div class="notification-content">
+                            <div class="in">
+                                <h3 class="subtitle">Success</h3>
+                                <div class="text">
+                                    {{notificationMessage}}
+                                </div>
+                            </div>
+      <img src="https://media4.giphy.com/media/ebJ12kRLtkdlV3n3fm/200.webp?cid=ecf05e47umrpye49okxv4cvywx448sqo5udgn8av9kedjr94&rid=200.webp&ct=g" alt="image" class="imaged w64">
+                        </div>
+                    </div>
+                </div>
+                <!-- * ios style -->
+
   </div>
 </template>
 
@@ -150,6 +213,7 @@ export default {
       sermon:'',
       current_offset: 0,
   load_more_limit: 10, //determines how many is fetched initially
+  notificationMessage:'',
     }
   },
   // Add methods here
@@ -166,23 +230,31 @@ export default {
 
     let savedQuotes = await idb.get('fav') || [];
     if (savedQuotes.length >= 5) {
-     // this.snackText = 'Lo and behold, only 5 quotes may be saved. View Favourites?'
-     // this.showSnackbar = true
+      //Notify user
+    this.notificationMessage = "Lo and behold, only 5 quotes may be saved."
+    this.showNotification('favInfo')
+    //Notify user
       this.$nuxt.$loading.finish()
       return;
     }
     let key = quote.id;
     let existingQuote = savedQuotes.find(q => q.id === key);
     if (existingQuote) {
-     // this.snackText = 'Verily, verily, this quote is already amongst thy Favourites. View now?'
-     // this.showSnackbar = true
+        //Notify user
+    this.notificationMessage = "This quote is already amongst thy Favourites."
+    this.showNotification('favInfo')
+    //Notify user
+     
       this.$nuxt.$loading.finish()
       return;
     }
     savedQuotes.push(quote);
     await idb.set('fav', savedQuotes);
     //this.snackText = 'Quote added to thy Favourites. View now?'
-    //  this.showSnackbar = true
+      //Notify user
+      this.notificationMessage = "Quote added to thy Favourites."
+    this.showNotification('favSaved')
+    //Notify user
     this.$nuxt.$loading.finish()
   },
 
@@ -192,17 +264,36 @@ export default {
     const text = sentence1 + "\n" + "\n" + sentence2; // concatenate sentences with a newline character
     try {
       await navigator.clipboard.writeText(text);
-     // this.snackText = 'Quote and Prayer copied.'
-     // this.copySnackbar = true
+        
+     //Notify user
+    this.notificationMessage = "Quote and Prayer copied."
+    this.showNotification('copied')
+    //Notify user
+      
     } catch (err) {
       console.error("Failed to copy sentences: ", err);
-     // this.snackText = 'Copying to clipboard is not supported in this browser. Please copy the Quote and prayer manually.'
-     // this.copySnackbar = true
+    alert('Copying to clipboard is not supported in this browser. Please copy the Quote and prayer manually.')
     }
   },
 
   loadMore() {
       this.$emit("load-more");
+    },
+
+
+    showNotification(notificationId) {
+      var a = "#" + notificationId;
+      var time = 4500;
+    $(".notification-box").removeClass("show");
+    setTimeout(() => {
+        $(a).addClass("show");
+    }, 300);
+    if (time) {
+        time = time + 300;
+        setTimeout(() => {
+            $(".notification-box").removeClass("show");
+        }, time);
+    }
     },
 
   },

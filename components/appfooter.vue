@@ -23,24 +23,32 @@
                 <a href="#" class="btn btn-icon btn-sm btn-whatsapp">
                     <v-icon>mdi-whatsapp</v-icon>
                 </a>
-                <a href="#" class="btn btn-icon btn-sm btn-secondary">
-                    <v-icon>mdi-arrow-up</v-icon>
-                </a>
             </div>
 
         </div>
         <!-- * app footer -->
 
          <!-- bottom right -->
-         <div class="fab-button animate bottom-right dropdown">
-            <a href="#" class="fab" @click="scrollTop()">
-              <v-icon>mdi-arrow-up</v-icon>
-            </a>
-        </div>
+         <template>
+  <div class="fab-button animate bottom-right dropdown" :class="{ hide: !scrolled }">
+    <a href="#" class="fab" @click.prevent="$scrollToTop()">
+      <v-icon color="#fff">mdi-arrow-up</v-icon>
+    </a>
+  </div>
+</template>
+
+
         <!-- * bottom right -->
         
     </div>
   </template>
+
+  <style scoped>
+.hide {
+  display: none;
+}
+
+</style>
   
   <script>
   // Define your component using the Vue.js API
@@ -49,16 +57,25 @@
     data() {
       return {
         // Your data properties here
+        scrolled: false
       }
     },
     // Add methods here
     methods: {
       // Your methods here
+      handleScroll() {
+    this.scrolled = window.scrollY > 0
+  }
     },
     // The mounted hook is called after the component is mounted to the DOM
     mounted() {
       // Your mounted code here
-    }
+      window.addEventListener('scroll', this.handleScroll)
+},
+
+beforeDestroy() {
+  window.removeEventListener('scroll', this.handleScroll)
+},
   }
   </script>
   
