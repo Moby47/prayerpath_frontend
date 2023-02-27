@@ -21,18 +21,18 @@
                 <strong>Emotions</strong>
             </div>
         </router-link>
-       <router-link to="#" class="item">
+       <span  class="item">
             <div class="col">
                 <v-icon @click="showModal('id')">mdi-layers</v-icon>
                 <strong>Categories</strong>
             </div>
-        </router-link>
-       <router-link to="#" class="item" data-toggle="modal" data-target="#sidebarPanel">
+        </span>
+       <span class="item" data-toggle="modal" data-target="#sidebarPanel">
             <div class="col">
                 <v-icon>mdi-menu</v-icon>
                 <strong>Menu</strong>
             </div>
-        </router-link>
+        </span>
     </div>
     <!-- * App Bottom Menu -->
 
@@ -48,30 +48,21 @@
 
                             <div class="section full d-flex justify-content-center">
                         <div class="mt-2">
-                           <button @click="multipleCats()" type="button" class="btn btn-outline-primary mb-1"
+                           <button @click="multipleCats()" type="button" class="btn btn-primary mb-1"
                           >Multiple categories</button>
                          </div>
                         </div>
 
                         <ul class="listview image-listview flush mb-2">
-                            <li>
+                            <li
+                            v-for='category in categories' 
+                            v-bind:key='category.id'
+                            >
                                 <div class="item">
-                                    <div class="in">
-                                        <div>Frank Boehm</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <div class="in">
-                                        <div>Sophie Asveld</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <div class="in">
-                                        <div>Sophie Asveld</div>
+                                    <div class="in d-flex justify-content-center">
+       <button type="button" @click="gotocat(category.category)" 
+       class="btn btn-outline-primary mr-1 mb-1">{{category.category}}</button>
+                                       
                                     </div>
                                 </div>
                             </li>
@@ -97,25 +88,21 @@
                    
     <div id="appCapsule" class="full-height">
 <ul class="listview simple-listview">
-    <li>
-        <div>Toogle 1</div>
+    <li
+    v-for='category in categories' 
+     v-bind:key='category.id'
+    >
+        <div>{{category.category}}</div>
         <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-            <label class="custom-control-label" for="customSwitch1"></label>
-        </div>
-    </li>
-    <li>
-        <div>Toogle 2</div>
-        <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="customSwitch2" checked />
-            <label class="custom-control-label" for="customSwitch2"></label>
+            <input type="checkbox"  v-model="multipleCategories" :value="category.category" class="custom-control-input" :id="'customSwitch' + category.category">
+            <label class="custom-control-label" :for="'customSwitch' + category.category"></label>
         </div>
     </li>
 </ul>
 
 <div class="section full d-flex justify-content-center mt-2">
   <div>
-    <button type="button" class="btn btn-outline-primary mb-1">Continue</button>
+    <button type="button" class="btn btn-outline-primary mb-1" @click="gotoMultiCategory()">Continue</button>
   </div>
 </div>
 
@@ -127,6 +114,28 @@
         </div>
         <!-- * Modal Checkbox -->
 
+
+        <!-- Multi purpose modal-->
+ <div id="multiModal" class="notification-box">
+                    <div class="notification-dialog ios-style">
+                        <div class="notification-header">
+                            <div class="right">
+                                <span>just now</span>
+                            </div>
+                        </div>
+                        <div class="notification-content">
+                            <div class="in">
+                                <h3 class="subtitle">{{notificationTitle}}</h3>
+                                <div class="text">
+                                    {{notificationMessage}}
+                                </div>
+                            </div>
+      <img :src="notificationImg" alt="image" class="imaged w64">
+                        </div>
+                    </div>
+                </div>
+                <!-- * ios style -->
+
     </div>
   </template>
   
@@ -134,19 +143,94 @@
 
   <script>
   // Define your component using the Vue.js API
+
+  import axios from 'axios';
+import * as idb from 'idb-keyval'
+
   export default {
     // Add data properties here
     data() {
       return {
         // Your data properties here
+        categories: [],
+        key: this.$config.BACKEND_API_KEY,
+      backend_url: this.$config.BACKEND_APP_URL,
+      multipleCategories:[],
+
+      notificationTitle:'',
+      notificationMessage:'',
+      notificationImg:'',
       }
     },
     // Add methods here
     methods: {
       // Your methods here
 
+      gotoMultiCategory() {
+      if (this.multipleCategories.length === 0) {
+        this.showNotification('multiModal','Notice','Make a move, pick a groove! Please make a selection.','https://media1.giphy.com/media/15aGGXfSlat2dP6ohs/200w.webp?cid=ecf05e478eb354zt8dkrsxgryrqgj6gg8zef85brctt5hjv3&rid=200w.webp&ct=g')
+        return;
+      }
+
+      $('#ModalCheckbox').modal('toggle');
+      const route = {
+        name: 'multiplecategories',
+        query: {
+          categories: JSON.stringify(this.multipleCategories),
+        },
+      };
+      this.$router.push(route);
+    },
+
+      gotocat(category) {
+        $('#ModalListview').modal('toggle');
+        this.$router.push({
+            path: '/category',
+            query: {
+                category: category
+            }
+        });
+      },
+
+      async getCategories() {
+     var final_url = this.backend_url + '/api/categories';
+     try {
+       const response = await axios.get(final_url, {
+         headers: {
+           'Content-Type': 'application/json',
+           'X-Authorization': this.key
+         }
+       });
+       this.categories = response.data.data;
+      // console.log('cat data',this.categories)
+     } catch (error) {
+       console.log(error)
+
+//get from indexeddb
+try {
+    const savedQuotes = await idb.get('quotes');
+
+if (savedQuotes) {
+  const categories = [...new Set(savedQuotes.map(quote => quote.category))];
+  const responseData = { data: categories.map(category => ({ category })) };
+  this.categories = responseData.data;
+
+} else {
+  console.log("No categories found.");
+}
+
+
+} catch (error) {
+console.error(error);
+}
+//get from indexeddb
+     }
+   },
+
       multipleCats(){
+        //single
          $('#ModalListview').modal('toggle');
+         //multi
          $('#ModalCheckbox').modal('toggle');
     },
     
@@ -154,11 +238,33 @@
     showModal(){
     $('#ModalListview').modal('toggle');
     },
+
+    showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
+
+        this.notificationTitle = notificationTitle
+        this.notificationMessage = notificationMessage
+        this.notificationImg = notificationImg
+
+      var a = "#" + notificationId;
+      var time = 4500;
+    $(".notification-box").removeClass("show");
+    setTimeout(() => {
+        $(a).addClass("show");
+    }, 300);
+    if (time) {
+        time = time + 300;
+        setTimeout(() => {
+            $(".notification-box").removeClass("show");
+        }, time);
+    }
+    },
+
     
     },
     // The mounted hook is called after the component is mounted to the DOM
     mounted() {
       // Your mounted code here
+      this.getCategories()
     }
   }
   </script>

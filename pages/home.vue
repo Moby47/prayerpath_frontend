@@ -14,7 +14,7 @@
   <div id="appCapsule">
 
       <div class="header-large-title">
-          <h4 class="subtitle">Showing all cats</h4>
+          <h4 class="subtitle">Showing all categories 🎉</h4>
       </div>
 
     <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton"/>
@@ -57,6 +57,23 @@ components: {
   appnotification,
   appbottommenu,
 },
+head() {
+   return {
+ title: "PrayerPath - Quote God & Pray",
+ meta: [
+   {
+     hid: 'description',
+     name: 'description',
+     content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith."
+   },
+   {
+     name: 'keywords',
+     content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
+   }
+ ]
+}
+
+ },
 data() {
   return {
    key: this.$config.BACKEND_API_KEY,
@@ -128,7 +145,7 @@ this.quotes = savedQuotes;
 //console.log('retrieved',savedQuotes)
 
 //Notify user
-this.notificationMessage = "Off the grid? Don't fret, God's got us."
+this.notificationMessage = "Off the grid? Don't fret, God's got you."
 appnotification.methods.showNotification('info')
 //Notify user
 
