@@ -128,7 +128,7 @@ notificationTitle:'',
     this.fetching = false
 
     if (response.data.data.length === 0) {
-      this.showNotification('multiplcatMmultiModal', 'Notice', "Trust in the Lord to fill the void - That's all for " + categories, 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
+      this.showNotification('multiplcatMmultiModal', 'Notice', "That's all for " + categories, 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
       }
   } catch (error) {
 
@@ -214,6 +214,7 @@ setTimeout(() => {
     },
   },
 
+   //Solved the modal overlay not leaving after route change issue
   beforeRouteLeave(to, from, next) {
     document.body.classList.remove('modal-open');
     const modalBackdrop = document.querySelector('.modal-backdrop');

@@ -60,7 +60,6 @@ v-else
                     <div class="col-2">
                         <router-link
                       :to="{ name: 'discussion', query: { id: quote.id } }"
-                      tag="span"
                     >
                        <v-icon class="color-app">mdi-comment-multiple</v-icon>
                        </router-link>

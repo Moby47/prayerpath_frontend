@@ -60,7 +60,6 @@ v-else
                   <div class="col-2">
                     <router-link
                       :to="{ name: 'discussion', query: { id: quote.id } }"
-                      tag="span"
                     >
                        <v-icon class="color-app">mdi-comment-multiple</v-icon>
                        </router-link>
@@ -250,7 +249,6 @@ export default {
     }
     savedQuotes.push(quote);
     await idb.set('fav', savedQuotes);
-    //this.snackText = 'Quote added to thy Favourites. View now?'
       //Notify user
       this.notificationMessage = "Quote added to thy Favourites."
     this.showNotification('favSaved')

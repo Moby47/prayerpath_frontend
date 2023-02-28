@@ -10,19 +10,20 @@
             <div>Get daily inspiration from the Bible with Quote God & Pray.</div>
             Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith.
 
+            <!--Change the spans to <a>-->
             <div class="mt-2">
-                <a href="#" class="btn btn-icon btn-sm btn-facebook">
+                <span class="btn btn-icon btn-sm btn-facebook">
                     <v-icon>mdi-facebook</v-icon>
-                </a>
-                <a href="#" class="btn btn-icon btn-sm btn-twitter">
+                </span>
+                <span class="btn btn-icon btn-sm btn-twitter">
                     <v-icon>mdi-twitter</v-icon>
-                </a>
-                <a href="#" class="btn btn-icon btn-sm btn-instagram">
+                </span>
+                <span class="btn btn-icon btn-sm btn-instagram">
                     <v-icon>mdi-instagram</v-icon>
-                </a>
-                <a href="#" class="btn btn-icon btn-sm btn-whatsapp">
+                </span>
+                <span class="btn btn-icon btn-sm btn-whatsapp">
                     <v-icon>mdi-whatsapp</v-icon>
-                </a>
+                </span>
             </div>
 
         </div>

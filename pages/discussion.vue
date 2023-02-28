@@ -191,6 +191,7 @@ setTimeout(() => {
   
     },
 
+     //Solved the modal overlay not leaving after route change issue
     beforeRouteLeave(to, from, next) {
     document.body.classList.remove('modal-open');
     const modalBackdrop = document.querySelector('.modal-backdrop');
