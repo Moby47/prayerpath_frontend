@@ -22,7 +22,7 @@
 
 
         <!-- Multi purpose modal-->
- <div id="multiModal" class="notification-box">
+ <div id="categoryMultiModal" class="notification-box">
                     <div class="notification-dialog ios-style">
                         <div class="notification-header">
                             <div class="right">
@@ -128,7 +128,7 @@ export default {
         this.fetching = false
 
         if (response.data.data.length === 0) {
-          this.showNotification('multiModal', 'Notice', "No more results? That's all for " + this.category, 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
+          this.showNotification('categoryMultiModal', 'Notice', "No more results? That's all for " + this.category, 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
         }
 
         // save to indexedDB for offline use
@@ -160,16 +160,16 @@ try {
 if (savedQuotes) {
   this.quotes = savedQuotes.filter(quote => quote.category == this.category);
   if (this.quotes.length) {
-   this.showNotification('multiModal', 'Hurray!', "Offline mode saves the day - Data found for " + this.category, 'https://media4.giphy.com/media/5BaJ6438Qp6RJQRRQn/100.webp?cid=ecf05e47mc7k8z4093hl7pwdluibbvvstlf1ydvbbimaxriw&rid=100.webp&ct=g');
+   this.showNotification('categoryMultiModal', 'Hurray!', "Offline mode saves the day - Data found for " + this.category, 'https://media4.giphy.com/media/5BaJ6438Qp6RJQRRQn/100.webp?cid=ecf05e47mc7k8z4093hl7pwdluibbvvstlf1ydvbbimaxriw&rid=100.webp&ct=g');
 
   } else {
     console.log("No saved quotes found for the specified category");
-    this.showNotification('multiModal', 'Notice', "Offline - No results for " + this.category +"keep the faith!", 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
+    this.showNotification('categoryMultiModal', 'Notice', "Offline - No results for " + this.category +"keep the faith!", 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
  
   }
 } else {
   console.log("No saved quotes found");
-  this.showNotification('multiModal', 'Notice', "Offline mode: No results found for " + this.category , 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
+  this.showNotification('categoryMultiModal', 'Notice', "Offline mode: No results found for " + this.category , 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
  
 }
 

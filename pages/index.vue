@@ -81,7 +81,16 @@ export default {
   mounted() {
     
    
-}
+},
+
+beforeRouteLeave(to, from, next) {
+    document.body.classList.remove('modal-open');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    if (modalBackdrop) {
+      modalBackdrop.remove();
+    }
+    next();
+  },
 
 }
 </script>

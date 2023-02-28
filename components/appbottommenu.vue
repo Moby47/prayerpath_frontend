@@ -15,15 +15,15 @@
                 <strong>Favourites</strong>
             </div>
         </router-link>
-       <router-link to="/emotion" class="item">
-            <div class="col">
-                <v-icon>mdi-head-heart</v-icon>
-                <strong>Emotions</strong>
-            </div>
-        </router-link>
        <span  class="item">
             <div class="col">
-                <v-icon @click="showModal('id')">mdi-layers</v-icon>
+                <v-icon @click="showEmotionsModal()">mdi-head-heart</v-icon>
+                <strong>Emotions</strong>
+            </div>
+        </span>
+       <span  class="item">
+            <div class="col">
+                <v-icon @click="showModal()">mdi-layers</v-icon>
                 <strong>Categories</strong>
             </div>
         </span>
@@ -56,7 +56,7 @@
                         <ul class="listview image-listview flush mb-2">
                             <li
                             v-for='category in categories' 
-                            v-bind:key='category.id'
+                            v-bind:key='category.category'
                             >
                                 <div class="item">
                                     <div class="in d-flex justify-content-center">
@@ -90,7 +90,7 @@
 <ul class="listview simple-listview">
     <li
     v-for='category in categories' 
-     v-bind:key='category.id'
+     v-bind:key='category.category'
     >
         <div>{{category.category}}</div>
         <div class="custom-control custom-switch">
@@ -115,8 +115,40 @@
         <!-- * Modal Checkbox -->
 
 
+         <!-- emotion Modal Listview -->
+    <div class="modal fade modalbox" id="EmotionsModal" data-backdrop="static" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Emotion Selection</h5>
+                        <a href="javascript:;" data-dismiss="modal">Close</a>
+                    </div>
+                    <div class="modal-body p-0">
+
+                        <ul class="listview image-listview flush mb-2">
+                            <li
+                            v-for='emotion in emotions' 
+                             v-bind:key='emotion.emotion'
+                            >
+                                <div class="item">
+                                    <div class="in d-flex justify-content-center">
+       <router-link  :to="{ name: 'emotion', query: { emotion: emotion.emotion } }" 
+       class="btn btn-outline-primary mr-1 mb-1">{{emotion.emotion}}</router-link>
+                                       
+                                    </div>
+                                </div>
+                            </li>
+                         
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- * Category Modal Listview -->
         <!-- Multi purpose modal-->
- <div id="multiModal" class="notification-box">
+ <div id="bottomMultiModal" class="notification-box">
                     <div class="notification-dialog ios-style">
                         <div class="notification-header">
                             <div class="right">
@@ -160,6 +192,8 @@ import * as idb from 'idb-keyval'
       notificationTitle:'',
       notificationMessage:'',
       notificationImg:'',
+
+      emotions:[],
       }
     },
     // Add methods here
@@ -168,7 +202,7 @@ import * as idb from 'idb-keyval'
 
       gotoMultiCategory() {
       if (this.multipleCategories.length === 0) {
-        this.showNotification('multiModal','Notice','Make a move, pick a groove! Please make a selection.','https://media1.giphy.com/media/15aGGXfSlat2dP6ohs/200w.webp?cid=ecf05e478eb354zt8dkrsxgryrqgj6gg8zef85brctt5hjv3&rid=200w.webp&ct=g')
+        this.showNotification('bottomMultiModal','Notice','Make a move, pick a groove! Please make a selection.','https://media1.giphy.com/media/15aGGXfSlat2dP6ohs/200w.webp?cid=ecf05e478eb354zt8dkrsxgryrqgj6gg8zef85brctt5hjv3&rid=200w.webp&ct=g')
         return;
       }
 
@@ -239,6 +273,10 @@ console.error(error);
     $('#ModalListview').modal('toggle');
     },
 
+    showEmotionsModal(){
+    $('#EmotionsModal').modal('toggle');
+    },
+
     showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
 
         this.notificationTitle = notificationTitle
@@ -259,12 +297,49 @@ console.error(error);
     }
     },
 
+    async getEmotions() {
+     var final_url = this.backend_url + '/api/emotions';
+     try {
+       const response = await axios.get(final_url, {
+         headers: {
+           'Content-Type': 'application/json',
+           'X-Authorization': this.key
+         }
+       });
+       this.emotions = response.data.data;
+  
+     } catch (error) {
+       console.log(error)
+
+//get from indexeddb
+try {
+  const savedQuotes = await idb.get('quotes');
+  if (savedQuotes) {
+    const emotions = [...new Set(savedQuotes.map(quote => quote.emotion))];
+    const responseData = emotions.map(emotion => ({ emotion })).filter(item => item.emotion);
+    this.emotions = responseData;
+
+    console.log(this.emotions);
+  } else {
+    console.log("No emotions found.");
+  }
+} catch (error) {
+  console.error(error);
+}
+
+
+//get from indexeddb
+
+     }
+   },
+
     
     },
     // The mounted hook is called after the component is mounted to the DOM
     mounted() {
       // Your mounted code here
       this.getCategories()
+      this.getEmotions()
     }
   }
   </script>

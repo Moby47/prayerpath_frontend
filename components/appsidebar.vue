@@ -44,14 +44,14 @@
                             </router-link>
                         </li>
                         <li>
-                            <router-link to="/emotion" class="item">
+                            <a href="#" @click="showEmotion()" class="item">
                                 <div class="icon-box">
                                     <v-icon>mdi-head-heart</v-icon>
                                 </div>
                                 <div class="in">
                                     <div>Emotions</div>
                                 </div>
-                            </router-link>
+                            </a>
                         </li>
                         <li>
                             <a href="#" @click="showCat()" class="item">
@@ -92,6 +92,11 @@
       showCat(){
         $('#sidebarPanel').modal('toggle');
         $('#ModalListview').modal('toggle');
+      },
+
+      showEmotion(){
+        $('#sidebarPanel').modal('toggle');
+        $('#EmotionsModal').modal('toggle');
       },
 
     },
