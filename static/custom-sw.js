@@ -1,6 +1,6 @@
 console.log('Custom service worker!');
 
-const CACHE_NAME = 'image-cache-v2' + new Date().getTime();
+const CACHE_NAME = 'image-cache-v1';
 const IMAGE_URLS_TO_CACHE = [
   '/logo.png', 
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif',
