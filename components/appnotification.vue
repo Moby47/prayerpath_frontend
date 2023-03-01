@@ -71,7 +71,7 @@ export default {
 
     showNotification(notificationId) {
       var a = "#" + notificationId;
-      var time = 4500;
+      var time = 5000;
     $(".notification-box").removeClass("show");
     setTimeout(() => {
         $(a).addClass("show");

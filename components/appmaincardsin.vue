@@ -223,7 +223,7 @@ this.notificationMessage = notificationMessage
 this.notificationImg = notificationImg
 
 var a = "#" + notificationId;
-var time = 4500;
+var time = 5000;
 $(".notification-box").removeClass("show");
 setTimeout(() => {
 $(a).addClass("show");

@@ -10,7 +10,7 @@
             <div>Get daily inspiration from the Bible with Quote God & Pray.</div>
             Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith.
 
-            <!--Change the spans to <a>-->
+            <!--Change the spans to <a>
             <div class="mt-2">
                 <span class="btn btn-icon btn-sm btn-facebook">
                     <v-icon>mdi-facebook</v-icon>
@@ -19,12 +19,12 @@
                     <v-icon>mdi-twitter</v-icon>
                 </span>
                 <span class="btn btn-icon btn-sm btn-instagram">
-                    <v-icon>mdi-instagram</v-icon>
+                    <v-icon>mdi-slack</v-icon>
                 </span>
-                <span class="btn btn-icon btn-sm btn-whatsapp">
+                <a target="_blank" href='https://chat.whatsapp.com/FrvtEpF0tWT5Tm3Ow0M7gD' class="btn btn-icon btn-sm btn-whatsapp">
                     <v-icon>mdi-whatsapp</v-icon>
-                </span>
-            </div>
+                </a>
+            </div>-->
 
         </div>
         <!-- * app footer -->

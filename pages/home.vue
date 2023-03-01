@@ -14,7 +14,7 @@
   <div id="appCapsule">
 
       <div class="header-large-title">
-          <h4 class="subtitle">Showing all categories 🎉</h4>
+          <h4 class="subtitle">All categories 🎉</h4>
       </div>
 
     <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton"/>

@@ -11,7 +11,7 @@
     <div id="appCapsule">
 
         <div class="header-large-title">
-            <h4 class="subtitle">Favourites 👍 </h4>
+            <h4 class="subtitle">Your favourites 👍 </h4>
         </div>
 
       <appmaincardfav :quotes="quotes" @quote-deleted="handleQuoteDeleted"/>
@@ -152,7 +152,7 @@ this.notificationMessage = notificationMessage
 this.notificationImg = notificationImg
 
 var a = "#" + notificationId;
-var time = 4500;
+var time = 5000;
 $(".notification-box").removeClass("show");
 setTimeout(() => {
 $(a).addClass("show");
