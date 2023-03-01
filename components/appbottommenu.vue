@@ -37,7 +37,7 @@
     <!-- * App Bottom Menu -->
 
     <!-- Category Modal -->
-    <div class="modal fade modalbox" id="categoryModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal fade modalbox" id="singleCategoryModal" data-backdrop="static" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -68,8 +68,6 @@
                             </li>
                          
                         </ul>
-
-
                     </div>
                 </div>
             </div>
@@ -77,58 +75,20 @@
         <!-- * Category Modal -->
 
 
-         <!-- OLD multi category -->
-         <div class="modal fade modalbox" id="ModalCheckbox" data-backdrop="static" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Select and Continue</h5>
-                        <a href="javascript:;" data-dismiss="modal">Close</a>
-                    </div>
-                   
-    <div id="appCapsule" class="full-height">
-<ul class="listview simple-listview">
-    <li
-    v-for='category in categories' 
-     v-bind:key='category.category'
-    >
-        <div>{{category.category}}</div>
-        <div class="custom-control custom-switch">
-            <input type="checkbox"  v-model="multipleCategories" :value="category.category" class="custom-control-input" :id="'customSwitch' + category.category">
-            <label class="custom-control-label" :for="'customSwitch' + category.category"></label>
-        </div>
-    </li>
-</ul>
-
-<div class="section full d-flex justify-content-center mt-2">
-  <div>
-    <button type="button" class="btn btn-outline-primary mb-1" @click="gotoMultiCategory()">Continue</button>
-  </div>
-</div>
-
-</div>
-
-
-                </div>
-            </div>
-        </div>
-        <!-- * Modal Checkbox -->
-
-
-         <!-- ******-->
+         <!-- Multi category modal -->
     <div class="modal fade modalbox" id="multiCatModal" data-backdrop="static" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Category X Selection</h5>
+                        <h5 class="modal-title">Multi Category Selection</h5>
                         <a href="javascript:;" data-dismiss="modal">Close</a>
                     </div>
                     <div class="modal-body p-0">
 
                             <div class="section full d-flex justify-content-center">
                         <div class="mt-2">
-                           <button @click="multipleCats()" type="button" class="btn btn-primary mb-1"
-                          >Multiple categories</button>
+                           <button @click="singleCat()" type="button" class="btn btn-primary mb-1"
+                          >Single category</button>
                          </div>
                         </div>
 
@@ -156,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <!-- ******-->
+         <!-- Multi category modal -->
 
          <!-- emotion Modal  -->
     <div class="modal fade modalbox" id="EmotionsModal" data-backdrop="static" tabindex="-1" role="dialog">
@@ -250,7 +210,7 @@ import * as idb from 'idb-keyval'
         return;
       }
 
-      $('#ModalCheckbox').modal('toggle');
+      $('#multiCatModal').modal('toggle');
       const route = {
         name: 'multiplecategories',
         query: {
@@ -261,7 +221,7 @@ import * as idb from 'idb-keyval'
     },
 
       gotocat(category) {
-        $('#categoryModal').modal('toggle');
+        $('#singleCategoryModal').modal('toggle');
         this.$router.push({
             path: '/category',
             query: {
@@ -307,14 +267,20 @@ console.error(error);
 
       multipleCats(){
         //single
-         $('#categoryModal').modal('toggle');
+         $('#singleCategoryModal').modal('toggle');
          //multi
          $('#multiCatModal').modal('toggle');
     },
     
+    singleCat(){
+       //multi
+       $('#multiCatModal').modal('toggle');
+       //single
+       $('#singleCategoryModal').modal('toggle');
+    },
 
     showModal(){
-    $('#categoryModal').modal('toggle');
+    $('#singleCategoryModal').modal('toggle');
     },
 
     showEmotionsModal(){
