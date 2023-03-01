@@ -94,7 +94,6 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/img-cache-sw.js', ssr: false },
    { src: '~/plugins/scrollToTop.js', mode: 'client' },
   ],
 
@@ -178,8 +177,13 @@ oneSignal: {
     },
   
   },
-
- 
+/*
+  workbox: {
+    importScripts: [
+        'custom-sw.js'
+    ],
+  },
+  */
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],

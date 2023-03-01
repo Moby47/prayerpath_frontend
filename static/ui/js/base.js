@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////
 // Service Workers
-/*
+
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('service worker registered'))
-        .catch(err => console.log('service worker not registered - there is an error.', err));
-}*/
+    navigator.serviceWorker.register('custom-sw.js')
+        .then(reg => console.log('custom service worker registered from base.js'))
+        .catch(err => console.log('custom service worker not registered from base.js - there is an error.', err));
+}
 ///////////////////////////////////////////////////////////////////////////
 
 

@@ -158,7 +158,7 @@ let savedQuotes = await idb.get('quotes') || [];
   if (savedQuotes) {
     this.quotes = savedQuotes.filter(quote => quote.emotion == this.emotion);
     if (this.quotes.length) {
-      this.showNotification('emotionMultiModal', 'Hurray!', "Offline mode saves the day - Data found for " + this.emotion, 'https://media4.giphy.com/media/5BaJ6438Qp6RJQRRQn/100.webp?cid=ecf05e47mc7k8z4093hl7pwdluibbvvstlf1ydvbbimaxriw&rid=100.webp&ct=g');
+      this.showNotification('emotionMultiModal', 'Hurray!', "Offline mode saves the day - Data found for " + this.emotion, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDljNjE2NzVlODhhNTAyY2QxYWQ2MWQ5ZWQ1ODA0MmJjMWMzZjc2NiZjdD1n/5BaJ6438Qp6RJQRRQn/giphy.gif');
 
     } else {
       console.log("No saved quotes found for the specified emotion");
