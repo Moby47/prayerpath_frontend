@@ -94,7 +94,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-   // '~/plugins/disqus',
+    { src: '~/plugins/img-cache-sw.js', ssr: false },
    { src: '~/plugins/scrollToTop.js', mode: 'client' },
   ],
 
