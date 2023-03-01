@@ -206,7 +206,7 @@ import * as idb from 'idb-keyval'
 
       gotoMultiCategory() {
       if (this.multipleCategories.length === 0) {
-        this.showNotification('bottomMultiModal','Notice','Make a move, pick a groove! Please make a selection.','https://media1.giphy.com/media/15aGGXfSlat2dP6ohs/200w.webp?cid=ecf05e478eb354zt8dkrsxgryrqgj6gg8zef85brctt5hjv3&rid=200w.webp&ct=g')
+        this.showNotification('bottomMultiModal','Notice','Make a move, pick a groove! Please make a selection.','https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmI4ZmExN2Y5NjA0OTFhODE4ODc3ZDQ0ODZlZjQ2NTFmZWRmYWE3YSZjdD1n/15aGGXfSlat2dP6ohs/giphy.gif')
         return;
       }
 

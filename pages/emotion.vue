@@ -126,7 +126,7 @@ export default {
           this.fetching = false
   
           if (response.data.data.length === 0) {
-           this.showNotification('emotionMultiModal', 'Notice', "Trust in the Lord to fill the void - That's all for " + this.emotion, 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
+           this.showNotification('emotionMultiModal', 'Notice', "Trust in the Lord to fill the void - That's all for " + this.emotion, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
         }
 
 // save to indexedDB for offline use
@@ -164,12 +164,12 @@ let savedQuotes = await idb.get('quotes') || [];
 
     } else {
       console.log("No saved quotes found for the specified emotion");
-      this.showNotification('emotionMultiModal', 'Notice', "Offline - No results for " + this.emotion +"keep the faith!", 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
+      this.showNotification('emotionMultiModal', 'Notice', "Offline - No results for " + this.emotion +"keep the faith!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
  
     }
   } else {
     console.log("No saved quotes found");
-    this.showNotification('emotionMultiModal', 'Notice', "Offline mode: No results found for " + this.emotion , 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
+    this.showNotification('emotionMultiModal', 'Notice', "Offline mode: No results found for " + this.emotion , 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
  
   }
   

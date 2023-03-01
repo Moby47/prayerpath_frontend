@@ -128,7 +128,7 @@ notificationTitle:'',
     this.fetching = false
 
     if (response.data.data.length === 0) {
-      this.showNotification('multiplcatMmultiModal', 'Notice', "That's all for " + categories, 'https://media4.giphy.com/media/6zdkYKBBTHTITFQ4xA/200w.webp?cid=ecf05e47grsch9ryn9j0ldj03vq6q47kiumx06fbham06lyw&rid=200w.webp&ct=g');
+      this.showNotification('multiplcatMmultiModal', 'Notice', "That's all for " + categories, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
       }
   } catch (error) {
 
@@ -141,16 +141,16 @@ this.fetching = false
       if (savedQuotes) {
         this.quotes = savedQuotes.filter(quote => this.multipleCategories.includes(quote.category));
         if (this.quotes.length) {
-         this.showNotification('multiplcatMmultiModal', 'Notice', "Offline mode saves the day - Data found for " + categories, 'https://media4.giphy.com/media/5BaJ6438Qp6RJQRRQn/100.webp?cid=ecf05e47mc7k8z4093hl7pwdluibbvvstlf1ydvbbimaxriw&rid=100.webp&ct=g');
+         this.showNotification('multiplcatMmultiModal', 'Notice', "Offline mode saves the day - Data found for " + categories, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTA5ZDAwZmQwNjlkOTQ2YTAwOTUwMDE4ZjY5YzYyNmMyNjZhNzU0YiZjdD1n/5BaJ6438Qp6RJQRRQn/giphy.gif');
 
         } else {
           console.log("No saved quotes found for the specified categories");
-         this.showNotification('multiplcatMmultiModal', 'Notice', "Offline - No results for " + categories + ", keep the faith!", 'https://media4.giphy.com/media/5BaJ6438Qp6RJQRRQn/100.webp?cid=ecf05e47mc7k8z4093hl7pwdluibbvvstlf1ydvbbimaxriw&rid=100.webp&ct=g');
+         this.showNotification('multiplcatMmultiModal', 'Notice', "Offline - No results for " + categories + ", keep the faith!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTA5ZDAwZmQwNjlkOTQ2YTAwOTUwMDE4ZjY5YzYyNmMyNjZhNzU0YiZjdD1n/5BaJ6438Qp6RJQRRQn/giphy.gif');
 
         }
       } else {
         console.log("No saved quotes found");
-       this.showNotification('multiplcatMmultiModal', 'Notice', "Offline mode: No results found for " + categories, 'https://media4.giphy.com/media/5BaJ6438Qp6RJQRRQn/100.webp?cid=ecf05e47mc7k8z4093hl7pwdluibbvvstlf1ydvbbimaxriw&rid=100.webp&ct=g');
+       this.showNotification('multiplcatMmultiModal', 'Notice', "Offline mode: No results found for " + categories, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTA5ZDAwZmQwNjlkOTQ2YTAwOTUwMDE4ZjY5YzYyNmMyNjZhNzU0YiZjdD1n/5BaJ6438Qp6RJQRRQn/giphy.gif');
        
       }
     } catch (error) {

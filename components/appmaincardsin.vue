@@ -175,7 +175,7 @@ v-else
     let savedQuotes = await idb.get('fav') || [];
     if (savedQuotes.length >= 5) {
       //Notify user
-   this.showNotification('disMultiModal', 'Alert', "Lo and behold, only 5 quotes may be saved.", 'https://media4.giphy.com/media/tHy9Qsv4svHXt7Eiq5/200w.webp?cid=ecf05e47nnvrpmqw8916w9o756abroytqg8b5acfg88jvw2e&rid=200w.webp&ct=g');
+   this.showNotification('disMultiModal', 'Alert', "Lo and behold, only 5 quotes may be saved.", 'https://media.giphy.com/media/eKrgVyZ7zLvJrgZNZn/giphy.gif');
     //Notify user
       this.$nuxt.$loading.finish()
       return;
@@ -184,7 +184,7 @@ v-else
     let existingQuote = savedQuotes.find(q => q.id === key);
     if (existingQuote) {
         //Notify user
-   this.showNotification('disMultiModal', 'Notice', "This quote is already amongst thy Favourites.", 'https://media4.giphy.com/media/kdxDRBbVPTeo2rpunv/200w.webp?cid=ecf05e47mav34m571pdjshzim3mdh673j7454q02im2tjzwf&rid=200w.webp&ct=g');
+   this.showNotification('disMultiModal', 'Notice', "This quote is already amongst thy Favourites.", 'https://media.giphy.com/media/3o7bui8qZJeSQuXgMo/giphy.gif');
     //Notify user
      
       this.$nuxt.$loading.finish()
@@ -193,7 +193,7 @@ v-else
     savedQuotes.push(quote);
     await idb.set('fav', savedQuotes);
      //Notify user
-     this.showNotification('disMultiModal', 'Notice', "Quote added to thy Favourites.", 'https://media4.giphy.com/media/4xpB3eE00FfBm/200.webp?cid=ecf05e476vo82hj2u8g4g5n1bj05604v99hy4sclauhy7c9d&rid=200.webp&ct=g');
+     this.showNotification('disMultiModal', 'Notice', "Quote added to thy Favourites.", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTM1NzU3ZTEzNzE3NmZmYjk2ZmZlNWFlMjcxOGNkZWJhYzIzZDhkMSZjdD1n/9T3kjrLQH2JUQmMwsU/giphy.gif');
     //Notify user
      
     this.$nuxt.$loading.finish()
@@ -207,7 +207,7 @@ v-else
       await navigator.clipboard.writeText(text);
         
   //Notify user
-  this.showNotification('disMultiModal', 'Notice', "Quote and Prayer copied.", 'https://media3.giphy.com/media/XreQmk7ETCak0/200.webp?cid=ecf05e476vo82hj2u8g4g5n1bj05604v99hy4sclauhy7c9d&rid=200.webp&ct=g');
+  this.showNotification('disMultiModal', 'Notice', "Quote and Prayer copied.", 'https://media.giphy.com/media/psmj7c3DbrJKkbRYFj/giphy.gif');
     //Notify user
       
     } catch (err) {

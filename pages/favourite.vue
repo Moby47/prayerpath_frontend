@@ -127,7 +127,7 @@ console.log("No fav record found");
 this.fetching = false
 
 //Notify user
-this.showNotification('favMultiModal', 'Hello', "Thy favourites list is barren, like the desert sands.", 'https://media0.giphy.com/media/j7wBU7aHcKf7y/200w.webp?cid=ecf05e472wktn63dtdp5cuqay6cjx1hxl6fcsyait3rky198&rid=200w.webp&ct=g');
+this.showNotification('favMultiModal', 'Hello', "Thy favourites list is barren, like the desert sands.", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzllNjdjZTMwNzdhNjA5ZjljOTM3NTVmYzQ2NDRhZjBmMTE3ZmM0YiZjdD1n/j7wBU7aHcKf7y/giphy.gif');
   //Notify user
  
 }

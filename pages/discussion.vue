@@ -126,7 +126,7 @@ export default {
  this.fetching = false
  
  if (res.data.data.length === 0) {
-this.showNotification('discussMultiModal', 'Notice', "Alas, our search has come up empty - let's ask the Lord for a miracle!", 'https://media4.giphy.com/media/26hkhPJ5hmdD87HYA/200w.webp?cid=ecf05e47776z8ma1gmcw18fexuyv3hxq66umwybfhzn1ldjj&rid=200w.webp&ct=g');
+this.showNotification('discussMultiModal', 'Notice', "Alas, our search has come up empty - let's ask the Lord for a miracle!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDU2NGJlZTgzMmQzODc4NTE2Yjg2MTVmMjM3MDU2M2NkMjg1YzE4OSZjdD1n/26hkhPJ5hmdD87HYA/giphy.gif');
         }
  
  } catch (error) {
@@ -142,14 +142,14 @@ this.showNotification('discussMultiModal', 'Notice', "Alas, our search has come 
  if (savedQuotes) {
  this.quote = savedQuotes.filter(quote => quote.id == this.id);
  if (this.quote.length) {
-  this.showNotification('discussMultiModal', 'Hurray!', "Praise the Lord, offline mode saves the day - Data found", 'https://media1.giphy.com/media/S3Ot3hZ5bcy8o/200.webp?cid=ecf05e47v6ksxhudtu2yf43mj98xett2bocz4bjmyf0448lh&rid=200.webp&ct=g');
+  this.showNotification('discussMultiModal', 'Hurray!', "Praise the Lord, offline mode saves the day - Data found", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzExZDI2NTNhY2U5MjcxZTBkYTgyZDg0M2NlY2MwZTQwNDE1M2Y5MCZjdD1n/S3Ot3hZ5bcy8o/giphy.gif');
  } else {
    console.log("No data found");
-   this.showNotification('discussMultiModal', 'Notice', "Offline mode - No results found, keep the faith!", 'https://media4.giphy.com/media/26hkhPJ5hmdD87HYA/200w.webp?cid=ecf05e47776z8ma1gmcw18fexuyv3hxq66umwybfhzn1ldjj&rid=200w.webp&ct=g');
+   this.showNotification('discussMultiModal', 'Notice', "Offline mode - No results found, keep the faith!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDU2NGJlZTgzMmQzODc4NTE2Yjg2MTVmMjM3MDU2M2NkMjg1YzE4OSZjdD1n/26hkhPJ5hmdD87HYA/giphy.gif');
  }
 } else {
  console.log("No saved quote found");
- this.showNotification('discussMultiModal', 'Notice', "All else fails? Trust in God - Offline mode: No results found", 'https://media4.giphy.com/media/26hkhPJ5hmdD87HYA/200w.webp?cid=ecf05e47776z8ma1gmcw18fexuyv3hxq66umwybfhzn1ldjj&rid=200w.webp&ct=g');
+ this.showNotification('discussMultiModal', 'Notice', "All else fails? Trust in God - Offline mode: No results found", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDU2NGJlZTgzMmQzODc4NTE2Yjg2MTVmMjM3MDU2M2NkMjg1YzE4OSZjdD1n/26hkhPJ5hmdD87HYA/giphy.gif');
  }
 
  } catch (error) {

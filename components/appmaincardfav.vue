@@ -172,7 +172,7 @@ v-else
   }
   
   //Notify user
-  this.showNotification('favCardMultiModal', 'Notice', "The quote hath been removed!", 'https://media0.giphy.com/media/Oj7yTCLSZjSt2JMwi2/200w.webp?cid=ecf05e47mxx5m3gu5qspiov5begs9yfmr1duukxv8hqkp7km&rid=200w.webp&ct=g');
+  this.showNotification('favCardMultiModal', 'Notice', "The quote hath been removed!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmQ5ZmU4ZmQyMDk3ZWU4ODIyYWNkNTlhMDg0ODYzYmE4MDYxNGZjOSZjdD1n/Oj7yTCLSZjSt2JMwi2/giphy.gif');
   //Notify user
 
   this.$nuxt.$loading.finish()
@@ -193,7 +193,7 @@ v-else
       await navigator.clipboard.writeText(text);
         
   //Notify user
-  this.showNotification('favCardMultiModal', 'Notice', "Quote and Prayer copied.", 'https://media3.giphy.com/media/XreQmk7ETCak0/200.webp?cid=ecf05e476vo82hj2u8g4g5n1bj05604v99hy4sclauhy7c9d&rid=200.webp&ct=g');
+  this.showNotification('favCardMultiModal', 'Notice', "Quote and Prayer copied.", 'https://media.giphy.com/media/psmj7c3DbrJKkbRYFj/giphy.gif');
     //Notify user
       
     } catch (err) {
