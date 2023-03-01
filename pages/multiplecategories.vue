@@ -55,7 +55,6 @@
 <script>
 
 import appsidebar from "~/components/appsidebar.vue";
-import appshare from "~/components/appshare.vue";
 import appmaincard from "~/components/appmaincard.vue";
 import apploader from "~/components/apploader.vue";
 import appheader from "~/components/appheader.vue";
@@ -68,7 +67,6 @@ import * as idb from 'idb-keyval'
 export default {
   components: {
     appsidebar,
-    appshare,
     appmaincard,
     apploader,
     appheader,

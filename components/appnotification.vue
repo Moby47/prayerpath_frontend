@@ -1,6 +1,8 @@
 <template>
     <div>
 
+        <!--Currently used only in the home page. I found a better way to proceed - Legacy ..-->
+
                 <!-- General info-->
                 <div id="info" class="notification-box">
                     <div class="notification-dialog ios-style">
@@ -16,7 +18,7 @@
                                     {{notificationMessage}}
                                 </div>
                             </div>
-      <img src="https://media0.giphy.com/media/MAtrUwwKKcMzuMUKU8/giphy.gif?cid=ecf05e478i7gua81235gz0qg9p3nisjrdl00vvaonm2pfu6m&rid=giphy.gif&ct=g" alt="image" class="imaged w64">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWE5YTIyYmIxNGEyOGE1ODc2YmY1MzJlNTYyYzVhMjFlMDQ2ZGU4NSZjdD1n/MAtrUwwKKcMzuMUKU8/giphy.gif" alt="image" class="imaged w64">
                         </div>
                     </div>
                 </div>
@@ -38,7 +40,7 @@
                                     {{notificationMessage}}
                                 </div>
                             </div>
-      <img src="https://media3.giphy.com/media/K4849SW5Womc0/200w.webp?cid=ecf05e47f4gjmmxhjwr8lt0oiykjeoqz9tv890pczbk7ec7x&rid=200w.webp&ct=g" alt="image" class="imaged w64">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTU5NTJhMTdjZTczZDhlMTlmNGI3ZjQ4NGM2M2IwNDU5MGQxZTI1OSZjdD1n/K4849SW5Womc0/giphy.gif" alt="image" class="imaged w64">
                         </div>
                     </div>
                 </div>

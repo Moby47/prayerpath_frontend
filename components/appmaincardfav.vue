@@ -65,10 +65,7 @@ v-else
                        </router-link>
                     </div>
                     <div class="col-2">
-
-                        <appshare :quote="quote"/>
-
-
+                      <v-icon class="color-green" @click="share(quote)">mdi-share-variant</v-icon>
                     </div>
                 </div>
 
@@ -96,7 +93,88 @@ v-else
         </div>
         <!-- * Content Action Sheet -->
 
-        
+         <!-- Share Action Sheet -->
+         <div class="modal fade action-sheet inset" id="actionSheetShare" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Share with</h5>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="action-button-list">
+                            <li>
+                                <a href="#" class="btn btn-list" data-dismiss="modal">
+                                    <span>
+                                        <v-icon color="#075e54">mdi-whatsapp</v-icon>
+                                        <ShareNetwork
+                                    network="whatsapp"
+                                     :url="url"
+                                    title="Get your dose of divine inspiration with Quote God & Pray! 🙏🙌"
+                                    description="Stay focused on your faith with randomly generated quotes about God's promises and prayers."
+                                    style="text-decoration: none !important; color:#075e54;"
+                                >
+                                    Whatsapp
+                                </ShareNetwork>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-list" data-dismiss="modal">
+                                    <span>
+                                        <v-icon color="#3b5998">mdi-facebook</v-icon>
+                                        <ShareNetwork
+                                    network="facebook"
+                                    :url="url"
+                                    title="Get your dose of divine inspiration with Quote God & Pray! 🙏🙌"
+                                    description="Stay inspired and connected with God's promises and prayers on the go."
+                                    quote="Stay inspired and connected with God's promises and prayers on the go. 🙌"
+                                    hashtags="faith, inspiration, dailydevotional, bibleverse, prayer, spiritualgrowth, christianapp, devotionals, godisgood, blessed"
+                                    style="text-decoration: none !important; color:#3b5998;"
+                                >
+                                    Facebook
+                                </ShareNetwork>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-list" data-dismiss="modal">
+                                    <span>
+                                        <v-icon color="#00acee">mdi-twitter</v-icon>
+                                        <ShareNetwork
+                                    network="twitter"
+                                    :url="url"
+                                    title="Get inspired and stay faithful with Quote God & Pray! 🙏🙌"
+                                    hashtags="faith,quoteGod&Pray,dailydevotional"
+                                    style="text-decoration: none !important; color:#00acee;"
+                                >
+                                    Twitter
+                                </ShareNetwork>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-list" data-dismiss="modal">
+                                    <span>
+                                        <v-icon color="#0084ff">mdi-facebook-messenger</v-icon>
+                                        <ShareNetwork
+                                    network="messenger"
+                                     :url="url"
+                                    style="text-decoration: none !important; color:#0084ff;"
+                                    title="Get your dose of divine inspiration with Quote God & Pray! 🙏🙌"
+                                >
+                                Messenger
+                                </ShareNetwork>
+                                    </span>
+                                </a>
+                            </li>
+                         
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- * Share Action Sheet -->
+
  <!-- Multi purpose modal-->
  <div id="favCardMultiModal" class="notification-box">
                     <div class="notification-dialog ios-style">
@@ -151,12 +229,18 @@ v-else
         notificationTitle:'',
       notificationMessage:'',
       notificationImg:'',
+
+      app_url: this.$config.APP_URL,
+      url:''
       }
     },
     // Add methods here
     methods: {
       // Your methods here
-
+      share(quote){
+      this.url = this.app_url+'/discussion?id='+quote.id
+    $('#actionSheetShare').modal('toggle');
+    },
 
       async deleteQuote(id) {
   this.$nuxt.$loading.start()

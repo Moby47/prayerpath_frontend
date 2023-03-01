@@ -1,5 +1,9 @@
 <template>
     <div>
+
+        <!--Currently used only in the single page quote/prayer page..-->
+
+        
       <!-- Your template code here -->
       <v-icon class="color-green" @click="share()">mdi-share-variant</v-icon>
 
