@@ -14,7 +14,7 @@
             <h4 class="subtitle">{{ this.emotion }}? You need this 🙂</h4>
         </div>
 
-        <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton"/>
+        <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton" :spinner="spinner"/>
      
 
       <appfooter/>
@@ -105,6 +105,8 @@ export default {
       notificationImg:'',
 
       emotion:'',
+
+      spinner:false,
     }
   },
   methods: {
@@ -122,6 +124,7 @@ export default {
           });
           this.quotes = this.quotes.concat(response.data.data);
           this.fetching = false
+          this.spinner = false
   
           if (response.data.data.length === 0) {
            this.showNotification('emotionMultiModal', 'Notice', "Trust in the Lord to fill the void - That's all for " + this.emotion, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
@@ -154,6 +157,7 @@ let savedQuotes = await idb.get('quotes') || [];
   try {
     const savedQuotes = await idb.get('quotes');
     this.fetching = false
+    this.spinner = false
 
   if (savedQuotes) {
     this.quotes = savedQuotes.filter(quote => quote.emotion == this.emotion);
@@ -180,10 +184,9 @@ let savedQuotes = await idb.get('quotes') || [];
       },
   
       loadMore() {
-        this.$nuxt.$loading.start()
+        this.spinner = true
           this.current_offset += this.load_more_limit;
           this.getQuotesByEmotion();
-          this.$nuxt.$loading.finish()
       },
 
       showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {

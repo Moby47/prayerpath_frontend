@@ -186,7 +186,11 @@ v-else
 
 <div class="section full d-flex justify-content-center">
 <div>
-  <button type="button" class="btn btn-outline-primary mb-1" @click="loadMore()" v-if="showLoadButton">Load more</button>
+  <button type="button" class="btn btn-outline-primary mb-1" @click="loadMore()" v-if="showLoadButton">
+   Load More
+    <span class="spinner-border spinner-border-sm mr-05 ml-1" role="status" aria-hidden="true" v-if="spinner"></span>
+  </button>
+
 </div>
 </div>
 
@@ -244,6 +248,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    spinner: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -256,7 +264,8 @@ export default {
       notificationMessage:'',
       notificationImg:'',
       app_url: this.$config.APP_URL,
-      url:''
+      url:'',
+
     }
   },
   // Add methods here

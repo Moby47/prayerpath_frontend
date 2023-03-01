@@ -17,7 +17,7 @@
           <h4 class="subtitle">All categories 🎉</h4>
       </div>
 
-    <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton"/>
+    <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton" :spinner="spinner"/>
    
 
     <appfooter/>
@@ -82,6 +82,8 @@ data() {
   quotes: [],
   notificationMessage:'',
   fetching:true,
+
+  spinner:false,
   }
 },
 methods: {
@@ -100,6 +102,8 @@ headers: {
 
 this.quotes = this.quotes.concat(res.data.data);
 this.fetching = false
+
+this.spinner = false
 
 if (res.data.data.length === 0) {
    //Notify user
@@ -137,6 +141,7 @@ this.showLoadButton=false
 try {
 const savedQuotes = await idb.get('quotes');
 this.fetching = false
+this.spinner = false
 
 if (savedQuotes) {
 this.quotes = savedQuotes;
@@ -164,10 +169,9 @@ console.error(error);
 },
 
 loadMore() {
-this.$nuxt.$loading.start()
+this.spinner = true
   this.current_offset += this.load_more_limit;
   this.getquotes();
-  this.$nuxt.$loading.finish()
 },
 
 },

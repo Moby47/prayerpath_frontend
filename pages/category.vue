@@ -15,7 +15,7 @@
             <h4 class="subtitle">Category: {{ this.category }} 😇</h4>
         </div>
 
-      <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton"/>
+      <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton" :spinner="spinner"/>
      
 
       <appfooter/>
@@ -107,6 +107,8 @@ export default {
   notificationTitle:'',
       notificationMessage:'',
       notificationImg:'',
+
+      spinner:false,
     }
   },
   methods: {
@@ -124,6 +126,7 @@ export default {
         });
         this.quotes = this.quotes.concat(response.data.data);
         this.fetching = false
+        this.spinner = false
 
         if (response.data.data.length === 0) {
           this.showNotification('categoryMultiModal', 'Notice', "No more results? That's all for " + this.category, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
@@ -154,6 +157,7 @@ export default {
 try {
   const savedQuotes = await idb.get('quotes');
   this.fetching = false
+this.spinner = false
 
 if (savedQuotes) {
   this.quotes = savedQuotes.filter(quote => quote.category == this.category);
@@ -181,10 +185,9 @@ console.error(error);
     },
 
     loadMore() {
-      this.$nuxt.$loading.start()
+      this.spinner = true
         this.current_offset += this.load_more_limit;
         this.getQuotesByCat();
-        this.$nuxt.$loading.finish()
     },
 
     showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
