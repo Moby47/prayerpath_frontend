@@ -18,7 +18,8 @@
      
 
       <appfooter/>
- <!-- Multi purpose modal-->
+      
+ <!-- Multi purpose Notification modal-->
  <div id="emotionMultiModal" class="notification-box">
                     <div class="notification-dialog ios-style">
                         <div class="notification-header">
@@ -37,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- * ios style -->
+                <!-- * Notification modal -->
 
 
     </div>

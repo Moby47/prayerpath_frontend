@@ -110,9 +110,9 @@ v-else
 </div>
 </div>
 
-
- <!-- No fav info-->
- <div id="favInfo" class="notification-box">
+              
+ <!-- Multi purpose Notification modal-->
+ <div id="MaincardMultiModal" class="notification-box">
                     <div class="notification-dialog ios-style">
                         <div class="notification-header">
                             <div class="right">
@@ -121,58 +121,17 @@ v-else
                         </div>
                         <div class="notification-content">
                             <div class="in">
-                                <h3 class="subtitle">Notice</h3>
+                                <h3 class="subtitle">{{notificationTitle}}</h3>
                                 <div class="text">
                                     {{notificationMessage}}
                                 </div>
                             </div>
-      <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExODI5NWJhZTk2ZjlhODRjZTFlZTZkMzJmNDQzOWI4NDhiZWI0ODViZSZjdD1n/eKrgVyZ7zLvJrgZNZn/giphy.gif" alt="image" class="imaged w64">
+      <img :src="notificationImg" alt="image" class="imaged w64">
                         </div>
                     </div>
                 </div>
-                <!-- * ios style -->
+                <!-- * Notification modal -->
 
-                 <!-- Fav saved successfully-->
- <div id="favSaved" class="notification-box">
-                    <div class="notification-dialog ios-style">
-                        <div class="notification-header">
-                            <div class="right">
-                                <span>just now</span>
-                            </div>
-                        </div>
-                        <div class="notification-content">
-                            <div class="in">
-                                <h3 class="subtitle">Success</h3>
-                                <div class="text">
-                                    {{notificationMessage}}
-                                </div>
-                            </div>
-      <img src="https://media3.giphy.com/media/9T3kjrLQH2JUQmMwsU/200w.webp?cid=ecf05e47qazde3iyi8uo7ceubxt5cmueotgulpra9t73kpiw&rid=200w.webp&ct=g" alt="image" class="imaged w64">
-                        </div>
-                    </div>
-                </div>
-                <!-- * ios style -->
-
-                <!-- Copied to successfully-->
- <div id="copied" class="notification-box">
-                    <div class="notification-dialog ios-style">
-                        <div class="notification-header">
-                            <div class="right">
-                                <span>just now</span>
-                            </div>
-                        </div>
-                        <div class="notification-content">
-                            <div class="in">
-                                <h3 class="subtitle">Success</h3>
-                                <div class="text">
-                                    {{notificationMessage}}
-                                </div>
-                            </div>
-      <img src="https://media4.giphy.com/media/ebJ12kRLtkdlV3n3fm/200.webp?cid=ecf05e47umrpye49okxv4cvywx448sqo5udgn8av9kedjr94&rid=200.webp&ct=g" alt="image" class="imaged w64">
-                        </div>
-                    </div>
-                </div>
-                <!-- * ios style -->
 
   </div>
 </template>
@@ -212,7 +171,10 @@ export default {
       sermon:'',
       current_offset: 0,
   load_more_limit: 10, //determines how many is fetched initially
-  notificationMessage:'',
+
+  notificationTitle:'',
+      notificationMessage:'',
+      notificationImg:'',
     }
   },
   // Add methods here
@@ -230,8 +192,7 @@ export default {
     let savedQuotes = await idb.get('fav') || [];
     if (savedQuotes.length >= 5) {
       //Notify user
-    this.notificationMessage = "Lo and behold, only 5 quotes may be saved."
-    this.showNotification('favInfo')
+    this.showNotification('MaincardMultiModal', 'Alert', "Lo and behold, only 5 quotes may be saved.", 'https://media.giphy.com/media/eKrgVyZ7zLvJrgZNZn/giphy.gif');
     //Notify user
       this.$nuxt.$loading.finish()
       return;
@@ -240,8 +201,7 @@ export default {
     let existingQuote = savedQuotes.find(q => q.id === key);
     if (existingQuote) {
         //Notify user
-    this.notificationMessage = "This quote is already amongst thy Favourites."
-    this.showNotification('favInfo')
+    this.showNotification('MaincardMultiModal', 'Alert', "This quote is already amongst thy Favourites.", 'https://media.giphy.com/media/3o7bui8qZJeSQuXgMo/giphy.gif');
     //Notify user
      
       this.$nuxt.$loading.finish()
@@ -249,9 +209,8 @@ export default {
     }
     savedQuotes.push(quote);
     await idb.set('fav', savedQuotes);
-      //Notify user
-      this.notificationMessage = "Quote added to thy Favourites."
-    this.showNotification('favSaved')
+    //Notify user
+    this.showNotification('MaincardMultiModal', 'Success', "Quote added to thy Favourites.", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTM1NzU3ZTEzNzE3NmZmYjk2ZmZlNWFlMjcxOGNkZWJhYzIzZDhkMSZjdD1n/9T3kjrLQH2JUQmMwsU/giphy.gif');
     //Notify user
     this.$nuxt.$loading.finish()
   },
@@ -264,8 +223,7 @@ export default {
       await navigator.clipboard.writeText(text);
         
      //Notify user
-    this.notificationMessage = "Quote and Prayer copied."
-    this.showNotification('copied')
+    this.showNotification('MaincardMultiModal', 'Success', "Quote and Prayer copied.", 'https://media.giphy.com/media/psmj7c3DbrJKkbRYFj/giphy.gif');
     //Notify user
       
     } catch (err) {
@@ -279,20 +237,25 @@ export default {
     },
 
 
-    showNotification(notificationId) {
-      var a = "#" + notificationId;
-      var time = 5000;
+showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
+
+this.notificationTitle = notificationTitle
+this.notificationMessage = notificationMessage
+this.notificationImg = notificationImg
+
+var a = "#" + notificationId;
+var time = 5000;
+$(".notification-box").removeClass("show");
+setTimeout(() => {
+$(a).addClass("show");
+}, 300);
+if (time) {
+time = time + 300;
+setTimeout(() => {
     $(".notification-box").removeClass("show");
-    setTimeout(() => {
-        $(a).addClass("show");
-    }, 300);
-    if (time) {
-        time = time + 300;
-        setTimeout(() => {
-            $(".notification-box").removeClass("show");
-        }, time);
-    }
-    },
+}, time);
+}
+},
 
   },
   // The mounted hook is called after the component is mounted to the DOM
