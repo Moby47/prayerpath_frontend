@@ -12,7 +12,7 @@ console.error("Error getting/saving quotes", error);
 
 
 async function generateAndSaveQuotes(){
-const category = ['Family', 'Hope', 'Supplication', 'Grace', 'Marriage', 'Health', 'Peace', 'Protection', 'Guidance', 'Joy', 'Wisdom', 'Strength', 'Blessing', 'Salvation', 'Healing'][Math.floor(Math.random() * 15)];
+const category = ['Family', 'Fertility', 'Fruitfulness', 'Hope', 'Supplication', 'Grace', 'Marriage', 'Health', 'Peace', 'Protection', 'Guidance', 'Joy', 'Wisdom', 'Strength', 'Blessing', 'Salvation', 'Healing'][Math.floor(Math.random() * 15)];
 
 //prompt before emotion and sermon
 //const prompt = `Generate 1 Bible verses and prayer JSON data with reference, verse, prayer, category, and verse_url from biblegateway.com where God promised something good to humans and an associated prayer focused on holding God to that promise with firm belief and faith, for the '${category}' category. Just give me the JSON in this format: {"data": [{"reference": "...","verse": "...","prayer": "...","category": "...","verse_url": "..."},]}.`;
