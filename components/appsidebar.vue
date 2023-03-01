@@ -91,7 +91,7 @@
 
       showCat(){
         $('#sidebarPanel').modal('toggle');
-        $('#ModalListview').modal('toggle');
+        $('#singleCategoryModal').modal('toggle');
       },
 
       showEmotion(){

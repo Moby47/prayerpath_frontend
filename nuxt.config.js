@@ -83,8 +83,8 @@ export default {
   /** Customize the progress-bar color
   */
   loading: { 
-    color: '#000',
-    height: '5px',
+    color: '#3f51b5',
+    height: '10px',
     throttle: 0,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
