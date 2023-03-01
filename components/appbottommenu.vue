@@ -36,8 +36,8 @@
     </div>
     <!-- * App Bottom Menu -->
 
-    <!-- Category Modal Listview -->
-    <div class="modal fade modalbox" id="ModalListview" data-backdrop="static" tabindex="-1" role="dialog">
+    <!-- Category Modal -->
+    <div class="modal fade modalbox" id="categoryModal" data-backdrop="static" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -74,10 +74,10 @@
                 </div>
             </div>
         </div>
-        <!-- * Category Modal Listview -->
+        <!-- * Category Modal -->
 
 
-         <!-- Modal Checkbox for multi category -->
+         <!-- OLD multi category -->
          <div class="modal fade modalbox" id="ModalCheckbox" data-backdrop="static" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -115,7 +115,50 @@
         <!-- * Modal Checkbox -->
 
 
-         <!-- emotion Modal Listview -->
+         <!-- ******-->
+    <div class="modal fade modalbox" id="multiCatModal" data-backdrop="static" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Category X Selection</h5>
+                        <a href="javascript:;" data-dismiss="modal">Close</a>
+                    </div>
+                    <div class="modal-body p-0">
+
+                            <div class="section full d-flex justify-content-center">
+                        <div class="mt-2">
+                           <button @click="multipleCats()" type="button" class="btn btn-primary mb-1"
+                          >Multiple categories</button>
+                         </div>
+                        </div>
+
+                        <ul class="listview simple-listview  ">
+                          <li
+    v-for='category in categories' 
+     v-bind:key='category.category'
+    >
+        <div>{{category.category}}</div>
+        <div class="custom-control custom-switch">
+            <input type="checkbox"  v-model="multipleCategories" :value="category.category" class="custom-control-input" :id="'customSwitch' + category.category">
+            <label class="custom-control-label" :for="'customSwitch' + category.category"></label>
+        </div>
+    </li>
+   
+                         
+                        </ul>
+
+                        <div class="section full d-flex justify-content-center mt-2">
+  <div>
+    <button type="button" class="btn btn-outline-primary mb-1" @click="gotoMultiCategory()">Continue</button>
+  </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ******-->
+
+         <!-- emotion Modal  -->
     <div class="modal fade modalbox" id="EmotionsModal" data-backdrop="static" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -146,7 +189,8 @@
                 </div>
             </div>
         </div>
-        <!-- * Category Modal Listview -->
+       <!-- emotion Modal  -->
+
         <!-- Multi purpose modal-->
  <div id="bottomMultiModal" class="notification-box">
                     <div class="notification-dialog ios-style">
@@ -217,7 +261,7 @@ import * as idb from 'idb-keyval'
     },
 
       gotocat(category) {
-        $('#ModalListview').modal('toggle');
+        $('#categoryModal').modal('toggle');
         this.$router.push({
             path: '/category',
             query: {
@@ -263,14 +307,14 @@ console.error(error);
 
       multipleCats(){
         //single
-         $('#ModalListview').modal('toggle');
+         $('#categoryModal').modal('toggle');
          //multi
-         $('#ModalCheckbox').modal('toggle');
+         $('#multiCatModal').modal('toggle');
     },
     
 
     showModal(){
-    $('#ModalListview').modal('toggle');
+    $('#categoryModal').modal('toggle');
     },
 
     showEmotionsModal(){
