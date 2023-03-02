@@ -19,11 +19,29 @@ export default {
       {
         src: 'https://cdn.onesignal.com/sdks/OneSignalSDK.js',
         async: true
-      }
+      },
+      {
+        src: '/ui/js/lib/jquery-3.4.1.min.js'
+      },
+      {
+        src: '/ui/js/lib/popper.min.js'
+      },
+      {
+        src: '/ui/js/lib/bootstrap.min.js'
+      },
+      {
+        src: '/ui/js/plugins/jquery-circle-progress/circle-progress.min.js'
+      },
+      {
+        src: '/ui/js/base.js'
+      },
     ],
     link: [
+      {
+        rel: 'stylesheet',
+        href: '/ui/css/style.css'
+      },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href:'https://cdn.jsdelivr.net/gh/shakrmedia/tuesday@v1.1.0/build/tuesday.min.css'},
       {rel: "apple-touch-startup-image", media: "screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)", href: "/ios_splash_screens/iPhone_14_Pro_Max_landscape.png"},
 {rel: "apple-touch-startup-image", media: "screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)", href: "/ios_splash_screens/iPhone_14_Pro_landscape.png"},
 {rel: "apple-touch-startup-image", media: "screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)", href: "/ios_splash_screens/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_landscape.png"},
@@ -65,8 +83,8 @@ export default {
   /** Customize the progress-bar color
   */
   loading: { 
-    color: '#000',
-    height: '5px',
+    color: '#3f51b5',
+    height: '10px',
     throttle: 0,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -76,7 +94,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-   // '~/plugins/disqus',
+   { src: '~/plugins/scrollToTop.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -97,7 +115,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/cloudinary',
-    'vue-social-sharing/nuxt'
+    'vue-social-sharing/nuxt',
   ],
 
   // Options
@@ -159,8 +177,13 @@ oneSignal: {
     },
   
   },
-
- 
+/*
+  workbox: {
+    importScripts: [
+        'custom-sw.js'
+    ],
+  },
+  */
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -185,13 +208,13 @@ oneSignal: {
     postcss: null,
   },
 
- /*
+ 
  //for page transition
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },
 
-*/
+
   
     publicRuntimeConfig: {
       BACKEND_APP_URL: process.env.BACKEND_APP_URL,

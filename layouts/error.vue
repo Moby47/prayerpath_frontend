@@ -1,19 +1,48 @@
 <template>
-  <v-app dark>
-    <div id="bg">
- <div class="center-content" style="color:black;">
-      <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-      <v-btn :to="{ name: 'index'}" class="button">
-      Home page
-    </v-btn>
+  <div class="bg-white">
+
+    <!-- App Header -->
+    <div class="appHeader no-border transparent position-absolute">
+      <div class="left">
+      </div>
+      <div class="pageTitle">
+        <img src="~/static/logo.png" alt="logo" class="logo"> PrayerPath
+      </div>
+      <div class="right">
+      </div>
     </div>
+    <!-- * App Header -->
+
+    <!-- App Capsule -->
+    <div id="appCapsule">
+
+      <div class="error-page">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWI5ODZkMThmYTljNGQ0MjljOWVmNDM0YjYyODg2YTU3ZDFmYTMzOSZjdD1n/fLyf3Ag08wABnyqMNY/giphy.gif" alt="alt" class="imaged square w200">
+
+        <div class="text mb-5">
+          <!-- Render error message based on the status code -->
+          <h1 v-if="error.statusCode === 404">
+            {{ pageNotFound }}
+          </h1>
+          <h1 v-else>
+            {{ otherError }}
+          </h1>
+        </div>
+
+        <div class="fixed-footer">
+          <div class="row">
+            <div class="col-12">
+              <!-- Router link to go back to safety -->
+              <router-link :to="{ name: 'index'}" class="btn btn-primary btn-lg btn-block">To safety</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- * App Capsule -->
+
   </div>
-  </v-app>
 </template>
 
 <script>
@@ -26,15 +55,15 @@ export default {
       default: null
     }
   },
-  data () {
+  data() {
     return {
       pageNotFound: 'Page Not Found',
       otherError: 'An error occurred'
     }
   },
-  head () {
-    const title =
-      this.error.statusCode === 404 ? this.pageNotFound : this.otherError
+  head() {
+    // Set the title of the page based on the error status code
+    const title = this.error.statusCode === 404 ? this.pageNotFound : this.otherError
     return {
       title
     }
@@ -43,34 +72,8 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-size: 20px;
+.fixed-footer {
+  background: none;
+  min-height: 500px;
 }
-#bg {
-            font-family: 'Nunito', sans-serif;
-            background-image: url("https://cdn.pixabay.com/photo/2016/09/16/19/15/gear-1674891_960_720.png");
-            background-size: cover;
-            height: 100vh;
-        }
-
-        .center-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .button {
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
 </style>

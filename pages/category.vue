@@ -1,189 +1,73 @@
 <template>
-  <v-app style="background-color: white;">
-    <v-container> <!-- Centers the home page -->
-      <v-row justify="center" align="center">
-        <v-col>
-          <!-- appbar Component -->
-          <appbar />
-  
-          <h4 style="color:black">Category: {{ this.category }} 🙂</h4>
-         <!-- QuoteCard Component -->
-         <quotecard 
-        :quotes="quotes"
-        :showLoadButton="showLoadButton"
-        @load-more="loadMore"
-        @prompt-redirect="promptRedirect"
-      />
+  <div>
+    <apploader v-if="fetching"/>
 
-      <!-- Bottom Navigation -->
-      <div>
-        <v-bottom-navigation 
-          fixed 
-          style="background-color: white; box-shadow: none; border: none;">
+    <appheader/>
 
-          <v-btn 
-            value="nearby" 
-            size="x-small" 
-            style="color: black !important;"
-            :to="{ name: 'prayer'}"
-          >
-            <v-icon>mdi-book-cross</v-icon>
-            All
-          </v-btn>
+    <span v-if="!fetching">
 
-          <!-- Peace button -->
-          <v-btn 
-            value="recent"  
-            size="x-small" 
-            style="color: black !important;"
-            @click="gotocat('Peace')"
-          >
-            <v-icon>mdi-peace</v-icon>
-            Peace
-          </v-btn>
+      <!-- App Capsule -->
+      <div id="appCapsule">
 
-          <!-- Family button -->
-          <v-btn 
-            value="Favourites"  
-            size="x-small" 
-            style="color: black !important;"
-            @click="gotocat('Family')"
-          >
-            <v-icon>mdi-human-male-female-child</v-icon>
-            Family
-          </v-btn>
+        <div class="header-large-title">
+          <h4 class="subtitle">Category: {{ this.category }} 😇</h4>
+        </div>
 
-          <!-- Others button -->
-          <v-btn 
-            value="nearby" 
-            size="x-small" 
-            style="color: black !important;" 
-            @click="openCategoryModal()">
-            <v-icon>mdi-dots-vertical</v-icon>
-            Others
-          </v-btn>
-        </v-bottom-navigation>
+        <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton" :spinner="spinner"/>
+
+        <appfooter/>
+
+        <!-- Multi purpose modal-->
+        <div id="categoryMultiModal" class="notification-box">
+          <div class="notification-dialog ios-style">
+            <div class="notification-header">
+              <div class="right">
+                <span>just now</span>
+              </div>
+            </div>
+            <div class="notification-content">
+              <div class="in">
+                <h3 class="subtitle">{{notificationTitle}}</h3>
+                <div class="text">
+                  {{notificationMessage}}
+                </div>
+              </div>
+              <img :src="notificationImg" alt="image" class="imaged w64">
+            </div>
+          </div>
+        </div>
+        <!-- * ios style -->
       </div>
+      <!-- * App Capsule -->
+    </span>
 
-      <!-- CategoryModal Component -->
-      <categorymodal ref="categorymodal" @category-selected="gotocat"/>
+    <appbottommenu/>
 
-      <!-- LoadingOverlay Component -->
-      <loadinglayer :overlay="overlay"/>
+    <appsidebar/>
+  </div>
+</template>
 
-      <!-- messagebar Component -->
-      <messagebar :timeout="5000" :snackText="snackText"  ref="messagebar" />
+<script>
 
-      <!-- Verse URL Snackbar -->
-      <v-snackbar
-        :timeout="5000"
-        :value="showSnackbar"
-        color="#555"
-        top
-        v-model="showSnackbar"
-      >
-        This leads to biblegateway.
-        <template v-slot:action="{ attrs }">
-          <v-btn
-            color="#F5F5DC"
-            text
-            @click="showSnackbar = false"
-            v-bind="attrs"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-          color="#F5F5DC"
-          dark
-          text
-          @click="redirect"
-          v-bind="attrs"
-          >
-          Continue
-          </v-btn>
-          </template>
-          </v-snackbar>
-
-          <!-- Home button -->
-          <template>
-            <v-btn
-              color="#F5F5DC"
-              depressed
-              fab
-              fixed
-              :bottom="true"
-              small
-              :left="true"
-              :to="{ name: 'index'}"
-              :style="{ bottom: '70px', right: '30px' }"
-            >
-              <v-icon color="black">mdi-home</v-icon>
-            </v-btn>
-          </template>
-          <!-- Scroll to top button -->
-          <template>
-            <v-btn
-              color="#F5F5DC"
-              depressed
-              fab
-              fixed
-              :bottom="true"
-              small
-              :right="true"
-              @click="scrollTop()"
-              v-if="showButton"
-              :style="{ bottom: '70px', right: '30px' }"
-            >
-              <v-icon color="black">mdi-arrow-up</v-icon>
-            </v-btn>
-          </template>
-          <!-- Close container -->
-          </v-col>
-          </v-row>
-          </v-container> <!-- Gives the page a centered look -->
-          <!-- Close v-app -->
-          </v-app>
-          </template>
-            
-   <style scoped>
-  
-  .verse-font {
-    font-family: 'Lato', sans-serif !important;
-  }
-  .prayer-font {
-    font-family: Georgia, 'Times New Roman', Times, serif !important;
-  }
-  
-  .others-font {
-    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
-  }
-  
-  </style>
-  
-  <script>
-
-import appbar from "~/components/appbar.vue";
-import categorymodal from "~/components/categorymodal.vue";
-import loadinglayer from "~/components/loadinglayer.vue";
-import messagebar from "~/components/messagebar.vue";
-import quotecard from "~/components/quotecard.vue";
-
-//import { appbar } from '@/components/appbar.vue'
-//import appbar from '/components/appbar.vue'
-
+import appsidebar from "~/components/appsidebar.vue";
+import appmaincard from "~/components/appmaincard.vue";
+import apploader from "~/components/apploader.vue";
+import appheader from "~/components/appheader.vue";
+import appfooter from "~/components/appfooter.vue";
+import appbottommenu from "~/components/appbottommenu.vue";
 
 import axios from 'axios';
-import * as idb from 'idb-keyval';
+import * as idb from 'idb-keyval'
 
 export default {
   components: {
-    appbar,
-    categorymodal,
-    loadinglayer,
-    messagebar,
-    quotecard,
+    appsidebar,
+    appmaincard,
+    apploader,
+    appheader,
+    appfooter,
+    appbottommenu,
   },
-
   head() {
     return {
       title: "PrayerPath - Quote God & Pray",
@@ -200,51 +84,25 @@ export default {
       ]
     }
   },
-
   data() {
     return {
-      category: '',
-      quotes: [],
       key: this.$config.BACKEND_API_KEY,
       backend_url: this.$config.BACKEND_APP_URL,
       current_offset: 0,
-      load_more_limit: 4, //determines how many is fetched initially
-      offlineCategory: false,
-      snackText: '',
-      verse_url: '',
-      showSnackbar: false,
-      snackbar: false,
-      fixed: false,
+      load_more_limit: 10, //determines how many is fetched initially
+      showLoadButton:true,
       quotes: [],
-      loading: true,
-      overlay: null,
-      showButton: null,
-      categories: [],
-      fromLoadMore: null,
-      showLoadButton: null,
-      drawer: false,
-    };
+      fetching:true,
+      category: '',
+      notificationTitle:'',
+      notificationMessage:'',
+      notificationImg:'',
+      spinner:false,
+    }
   },
-
   methods: {
-    openCategoryModal() {
-      this.$refs.categorymodal.dialog = true;
-    },
-
+   
     async getQuotesByCat() {
-      //if called from modal
-      this.dialog = false;
-
-      this.overlay = true;
-      this.showButton = false;
-      this.showLoadButton = false;
-
-      if (this.fromLoadMore != true) {
-        this.scrollTop();
-      }
-      //kill from loadmore
-      this.fromLoadMore = null;
-
       var final_url = `${this.backend_url}/api/quotes-category/${this.category}?offset=${this.current_offset}&limit=${this.load_more_limit}`;
 
       try {
@@ -254,64 +112,58 @@ export default {
             'X-Authorization': this.key,
           },
         });
-        this.quotes = this.quotes.concat(response.data.data);
-        
-        this.showButton = true;
-        this.overlay = false;
-        this.showLoadButton = true;
 
+        // Update quotes list with new data and disable spinner
+        this.quotes = this.quotes.concat(response.data.data);
+        this.fetching = false
+        this.spinner = false
+
+        // If there are no more quotes to fetch, show a notification
         if (response.data.data.length === 0) {
-          this.snackText = "No more results? Trust in the Lord to fill the void - That's all for " + this.category
-          this.$refs.messagebar.snackbar = true;
+          this.showNotification('categoryMultiModal', 'Notice', "No more results? That's all for " + this.category, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
         }
 
-        // save to indexedDB for offline use
-              let savedQuotes = await idb.get('quotes') || [];
-      if (savedQuotes.length + response.data.data.length > 100) {
-      savedQuotes = savedQuotes.slice(0, 100 - response.data.data.length);
-      }
-      for (let i = 0; i < response.data.data.length; i++) {
-      let quote = response.data.data[i];
-      let key = quote.id;
-      let existingQuote = savedQuotes.find(q => q.id === key);
-      if (existingQuote) {
-        continue;
-      }
-      savedQuotes.push(quote);
-      }
-      await idb.set('quotes', savedQuotes);
-
+        // Save quotes to IndexedDB for offline use
+        let savedQuotes = await idb.get('quotes') || [];
+        if (savedQuotes.length + response.data.data.length > 100) {
+          savedQuotes = savedQuotes.slice(0, 100 - response.data.data.length);
+        }
+        for (let i = 0; i < response.data.data.length; i++) {
+          let quote = response.data.data[i];
+          let key = quote.id;
+          let existingQuote = savedQuotes.find(q => q.id === key);
+          if (existingQuote) {
+            continue;
+          }
+          savedQuotes.push(quote);
+        }
+        await idb.set('quotes', savedQuotes);
         // // save to indexedDB for offline use
 
 
       } catch (error) {
-        this.$refs.messagebar.snackbar = true;
-        this.showButton = true;
-        this.overlay = false;
-        this.showLoadButton = true;
+      this.showLoadButton=false
 
         //get from indexeddb
-       
 try {
   const savedQuotes = await idb.get('quotes');
+  this.fetching = false
+this.spinner = false
 
 if (savedQuotes) {
   this.quotes = savedQuotes.filter(quote => quote.category == this.category);
   if (this.quotes.length) {
-    this.$refs.messagebar.snackbar = true;
-    this.snackText = "Offline mode saves the day - Data found for " + this.category;
-    this.showLoadButton = false;
+   this.showNotification('categoryMultiModal', 'Hurray!', "Offline mode saves the day - Data found for " + this.category, 'https://media4.giphy.com/media/5BaJ6438Qp6RJQRRQn/100.webp?cid=ecf05e47mc7k8z4093hl7pwdluibbvvstlf1ydvbbimaxriw&rid=100.webp&ct=g');
+
   } else {
     console.log("No saved quotes found for the specified category");
-    this.snackText = "Offline - No results for " + this.category + ", keep the faith!"
-    this.$refs.messagebar.snackbar = true;
-    this.showLoadButton = false;
+    this.showNotification('categoryMultiModal', 'Notice', "Offline - No results for " + this.category +"keep the faith!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
+ 
   }
 } else {
   console.log("No saved quotes found");
-  this.snackText = "All else fails? Trust in God - Offline mode: No results found for " + this.category;
-  this.$refs.messagebar.snackbar = true;
-  this.showLoadButton=false
+  this.showNotification('categoryMultiModal', 'Notice', "Offline mode: No results found for " + this.category , 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
+ 
 }
 
 
@@ -319,58 +171,49 @@ if (savedQuotes) {
 console.error(error);
 }
 //get from indexeddb
+
       }
     },
 
     loadMore() {
-        this.fromLoadMore = true;
+      this.spinner = true
         this.current_offset += this.load_more_limit;
         this.getQuotesByCat();
     },
-    scrollTop() {
-        window.scroll({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
+
+    showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
+
+    this.notificationTitle = notificationTitle
+    this.notificationMessage = notificationMessage
+    this.notificationImg = notificationImg
+
+    var a = "#" + notificationId;
+    var time = 5000;
+    $(".notification-box").removeClass("show");
+    setTimeout(() => {
+    $(a).addClass("show");
+    }, 300);
+    if (time) {
+    time = time + 300;
+    setTimeout(() => {
+        $(".notification-box").removeClass("show");
+    }, time);
+    }
     },
-    promptRedirect(verse_url,version) {
-        this.showSnackbar = true;
-        if(version == 'NIV'){
-            this.verse_url = verse_url;
-        }else{
-            let updatedUrl = verse_url.slice(0, -3);
-            this.verse_url = updatedUrl + version;
-        }
-    },
-    redirect(event) {
-        window.open(this.verse_url, "_blank");
-    },
-    handleScroll() {
-        this.showButton = window.pageYOffset > 200;
-    },
-    gotocat(category){
-        this.$router.push({
-            path: '/category',
-            query: {
-                category: category
-            }
-        });
-    },
+
   },
+
 
   mounted() {
+    
     this.category = this.$route.query.category;
     this.getQuotesByCat();
-    window.addEventListener("scroll", this.handleScroll);
-  },
 
-  beforeDestroy() {
-    window.removeEventListener("scroll", this.handleScroll);
-  },
+    },
 
-  watch: {
+    watch: {
     $route(to, from) {
+        this.fetching = true
         const category = to.query.category;
         this.category = category;
         this.current_offset = 0;
@@ -379,7 +222,15 @@ console.error(error);
     },
   },
 
-};
+   //Solved the modal overlay not leaving after route change issue
+  beforeRouteLeave(to, from, next) {
+    document.body.classList.remove('modal-open');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    if (modalBackdrop) {
+      modalBackdrop.remove();
+    }
+    next();
+  },
 
-  </script>
-  
+}
+</script>
