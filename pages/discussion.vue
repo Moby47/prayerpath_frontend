@@ -1,59 +1,44 @@
 <template>
-    <div>
-    
-      <apploader v-if="fetching"/>
-     
-     <appheader/>
-     
-     <span v-if="!fetching">
-
-    <!-- App Capsule -->
-    <div id="appCapsule">
-
+  <div>
+    <apploader v-if="fetching"/>
+    <appheader/>
+    <span v-if="!fetching">
+      <!-- App Capsule -->
+      <div id="appCapsule">
         <div class="header-large-title">
-            <h4 class="subtitle">Share your thoughts below 🤔</h4>
+          <h4 class="subtitle">Share your thoughts below 🤔</h4>
         </div>
-
-      <appmaincardsin :quote="quote"/>
-     
-
-      <appfooter/>
-
-       <!-- Multi purpose modal-->
- <div id="discussMultiModal" class="notification-box">
-                    <div class="notification-dialog ios-style">
-                        <div class="notification-header">
-                            <div class="right">
-                                <span>just now</span>
-                            </div>
-                        </div>
-                        <div class="notification-content">
-                            <div class="in">
-                                <h3 class="subtitle">{{notificationTitle}}</h3>
-                                <div class="text">
-                                    {{notificationMessage}}
-                                </div>
-                            </div>
-      <img :src="notificationImg" alt="image" class="imaged w64">
-                        </div>
-                    </div>
+        <appmaincardsin :quote="quote"/>
+        <appfooter/>
+        <!-- Multi purpose modal-->
+        <div id="discussMultiModal" class="notification-box">
+          <div class="notification-dialog ios-style">
+            <div class="notification-header">
+              <div class="right">
+                <span>just now</span>
+              </div>
+            </div>
+            <div class="notification-content">
+              <div class="in">
+                <h3 class="subtitle">{{notificationTitle}}</h3>
+                <div class="text">
+                  {{notificationMessage}}
                 </div>
-                <!-- *  Multi purpose modal -->
-
-    </div>
-    <!-- * App Capsule -->
-</span>
-
-  <appbottommenu/>
-
-
-  <appsidebar/>
-
-    </div>
+              </div>
+              <img :src="notificationImg" alt="image" class="imaged w64">
+            </div>
+          </div>
+        </div>
+        <!-- *  Multi purpose modal -->
+      </div>
+      <!-- * App Capsule -->
+    </span>
+    <appbottommenu/>
+    <appsidebar/>
+  </div>
 </template>
 
 <script>
-
 import appsidebar from "~/components/appsidebar.vue";
 import appshare from "~/components/appshare.vue";
 import appmaincardsin from "~/components/appmaincardsin.vue";
@@ -61,9 +46,6 @@ import apploader from "~/components/apploader.vue";
 import appheader from "~/components/appheader.vue";
 import appfooter from "~/components/appfooter.vue";
 import appbottommenu from "~/components/appbottommenu.vue";
-
-
-
 import axios from 'axios';
 import * as idb from 'idb-keyval'
 
@@ -76,56 +58,48 @@ export default {
     appheader,
     appfooter,
     appbottommenu,
-   
   },
   head() {
-     return {
+    return {
       title: "PrayerPath - Community Chat",
       meta: [
-      {
-      hid: 'description',
-      name: 'description',
-      content: "Connect with other believers and discuss the quotes and prayers that inspire you. Join the PrayerPath community chat and grow your faith together."
-      },
-      {
-      name: 'keywords',
-      content: 'community chat, bible, quotes, prayers, faith, inspiration, God, devotional, daily, motivation, religious, discussion'
-     }
-   ]
-  }
-  
-   },
+        {
+          hid: 'description',
+          name: 'description',
+          content: "Connect with other believers and discuss the quotes and prayers that inspire you. Join the PrayerPath community chat and grow your faith together."
+        },
+        {
+          name: 'keywords',
+          content: 'community chat, bible, quotes, prayers, faith, inspiration, God, devotional, daily, motivation, religious, discussion'
+        }
+      ]
+    }
+  },
   data() {
     return {
       quote: [],
       key: this.$config.BACKEND_API_KEY,
-       backend_url: this.$config.BACKEND_APP_URL,
-       fetching:true,
-       id:'',
-
-       notificationTitle:'',
+      backend_url: this.$config.BACKEND_APP_URL,
+      fetching:true,
+      id:'',
+      notificationTitle:'',
       notificationMessage:'',
       notificationImg:'',
     }
   },
   methods: {
-   
     async getquote() {
-  
- var final_url = `${this.backend_url}/api/quote/${this.id}`;
- 
- try {
- const res = await axios.get(final_url, {
- headers: {
- 'Content-Type': 'application/json',
- 'X-Authorization': this.key
- }
- });
- 
- this.quote = this.quote.concat(res.data.data);
- this.fetching = false
- 
- if (res.data.data.length === 0) {
+      var final_url = `${this.backend_url}/api/quote/${this.id}`;
+      try {
+        const res = await axios.get(final_url, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': this.key
+          }
+        });
+        this.quote = this.quote.concat(res.data.data);
+        this.fetching = false;
+        if (res.data.data.length === 0) {
 this.showNotification('discussMultiModal', 'Notice', "Alas, our search has come up empty - let's ask the Lord for a miracle!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDU2NGJlZTgzMmQzODc4NTE2Yjg2MTVmMjM3MDU2M2NkMjg1YzE4OSZjdD1n/26hkhPJ5hmdD87HYA/giphy.gif');
         }
  

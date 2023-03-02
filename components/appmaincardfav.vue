@@ -1,71 +1,105 @@
 <template>
     <div>
       <!-- Your template code here -->
-        <!--card-->
-        <div class="section mt-1 mb-2"
+      <!--card-->
+      <div
+        class="section mt-1 mb-2"
         v-for="quote in quotes"
-      v-bind:key="quote.id"
-        >
-            <div class="card">
-                <div class="card-body">
-                    <h5>God's word:</h5>
-                    <p class="card-text">
-                        {{quote.verse}}
-                        <small> <i class='badge'> {{quote.reference}} - NIV</i></small>
-                    </p>
-
-                    <apptranslation :quote="quote"/>
-
-            
-                    <div 
-    v-if="quote.imageurl"
-    style="position: relative; height: auto; display: flex; flex-direction: column;" 
-    :style="{ backgroundImage: `url(${quote.imageurl})` }"
-    class="card card-img-overlay prayer"
-    >
-  <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
-  <p style="position: relative; z-index: 1;" class="card-text">
-    {{quote.prayer}}
-  </p>
-</div>
-
-<div 
-v-else
-    style="position: relative; height: auto; display: flex; flex-direction: column;" 
-    :style="{ backgroundImage: `url(https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg)` }"
-    class="card card-img-overlay prayer"
-    >
-  <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
-  <p style="position: relative; z-index: 1;" class="card-text">
-    {{quote.prayer}}
-  </p>
-</div>
-  <p class="card-text"><small><i class='badge'>Prayer For {{quote.category}}</i></small></p>
-  <div class="section full">
-            <div class="wide-block pt-2 pb-1">
-
+        v-bind:key="quote.id"
+      >
+        <div class="card">
+          <div class="card-body">
+            <h5>God's word:</h5>
+            <p class="card-text">
+              {{quote.verse}}
+              <small> <i class='badge'> {{quote.reference}} - NIV</i></small>
+            </p>
+  
+            <apptranslation :quote="quote"/>
+  
+            <div
+              v-if="quote.imageurl"
+              style="
+                position: relative;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+              "
+              :style="{ backgroundImage: `url(${quote.imageurl})` }"
+              class="card card-img-overlay prayer"
+            >
+              <div
+                style="
+                  background-color: rgba(0, 0, 0, 0.65);
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  height: 100%;
+                  width: 100%;
+                "
+              ></div>
+              <p style="position: relative; z-index: 1;" class="card-text">
+                {{quote.prayer}}
+              </p>
+            </div>
+  
+            <div
+              v-else
+              style="
+                position: relative;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+              "
+              :style="{ backgroundImage: `url(https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg)` }"
+              class="card card-img-overlay prayer"
+            >
+              <div
+                style="
+                  background-color: rgba(0, 0, 0, 0.65);
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  height: 100%;
+                  width: 100%;
+                "
+              ></div>
+              <p style="position: relative; z-index: 1;" class="card-text">
+                {{quote.prayer}}
+              </p>
+            </div>
+  
+            <p class="card-text">
+              <small><i class='badge'>Prayer For {{quote.category}}</i></small>
+            </p>
+            <div class="section full">
+              <div class="wide-block pt-2 pb-1">
                 <div class="row">
-                    <div class="col-2">
-                       
-                    </div>
-                    <div class="col-2">
-                        <v-icon class="color-black" @click="showSermon(quote)">mdi-book-cross</v-icon>
-                    </div>
-                    <div class="col-2">
-                         <v-icon class="color-red" @click="deleteQuote(quote.id)">mdi-delete</v-icon>
-                    </div>
-                    <div class="col-2">
-                         <v-icon @click="copyContent(quote)">mdi-content-copy</v-icon>
-                    </div>
-                    <div class="col-2">
-                        <router-link
+                  <div class="col-2"></div>
+                  <div class="col-2">
+                    <v-icon class="color-black" @click="showSermon(quote)"
+                      >mdi-book-cross</v-icon
+                    >
+                  </div>
+                  <div class="col-2">
+                    <v-icon
+                      class="color-red"
+                      @click="deleteQuote(quote.id)"
+                      >mdi-delete</v-icon
+                    >
+                  </div>
+                  <div class="col-2">
+                    <v-icon @click="copyContent(quote)">mdi-content-copy</v-icon>
+                  </div>
+                  <div class="col-2">
+                    <router-link
                       :to="{ name: 'discussion', query: { id: quote.id } }"
                     >
-                       <v-icon class="color-app">mdi-comment-multiple</v-icon>
-                       </router-link>
-                    </div>
-                    <div class="col-2">
-                      <v-icon class="color-green" @click="share(quote)">mdi-share-variant</v-icon>
+                      <v-icon class="color-app">mdi-comment-multiple</v-icon>
+                    </router-link>
+                  </div>
+                  <div class="col-2">
+                    <v-icon class="color-green" @click="share(quote)">mdi-share-variant</v-icon>
                     </div>
                 </div>
 
@@ -213,105 +247,86 @@ v-else
   
   export default {
     components: {
-  apptranslation,
-},
-    props: {
-    quotes: {
-      type: Array,
-      required: true,
+      apptranslation,
     },
-  },
+    props: {
+      quotes: {
+        type: Array,
+        required: true,
+      },
+    },
     data() {
       return {
         // Your data properties here
         sermon:'',
-
         notificationTitle:'',
-      notificationMessage:'',
-      notificationImg:'',
-
-      app_url: this.$config.APP_URL,
-      url:''
+        notificationMessage:'',
+        notificationImg:'',
+        app_url: this.$config.APP_URL,
+        url:''
       }
     },
     // Add methods here
     methods: {
       // Your methods here
       share(quote){
-      this.url = this.app_url+'/discussion?id='+quote.id
-    $('#actionSheetShare').modal('toggle');
-    },
-
+        this.url = this.app_url+'/discussion?id='+quote.id
+        $('#actionSheetShare').modal('toggle');
+      },
       async deleteQuote(id) {
-  this.$nuxt.$loading.start()
-
-  let savedQuotes = await idb.get('fav') || [];
-  let index = savedQuotes.findIndex(q => q.id === id);
-  if (index !== -1) {
-    savedQuotes.splice(index, 1);
-    await idb.set('fav', savedQuotes);
-    
-    // Emit an event to notify the parent component to remove the deleted quote from the quotes array
-    this.$emit('quote-deleted', id);
-  }
-  
-  //Notify user
-  this.showNotification('favCardMultiModal', 'Notice', "The quote hath been removed!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmQ5ZmU4ZmQyMDk3ZWU4ODIyYWNkNTlhMDg0ODYzYmE4MDYxNGZjOSZjdD1n/Oj7yTCLSZjSt2JMwi2/giphy.gif');
-  //Notify user
-
-  this.$nuxt.$loading.finish()
-},
-
-
-    showSermon(quote) {
-      this.sermon = quote.sermon
-    $('#actionSheetContent').modal('toggle');
-    },
-
-
-    async copyContent(quote) {
-    const sentence1 = quote.verse
-    const sentence2 = quote.prayer
-    const text = sentence1 + "\n" + "\n" + sentence2; // concatenate sentences with a newline character
-    try {
-      await navigator.clipboard.writeText(text);
-        
-  //Notify user
-  this.showNotification('favCardMultiModal', 'Notice', "Quote and Prayer copied.", 'https://media.giphy.com/media/psmj7c3DbrJKkbRYFj/giphy.gif');
-    //Notify user
-      
-    } catch (err) {
-      console.error("Failed to copy sentences: ", err);
-    alert('Copying to clipboard is not supported in this browser. Please copy the Quote and prayer manually.')
-    }
-  },
-
-  showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
-
-this.notificationTitle = notificationTitle
-this.notificationMessage = notificationMessage
-this.notificationImg = notificationImg
-
-var a = "#" + notificationId;
-var time = 5000;
-$(".notification-box").removeClass("show");
-setTimeout(() => {
-$(a).addClass("show");
-}, 300);
-if (time) {
-time = time + 300;
-setTimeout(() => {
-    $(".notification-box").removeClass("show");
-}, time);
-}
-},
-
-
+        this.$nuxt.$loading.start()
+        let savedQuotes = await idb.get('fav') || [];
+        let index = savedQuotes.findIndex(q => q.id === id);
+        if (index !== -1) {
+          savedQuotes.splice(index, 1);
+          await idb.set('fav', savedQuotes);
+          // Emit an event to notify the parent component to remove the deleted quote from the quotes array
+          this.$emit('quote-deleted', id);
+        }
+        // Notify user
+        this.showNotification('favCardMultiModal', 'Notice', "The quote hath been removed!", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmQ5ZmU4ZmQyMDk3ZWU4ODIyYWNkNTlhMDg0ODYzYmE4MDYxNGZjOSZjdD1n/Oj7yTCLSZjSt2JMwi2/giphy.gif');
+        // Notify user
+        this.$nuxt.$loading.finish()
+      },
+      showSermon(quote) {
+        this.sermon = quote.sermon
+        $('#actionSheetContent').modal('toggle');
+      },
+      async copyContent(quote) {
+        const sentence1 = quote.verse
+        const sentence2 = quote.prayer
+        const text = sentence1 + "\n" + "\n" + sentence2; // concatenate sentences with a newline character
+        try {
+          await navigator.clipboard.writeText(text);
+          // Notify user
+          this.showNotification('favCardMultiModal', 'Notice', "Quote and Prayer copied.", 'https://media.giphy.com/media/psmj7c3DbrJKkbRYFj/giphy.gif');
+          // Notify user
+        } catch (err) {
+          console.error("Failed to copy sentences: ", err);
+          alert('Copying to clipboard is not supported in this browser. Please copy the Quote and prayer manually.')
+        }
+      },
+      showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
+        this.notificationTitle = notificationTitle
+        this.notificationMessage = notificationMessage
+        this.notificationImg = notificationImg
+        var a = "#" + notificationId;
+        var time = 5000;
+        $(".notification-box").removeClass("show");
+        setTimeout(() => {
+          $(a).addClass("show");
+        }, 300);
+        if (time) {
+          time = time + 300;
+          setTimeout(() => {
+            $(".notification-box").removeClass("show");
+          }, time);
+        }
+      },
     },
     // The mounted hook is called after the component is mounted to the DOM
     mounted() {
       // Your mounted code here
     }
   }
-  </script>
-  
+</script>

@@ -1,58 +1,50 @@
 <template>
-    <div>
-
-    
+  <div>
     <apploader v-if="fetching"/>
-     
-<appheader/>
 
-<span v-if="!fetching">
+    <appheader/>
 
-    <!-- App Capsule -->
-    <div id="appCapsule">
+    <span v-if="!fetching">
+
+      <!-- App Capsule -->
+      <div id="appCapsule">
 
         <div class="header-large-title">
-            <h4 class="subtitle">Category: {{ this.category }} 😇</h4>
+          <h4 class="subtitle">Category: {{ this.category }} 😇</h4>
         </div>
 
-      <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton" :spinner="spinner"/>
-     
+        <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton" :spinner="spinner"/>
 
-      <appfooter/>
-
+        <appfooter/>
 
         <!-- Multi purpose modal-->
- <div id="categoryMultiModal" class="notification-box">
-                    <div class="notification-dialog ios-style">
-                        <div class="notification-header">
-                            <div class="right">
-                                <span>just now</span>
-                            </div>
-                        </div>
-                        <div class="notification-content">
-                            <div class="in">
-                                <h3 class="subtitle">{{notificationTitle}}</h3>
-                                <div class="text">
-                                    {{notificationMessage}}
-                                </div>
-                            </div>
-      <img :src="notificationImg" alt="image" class="imaged w64">
-                        </div>
-                    </div>
+        <div id="categoryMultiModal" class="notification-box">
+          <div class="notification-dialog ios-style">
+            <div class="notification-header">
+              <div class="right">
+                <span>just now</span>
+              </div>
+            </div>
+            <div class="notification-content">
+              <div class="in">
+                <h3 class="subtitle">{{notificationTitle}}</h3>
+                <div class="text">
+                  {{notificationMessage}}
                 </div>
-                <!-- * ios style -->
+              </div>
+              <img :src="notificationImg" alt="image" class="imaged w64">
+            </div>
+          </div>
+        </div>
+        <!-- * ios style -->
+      </div>
+      <!-- * App Capsule -->
+    </span>
 
+    <appbottommenu/>
 
-    </div>
-    <!-- * App Capsule -->
-</span>
-
-  <appbottommenu/>
-
-
-  <appsidebar/>
-
-    </div>
+    <appsidebar/>
+  </div>
 </template>
 
 <script>
@@ -95,26 +87,22 @@ export default {
   data() {
     return {
       key: this.$config.BACKEND_API_KEY,
-   backend_url: this.$config.BACKEND_APP_URL,
-   current_offset: 0,
-  load_more_limit: 10, //determines how many is fetched initially
-  showLoadButton:true,
-  quotes: [],
-  fetching:true,
-
-  category: '',
-
-  notificationTitle:'',
+      backend_url: this.$config.BACKEND_APP_URL,
+      current_offset: 0,
+      load_more_limit: 10, //determines how many is fetched initially
+      showLoadButton:true,
+      quotes: [],
+      fetching:true,
+      category: '',
+      notificationTitle:'',
       notificationMessage:'',
       notificationImg:'',
-
       spinner:false,
     }
   },
   methods: {
    
     async getQuotesByCat() {
-
       var final_url = `${this.backend_url}/api/quotes-category/${this.category}?offset=${this.current_offset}&limit=${this.load_more_limit}`;
 
       try {
@@ -124,29 +112,32 @@ export default {
             'X-Authorization': this.key,
           },
         });
+
+        // Update quotes list with new data and disable spinner
         this.quotes = this.quotes.concat(response.data.data);
         this.fetching = false
         this.spinner = false
 
+        // If there are no more quotes to fetch, show a notification
         if (response.data.data.length === 0) {
           this.showNotification('categoryMultiModal', 'Notice', "No more results? That's all for " + this.category, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
         }
 
-        // save to indexedDB for offline use
-              let savedQuotes = await idb.get('quotes') || [];
-      if (savedQuotes.length + response.data.data.length > 100) {
-      savedQuotes = savedQuotes.slice(0, 100 - response.data.data.length);
-      }
-      for (let i = 0; i < response.data.data.length; i++) {
-      let quote = response.data.data[i];
-      let key = quote.id;
-      let existingQuote = savedQuotes.find(q => q.id === key);
-      if (existingQuote) {
-        continue;
-      }
-      savedQuotes.push(quote);
-      }
-      await idb.set('quotes', savedQuotes);
+        // Save quotes to IndexedDB for offline use
+        let savedQuotes = await idb.get('quotes') || [];
+        if (savedQuotes.length + response.data.data.length > 100) {
+          savedQuotes = savedQuotes.slice(0, 100 - response.data.data.length);
+        }
+        for (let i = 0; i < response.data.data.length; i++) {
+          let quote = response.data.data[i];
+          let key = quote.id;
+          let existingQuote = savedQuotes.find(q => q.id === key);
+          if (existingQuote) {
+            continue;
+          }
+          savedQuotes.push(quote);
+        }
+        await idb.set('quotes', savedQuotes);
         // // save to indexedDB for offline use
 
 

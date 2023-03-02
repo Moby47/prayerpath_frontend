@@ -136,105 +136,96 @@ v-else
   <script>
   // Define your component using the Vue.js API
   import apptranslation from "~/components/apptranslation.vue";
-  
-  import * as idb from 'idb-keyval'
-  
+  import * as idb from 'idb-keyval';
+
   export default {
     components: {
-  apptranslation,
-},
-    props: {
-    quote: {
-      type: Array,
-      required: true,
+      apptranslation,
     },
-  },
+    props: {
+      quote: {
+        type: Array,
+        required: true,
+      },
+    },
     data() {
       return {
         // Your data properties here
-        sermon:'',
-        id:'',
-
-        notificationTitle:'',
-      notificationMessage:'',
-      notificationImg:'',
+        sermon: '',
+        id: '',
+        notificationTitle: '',
+        notificationMessage: '',
+        notificationImg: '',
       }
     },
     // Add methods here
     methods: {
       // Your methods here
-
       showSermon(quote) {
-      this.sermon = quote.sermon
-    $('#actionSheetContent').modal('toggle');
-    },
+        this.sermon = quote.sermon
+        $('#actionSheetContent').modal('toggle');
+      },
+      async saveQuote(quote) {
+        this.$nuxt.$loading.start()
 
-    async saveQuote(quote) {
-      this.$nuxt.$loading.start()
-
-    let savedQuotes = await idb.get('fav') || [];
-    if (savedQuotes.length >= 5) {
-      //Notify user
-   this.showNotification('disMultiModal', 'Alert', "Lo and behold, only 5 quotes may be saved.", 'https://media.giphy.com/media/eKrgVyZ7zLvJrgZNZn/giphy.gif');
-    //Notify user
-      this.$nuxt.$loading.finish()
-      return;
-    }
-    let key = quote.id;
-    let existingQuote = savedQuotes.find(q => q.id === key);
-    if (existingQuote) {
+        let savedQuotes = await idb.get('fav') || [];
+        if (savedQuotes.length >= 5) {
+          //Notify user
+          this.showNotification('disMultiModal', 'Alert', "Lo and behold, only 5 quotes may be saved.", 'https://media.giphy.com/media/eKrgVyZ7zLvJrgZNZn/giphy.gif');
+          //Notify user
+          this.$nuxt.$loading.finish()
+          return;
+        }
+        let key = quote.id;
+        let existingQuote = savedQuotes.find(q => q.id === key);
+        if (existingQuote) {
+          //Notify user
+          this.showNotification('disMultiModal', 'Notice', "This quote is already amongst thy Favourites.", 'https://media.giphy.com/media/3o7bui8qZJeSQuXgMo/giphy.gif');
+          //Notify user
+          this.$nuxt.$loading.finish()
+          return;
+        }
+        savedQuotes.push(quote);
+        await idb.set('fav', savedQuotes);
         //Notify user
-   this.showNotification('disMultiModal', 'Notice', "This quote is already amongst thy Favourites.", 'https://media.giphy.com/media/3o7bui8qZJeSQuXgMo/giphy.gif');
-    //Notify user
-     
-      this.$nuxt.$loading.finish()
-      return;
-    }
-    savedQuotes.push(quote);
-    await idb.set('fav', savedQuotes);
-     //Notify user
-     this.showNotification('disMultiModal', 'Notice', "Quote added to thy Favourites.", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTM1NzU3ZTEzNzE3NmZmYjk2ZmZlNWFlMjcxOGNkZWJhYzIzZDhkMSZjdD1n/9T3kjrLQH2JUQmMwsU/giphy.gif');
-    //Notify user
-     
-    this.$nuxt.$loading.finish()
-  },
+        this.showNotification('disMultiModal', 'Notice', "Quote added to thy Favourites.", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTM1NzU3ZTEzNzE3NmZmYjk2ZmZlNWFlMjcxOGNkZWJhYzIzZDhkMSZjdD1n/9T3kjrLQH2JUQmMwsU/giphy.gif');
+        //Notify user
+        this.$nuxt.$loading.finish()
+      },
+      async copyContent(quote) {
+        const sentence1 = quote.verse
+        const sentence2 = quote.prayer
+        const text = sentence1 + "\n" + "\n" + sentence2; // concatenate sentences with a newline character
+        try {
+          await navigator.clipboard.writeText(text);
 
-  async copyContent(quote) {
-    const sentence1 = quote.verse
-    const sentence2 = quote.prayer
-    const text = sentence1 + "\n" + "\n" + sentence2; // concatenate sentences with a newline character
-    try {
-      await navigator.clipboard.writeText(text);
-        
-  //Notify user
-  this.showNotification('disMultiModal', 'Notice', "Quote and Prayer copied.", 'https://media.giphy.com/media/psmj7c3DbrJKkbRYFj/giphy.gif');
-    //Notify user
-      
-    } catch (err) {
-      console.error("Failed to copy sentences: ", err);
-    alert('Copying to clipboard is not supported in this browser. Please copy the Quote and prayer manually.')
-    }
-  },
+          //Notify user
+          this.showNotification('disMultiModal', 'Notice', "Quote and Prayer copied.", 'https://media.giphy.com/media/psmj7c3DbrJKkbRYFj/giphy.gif');
+          //Notify user
 
-  showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
+        } catch (err) {
+          console.error("Failed to copy sentences: ", err);
+          alert('Copying to clipboard is not supported in this browser. Please copy the Quote and prayer manually.')
+        }
+      },
+      showNotification(notificationId, notificationTitle, notificationMessage, notificationImg) {
+        this.notificationTitle = notificationTitle
+        this.notificationMessage = notificationMessage
+        this.notificationImg = notificationImg
 
-this.notificationTitle = notificationTitle
-this.notificationMessage = notificationMessage
-this.notificationImg = notificationImg
-
-var a = "#" + notificationId;
-var time = 5000;
-$(".notification-box").removeClass("show");
-setTimeout(() => {
-$(a).addClass("show");
-}, 300);
-if (time) {
-time = time + 300;
-setTimeout(() => {
-    $(".notification-box").removeClass("show");
-}, time);
-}
-},
+        var a = "#" + notificationId;
+        var time = 5000;
+        $(".notification-box").removeClass("show");
+        setTimeout(() => {
+        $(a).addClass("show");
+        }, 300);
+        if (time) {
+        time = time + 300;
+        setTimeout(() => {
+            $(".notification-box").removeClass("show");
+        }, time);
+        }
+        },
 
 
     },

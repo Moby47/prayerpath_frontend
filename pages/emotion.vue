@@ -1,67 +1,51 @@
 <template>
-    <div>
-    
-      <apploader v-if="fetching"/>
-     
-     <appheader/>
-     
-     <span v-if="!fetching">
-
-    <!-- App Capsule -->
-    <div id="appCapsule">
-
+  <div>
+    <apploader v-if="fetching"/>
+    <appheader/>
+    <span v-if="!fetching">
+      <!-- App Capsule -->
+      <div id="appCapsule">
         <div class="header-large-title">
-            <h4 class="subtitle">{{ this.emotion }}? You need this 🙂</h4>
+          <h4 class="subtitle">{{ this.emotion }}? You need this 🙂</h4>
         </div>
-
         <appmaincard :quotes="quotes" @load-more="loadMore" :showLoadButton="showLoadButton" :spinner="spinner"/>
-     
-
-      <appfooter/>
-      
- <!-- Multi purpose Notification modal-->
- <div id="emotionMultiModal" class="notification-box">
-                    <div class="notification-dialog ios-style">
-                        <div class="notification-header">
-                            <div class="right">
-                                <span>just now</span>
-                            </div>
-                        </div>
-                        <div class="notification-content">
-                            <div class="in">
-                                <h3 class="subtitle">{{notificationTitle}}</h3>
-                                <div class="text">
-                                    {{notificationMessage}}
-                                </div>
-                            </div>
-      <img :src="notificationImg" alt="image" class="imaged w64">
-                        </div>
-                    </div>
+        <appfooter/>
+        <!-- Multi purpose Notification modal-->
+        <div id="emotionMultiModal" class="notification-box">
+          <div class="notification-dialog ios-style">
+            <div class="notification-header">
+              <div class="right">
+                <span>just now</span>
+              </div>
+            </div>
+            <div class="notification-content">
+              <div class="in">
+                <h3 class="subtitle">{{notificationTitle}}</h3>
+                <div class="text">
+                  {{notificationMessage}}
                 </div>
-                <!-- * Notification modal -->
-
-
-    </div>
-    <!-- * App Capsule -->
-</span>
-
-  <appbottommenu/>
-
-
-  <appsidebar/>
-
-    </div>
+              </div>
+              <img :src="notificationImg" alt="image" class="imaged w64">
+            </div>
+          </div>
+        </div>
+        <!-- * Notification modal -->
+      </div>
+      <!-- * App Capsule -->
+    </span>
+    <appbottommenu/>
+    <appsidebar/>
+  </div>
 </template>
 
-<script>
 
+<script>
 import appsidebar from "~/components/appsidebar.vue";
 import appmaincard from "~/components/appmaincard.vue";
 import apploader from "~/components/apploader.vue";
 import appheader from "~/components/appheader.vue";
 import appfooter from "~/components/appfooter.vue";
 import appbottommenu from "~/components/appbottommenu.vue";
-
 import axios from 'axios';
 import * as idb from 'idb-keyval'
 
@@ -75,84 +59,72 @@ export default {
     appbottommenu,
   },
   head() {
-      return {
-        title: "PrayerPath - Emotion-based Prayers",
-        meta: [
+    return {
+      title: "PrayerPath - Emotion-based Prayers",
+      meta: [
         {
-        hid: 'description',
-        name: 'description',
-        content: "Find prayers based on your current emotion with PrayerPath. Get daily quotes and prayers from the Bible to help you navigate your spiritual journey."
+          hid: 'description',
+          name: 'description',
+          content: "Find prayers based on your current emotion with PrayerPath. Get daily quotes and prayers from the Bible to help you navigate your spiritual journey."
         },
         {
-        name: 'keywords',
-        content: 'emotion-based prayers, bible, quotes, faith, inspiration, God, devotional, daily, motivation, religious'
-          }
-        ]
-      }
-    },
+          name: 'keywords',
+          content: 'emotion-based prayers, bible, quotes, faith, inspiration, God, devotional, daily, motivation, religious'
+        }
+      ]
+    }
+  },
   data() {
     return {
       key: this.$config.BACKEND_API_KEY,
-   backend_url: this.$config.BACKEND_APP_URL,
-   current_offset: 0,
-  load_more_limit: 10, //determines how many is fetched initially
-  showLoadButton:true,
-  quotes: [],
-  fetching:true,
-
-  notificationTitle:'',
+      backend_url: this.$config.BACKEND_APP_URL,
+      current_offset: 0,
+      load_more_limit: 10, //determines how many is fetched initially
+      showLoadButton:true,
+      quotes: [],
+      fetching:true,
+      notificationTitle:'',
       notificationMessage:'',
       notificationImg:'',
-
       emotion:'',
-
       spinner:false,
     }
   },
   methods: {
-   
     async getQuotesByEmotion() {
-  
-        var final_url = `${this.backend_url}/api/quotes-emotion/${this.emotion}?offset=${this.current_offset}&limit=${this.load_more_limit}`;
-  
-        try {
-          const response = await axios.get(final_url, {
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Authorization': this.key,
-            },
-          });
-          this.quotes = this.quotes.concat(response.data.data);
-          this.fetching = false
-          this.spinner = false
-  
-          if (response.data.data.length === 0) {
-           this.showNotification('emotionMultiModal', 'Notice', "Trust in the Lord to fill the void - That's all for " + this.emotion, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
+      var final_url = `${this.backend_url}/api/quotes-emotion/${this.emotion}?offset=${this.current_offset}&limit=${this.load_more_limit}`;
+      try {
+        const response = await axios.get(final_url, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': this.key,
+          },
+        });
+        this.quotes = this.quotes.concat(response.data.data);
+        this.fetching = false
+        this.spinner = false
+        if (response.data.data.length === 0) {
+          this.showNotification('emotionMultiModal', 'Notice', "Trust in the Lord to fill the void - That's all for " + this.emotion, 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif');
         }
-
-// save to indexedDB for offline use
-let savedQuotes = await idb.get('quotes') || [];
-      if (savedQuotes.length + response.data.data.length > 100) {
-      savedQuotes = savedQuotes.slice(0, 100 - response.data.data.length);
-      }
-      for (let i = 0; i < response.data.data.length; i++) {
-      let quote = response.data.data[i];
-      let key = quote.id;
-      let existingQuote = savedQuotes.find(q => q.id === key);
-      if (existingQuote) {
-        continue;
-      }
-      savedQuotes.push(quote);
-      }
-      await idb.set('quotes', savedQuotes);
-
-        // // save to indexedDB for offline use
-
-        } catch (error) {
-       
-          this.showLoadButton=false
-  
-          //get from indexeddb
+        // save to indexedDB for offline use
+        let savedQuotes = await idb.get('quotes') || [];
+        if (savedQuotes.length + response.data.data.length > 100) {
+          savedQuotes = savedQuotes.slice(0, 100 - response.data.data.length);
+        }
+        for (let i = 0; i < response.data.data.length; i++) {
+          let quote = response.data.data[i];
+          let key = quote.id;
+          let existingQuote = savedQuotes.find(q => q.id === key);
+          if (existingQuote) {
+            continue;
+          }
+          savedQuotes.push(quote);
+        }
+        await idb.set('quotes', savedQuotes);
+        // save to indexedDB for offline use
+      } catch (error) {
+        this.showLoadButton=false
+        //get from indexeddb
          
   try {
     const savedQuotes = await idb.get('quotes');
