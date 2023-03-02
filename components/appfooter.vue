@@ -12,7 +12,7 @@
         Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith.
       </div>
 
-      <!--Change the spans to <a>-->
+      <!--Change the spans to <a>
       <div class="mt-2">
         <a target="_blank" href='https://www.facebook.com/' class="btn btn-icon btn-sm btn-facebook">
           <v-icon>mdi-facebook</v-icon>
@@ -27,9 +27,10 @@
           <v-icon>mdi-whatsapp</v-icon>
         </a>
       </div>
+   
+     app footer -->
     </div>
-    <!-- * app footer -->
-
+    
     <!-- bottom right -->
     <template>
       <div class="fab-button animate bottom-right dropdown" :class="{ hide: !scrolled }">
