@@ -12,23 +12,19 @@
         Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith.
       </div>
 
-      <!--Change the spans to <a>
+      <!--Footer-->
       <div class="mt-2">
-        <a target="_blank" href='https://www.facebook.com/' class="btn btn-icon btn-sm btn-facebook">
-          <v-icon>mdi-facebook</v-icon>
+        <a target="_blank" href='https://play.google.com/store/apps/details?id=org.prayerpath.twa' 
+        class="btn btn-icon btn-sm" style="background-color:grey">
+          <v-icon style="color:white">mdi-android</v-icon>
         </a>
-        <a target="_blank" href='https://twitter.com/' class="btn btn-icon btn-sm btn-twitter">
-          <v-icon>mdi-twitter</v-icon>
-        </a>
-        <a target="_blank" href='https://www.instagram.com/' class="btn btn-icon btn-sm btn-instagram">
-          <v-icon>mdi-slack</v-icon>
-        </a>
-        <a target="_blank" href='https://chat.whatsapp.com/FrvtEpF0tWT5Tm3Ow0M7gD' class="btn btn-icon btn-sm btn-whatsapp">
-          <v-icon>mdi-whatsapp</v-icon>
-        </a>
+        <span class="btn btn-icon btn-sm" style="background-color:grey" onclick="alert('The iOS version of this app is currently under construction.')">
+        <v-icon style="color:white">mdi-apple</v-icon>
+      </span>
+
       </div>
    
-     app footer -->
+    <!-- app footer -->
     </div>
     
     <!-- bottom right -->
