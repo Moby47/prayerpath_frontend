@@ -61,6 +61,26 @@
                   </a>
                 </li>
                 <li>
+                  <a href="https://play.google.com/store/apps/details?id=org.prayerpath.twa" class="item">
+                    <div class="icon-box">
+                      <v-icon>mdi-layers</v-icon>
+                    </div>
+                    <div class="in">
+                      <div>=org.prayerpath.twa</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="market://launch?id=org.prayerpath.twa" class="item">
+                    <div class="icon-box">
+                      <v-icon>mdi-layers</v-icon>
+                    </div>
+                    <div class="in">
+                      <div>market://launch?id</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
                 <div class="item">
                   <div class="icon-box">
                       <v-icon>mdi-weather-night</v-icon>
