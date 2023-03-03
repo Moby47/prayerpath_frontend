@@ -119,10 +119,6 @@ export default {
     '@nuxtjs/universal-storage',
   ],
 
-  server: {
-    https: true
-  },
-  
   // Options
 oneSignal: {
   init: {
