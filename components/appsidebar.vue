@@ -69,7 +69,7 @@
                         <div>Dark Mode</div>
                         <div class="custom-control custom-switch">
                       <input type="checkbox" class="custom-control-input dark-mode-switch" 
-                      v-model="isChecked" id="darkmodesidebar">
+                      v-model="isChecked" id="darkmodesidebar" @change="logCheckedValue">
                       <label class="custom-control-label" for="darkmodesidebar"></label>
                     </div>
                     </div>
@@ -150,6 +150,16 @@
         }, time);
       }
     },
+
+    logCheckedValue() {
+        console.log("isChecked value changed to:", this.isChecked);
+        if(this.isChecked == true){
+ this.showNotification('sidebarMultiModal', "Dark mode activated 😎", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFlMTc3NzRjMzUwYjk1MjNjMDFjYWVkZTVlMmI2NDA5ZThmMGNjOCZjdD1n/kiBcwEXegBTACmVOnE/giphy-downsized-large.gif');
+        }
+        if(this.isChecked == false){
+ this.showNotification('sidebarMultiModal', "Into the light ☀️", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjc2OGE0Y2ViZTQxMDVkNTI5ODUzMzNhYTlmMmYzZWRmNjEyYTg2YyZjdD1n/IzigK4GlBmchkTqIrG/giphy.gif');    
+        }
+      },
   
     },
     // The mounted hook is called after the component is mounted to the DOM
@@ -167,14 +177,12 @@
         if (value) {
           document.body.classList.add("dark-mode-active");
           this.$storage.setUniversal("isDarkMode", "true");
-          console.log('dark')
-          this.showNotification('sidebarMultiModal', "Dark mode activated 😎", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFlMTc3NzRjMzUwYjk1MjNjMDFjYWVkZTVlMmI2NDA5ZThmMGNjOCZjdD1n/kiBcwEXegBTACmVOnE/giphy-downsized-large.gif');
-        } else {
+          console.log('Watcher said: dark')
+          } else {
           document.body.classList.remove("dark-mode-active");
           this.$storage.setUniversal("isDarkMode", "false");
-          console.log('light')
-          this.showNotification('sidebarMultiModal', "Into the light ☀️", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjc2OGE0Y2ViZTQxMDVkNTI5ODUzMzNhYTlmMmYzZWRmNjEyYTg2YyZjdD1n/IzigK4GlBmchkTqIrG/giphy.gif');
-        }
+          console.log('Watcher said: light')
+         }
         //remove any menu or modal overlay
         document.body.classList.remove('modal-open');
         const modalBackdrop = document.querySelector('.modal-backdrop');

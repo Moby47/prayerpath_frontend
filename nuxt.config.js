@@ -84,7 +84,7 @@ export default {
   */
   loading: { 
     color: '#3f51b5',
-    height: '10px',
+    height: '8px',
     throttle: 0,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
