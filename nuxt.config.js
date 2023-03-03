@@ -117,8 +117,21 @@ export default {
     '@nuxtjs/cloudinary',
     'vue-social-sharing/nuxt',
     '@nuxtjs/universal-storage',
+    '@nuxtjs/redirect-module'
   ],
 
+  redirect: [
+    {
+      from: '^http://',
+      to: 'https://staging-prayerpath-app.herokuapp.com',
+      statusCode: 301
+    },
+    {
+      from: '^https://www\\.',
+      to: 'https://staging-prayerpath-app.herokuapp.com',
+      statusCode: 301
+    }
+  ],
   // Options
 oneSignal: {
   init: {
