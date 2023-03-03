@@ -116,6 +116,7 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/cloudinary',
     'vue-social-sharing/nuxt',
+    '@nuxtjs/universal-storage',
   ],
 
   // Options
