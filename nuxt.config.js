@@ -117,17 +117,12 @@ export default {
     '@nuxtjs/cloudinary',
     'vue-social-sharing/nuxt',
     '@nuxtjs/universal-storage',
-    '@nuxtjs/redirect-module',
   ],
 
-  redirect: [
-    {
-      from: '^https?://(www\\.)?prayerpath\\.org(/.*)?$',
-      to: 'https://prayerpath.org/:splat',
-      statusCode: 301
-    }
-  ],
-
+  server: {
+    https: true
+  },
+  
   // Options
 oneSignal: {
   init: {
