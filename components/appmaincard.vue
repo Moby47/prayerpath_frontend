@@ -16,7 +16,27 @@
             <small> <i class='badge'> {{quote.reference}} - NIV</i></small>
           </p>
 
-          <apptranslation :quote="quote"/>
+         <!--Translation-->
+         <div>
+      <div class="pb-1">
+        <!-- Translation dropdown menu -->
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Translations
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" @click.prevent="showTranslation(quote.reference, 'kjv')">KJV</a>
+            <a class="dropdown-item" href="#" @click.prevent="showTranslation(quote.reference, 'web')">WEB</a>
+            <a class="dropdown-item" href="#" @click.prevent="showTranslation(quote.reference, 'bbe')">BBE</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#"  @click.prevent="promptRedirect(quote.verse_url,'NKJV')">NKJV</a>
+            <a class="dropdown-item" href="#" @click.prevent="promptRedirect(quote.verse_url,'NLT')">NLT</a>
+          </div>
+        </div>
+      </div>
+    </div>
+     <!--Translation-->
+     
 
           <div 
             v-if="quote.imageurl"
@@ -173,6 +193,53 @@
         </div>
         <!-- * Share Action Sheet -->
       
+        <!--Translation modals-->
+          <!-- API translation Panel Left -->
+     <div class="modal fade panelbox panelbox-left" id="translationPanelLeft" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{reference}} - {{ translation }}</h4>
+                        <a href="javascript:;" data-dismiss="modal" class="panel-close">
+                            <v-icon>mdi-window-close</v-icon>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <p v-for="text in texts">
+                          {{ text }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- * API translation Panel Left -->
+           <!-- Dialog for translation redirect -->
+    <div class="modal fade dialogbox" id="DialogIconedButtonInline" data-backdrop="static" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Notice</h5>
+          </div>
+          <div class="modal-body">
+            This leads to biblegateway.
+          </div>
+          <div class="modal-footer">
+            <div class="btn-inline">
+              <a href="#" class="btn btn-text-danger" data-dismiss="modal">
+                <v-icon>mdi-close</v-icon>
+                Cancel
+              </a>
+              <a href="#" class="btn btn-text-primary"  @click="redirect()">
+                <v-icon>mdi-rocket-launch</v-icon>
+                Continue
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- * Dialog for translation redirect -->
+     <!--Translation modals-->
 
               </div>
           </div>
@@ -225,15 +292,11 @@
 <script>
   // Define your component using the Vue.js API
 
-  import apptranslation from "~/components/apptranslation.vue";
-
   import * as idb from 'idb-keyval'
+  import axios from 'axios';
 
   export default {
     // Add data properties here
-    components: {
-      apptranslation,
-    },
     props: {
       quotes: {
         type: Array,
@@ -259,6 +322,10 @@
         notificationImg:'',
         app_url: this.$config.APP_URL,
         url:'',
+        verse_url:'',
+        texts:null,
+        translation:'',
+        reference:'',
       }
     },
     // Add methods here
@@ -340,6 +407,42 @@ setTimeout(() => {
 }, time);
 }
 },
+
+// Translation methods
+showTranslation(reference, translation) {
+      this.$nuxt.$loading.start()
+      axios.get(`https://bible-api.com/${reference}?translation=${translation}`)
+        .then(response => {
+        //for bible use this.verses = response.data.verses;
+          this.texts = response.data.verses.map(verse => verse.text);
+          this.translation = translation.toUpperCase();
+          this.reference = reference
+          $('#translationPanelLeft').modal('toggle');
+          this.$nuxt.$loading.finish()
+         // console.log(translation,this.texts)
+        })
+        .catch(error => {
+          console.error(error);
+          this.$nuxt.$loading.finish()
+          if (this.texts.length === 0) {
+        alert('Error: Could not retrieve verses. Please try again later.');
+      }
+        });
+      },
+
+        // Prompt user to redirect to a Bible translation website
+    promptRedirect(verse_url,version) {
+      $('#DialogIconedButtonInline').modal('toggle');
+      let updatedUrl = verse_url.slice(0, -3);
+      this.verse_url = updatedUrl + version;
+    },
+    
+    // Redirect user to the chosen Bible translation website
+    redirect() {
+      $('#DialogIconedButtonInline').modal('toggle');
+      window.open(this.verse_url, "_blank");
+    },
+    // Translation methods
 
   },
   // The mounted hook is called after the component is mounted to the DOM
