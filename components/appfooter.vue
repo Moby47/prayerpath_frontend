@@ -21,6 +21,9 @@
         <span class="btn btn-icon btn-sm" style="background-color:grey" onclick="alert('The iOS version of this app is currently under construction.')">
         <v-icon style="color:white">mdi-apple</v-icon>
       </span>
+      <span class="btn btn-icon btn-sm" style="background-color:grey" @click="shareApp">
+        <v-icon style="color:white">mdi-share-variant-outline</v-icon>
+      </span>
 
       </div>
    
@@ -60,7 +63,21 @@ export default {
     // Your methods here
     handleScroll() {
       this.scrolled = window.scrollY > 0
-    }
+    },
+ 
+    shareApp() {
+  const appUrl = this.$config.APP_URL;
+
+  navigator.share({
+    title: 'PrayerPath - Quote God & Pray',
+    text: 'Stay focused on your faith with daily inspiration from the Bible. Find randomly generated quotes about God\'s promises and prayers in PrayerPath.',
+    url: appUrl,
+  })
+    .then(() => console.log('Shared successfully.'))
+    .catch((error) => console.error('Error sharing:', error));
+},
+
+
   },
   // The mounted hook is called after the component is mounted to the DOM
   mounted() {
