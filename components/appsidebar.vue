@@ -85,7 +85,7 @@
       <!-- * App Sidebar -->
 
       <!-- Multi purpose modal-->
-    <div id="sidebarMultiModal" class="notification-box">
+    <div id="sidebarMultiModal" class="notification-box" @click="hideNotification()">
       <div class="notification-dialog ios-style">
         <div class="notification-header">
           <div class="right">
@@ -160,6 +160,10 @@
  this.showNotification('sidebarMultiModal', "Into the light ☀️", 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjc2OGE0Y2ViZTQxMDVkNTI5ODUzMzNhYTlmMmYzZWRmNjEyYTg2YyZjdD1n/IzigK4GlBmchkTqIrG/giphy.gif');    
         }
       },
+
+      hideNotification(){
+        $(".notification-box").removeClass("show");
+      }
   
     },
     // The mounted hook is called after the component is mounted to the DOM

@@ -15,14 +15,14 @@
       <!--Footer-->
       <div class="mt-2">
         <a target="_blank" href='https://play.google.com/store/apps/details?id=org.prayerpath.twa' 
-        class="btn btn-icon btn-sm" style="background-color:grey">
-          <v-icon style="color:white">mdi-android</v-icon>
+        class="btn btn-icon btn-sm" style="background-color:rgb(149 149 149 / 28%)">
+          <v-icon style="color:#3DDC84">mdi-android</v-icon>
         </a>
-        <span class="btn btn-icon btn-sm" style="background-color:grey" onclick="alert('The iOS version of this app is currently under construction.')">
-        <v-icon style="color:white">mdi-apple</v-icon>
+        <span class="btn btn-icon btn-sm" style="background-color:rgb(149 149 149 / 28%)" onclick="alert('The iOS version of this app is currently under construction.')">
+        <v-icon style="color:black">mdi-apple</v-icon>
       </span>
-      <span class="btn btn-icon btn-sm" style="background-color:grey" @click="shareApp">
-        <v-icon style="color:white">mdi-share-variant-outline</v-icon>
+      <span class="btn btn-icon btn-sm" style="background-color:rgb(149 149 149 / 28%)" @click="shareApp">
+        <v-icon style="color:green">mdi-share-variant-outline</v-icon>
       </span>
 
       </div>
