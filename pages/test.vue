@@ -36,7 +36,7 @@ export default {
       const reference = 'Genesis 1:2'; // or use this.quote.reference if available //
       const translationId = this.translations[translation];
 
-      axios.get(`https://cors-anywhere.herokuapp.com/https://bible-go-api.rkeplin.com/v1/books/1/chapters/1/1001002?translation=${translationId}`)
+      axios.get(`https://bible-go-api.rkeplin.com/v1/books/1/chapters/1/1001002?translation=${translationId}`)
         .then(response => {
           this.verse = response.data.verse;
           this.book = response.data.book.name;
