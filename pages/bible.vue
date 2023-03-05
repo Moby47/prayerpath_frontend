@@ -146,7 +146,7 @@
 
 
           <!--Translation-->
-<!-- top right 
+<!-- top right -->
 <div class="fab-button animate top-right dropdown">
   <a href="#" class="fab" data-toggle="dropdown">
     <v-icon class="fabBtn">mdi-translate</v-icon>
@@ -166,7 +166,7 @@
     </a>
   </div>
 </div>
-* top right -->
+<!-- * top right -->
 <!--Translation-->
 
 
@@ -219,7 +219,7 @@
     <!-- * App Capsule -->
 
 
-        <appfooter/>
+       <!-- <appfooter/>-->
 
 
     <appbottommenu/>
