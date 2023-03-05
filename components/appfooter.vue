@@ -4,7 +4,7 @@
     <!-- app footer -->
     <div class="appFooter">
       PrayerPath
-      <div class="footer-title">
+      <div class="footer-title mt-1">
         Copyright © PrayerPath 2023. All Rights Reserved.
       </div>
       <div>

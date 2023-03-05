@@ -1,6 +1,6 @@
 console.log('Custom service worker!');
 
-const CACHE_NAME = 'image-cache-v8' + new Date().getTime();
+const CACHE_NAME = 'image-cache-v9' + new Date().getTime();
 const IMAGE_URLS_TO_CACHE = [
   '/logo.png', 
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif',
@@ -20,7 +20,11 @@ const IMAGE_URLS_TO_CACHE = [
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzllNjdjZTMwNzdhNjA5ZjljOTM3NTVmYzQ2NDRhZjBmMTE3ZmM0YiZjdD1n/j7wBU7aHcKf7y/giphy.gif',
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWI5ODZkMThmYTljNGQ0MjljOWVmNDM0YjYyODg2YTU3ZDFmYTMzOSZjdD1n/fLyf3Ag08wABnyqMNY/giphy.gif',
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFlMTc3NzRjMzUwYjk1MjNjMDFjYWVkZTVlMmI2NDA5ZThmMGNjOCZjdD1n/kiBcwEXegBTACmVOnE/giphy-downsized-large.gif',
-  'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjc2OGE0Y2ViZTQxMDVkNTI5ODUzMzNhYTlmMmYzZWRmNjEyYTg2YyZjdD1n/IzigK4GlBmchkTqIrG/giphy.gif'
+  'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjc2OGE0Y2ViZTQxMDVkNTI5ODUzMzNhYTlmMmYzZWRmNjEyYTg2YyZjdD1n/IzigK4GlBmchkTqIrG/giphy.gif',
+  'https://media.giphy.com/media/l0HlOBZcl7sbV6LnO/giphy.gif',
+  'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif',
+  'https://media.giphy.com/media/YoYOhif8otaJI8uIMT/giphy.gif',
+  'https://media.giphy.com/media/LrG5hpEkf2XqjyK4AY/giphy.gif'
 ];
 
 self.addEventListener('install', event => {

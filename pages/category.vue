@@ -36,7 +36,8 @@
             </div>
           </div>
         </div>
-        <!-- * ios style -->
+        <!-- * modal -->
+
       </div>
       <!-- * App Capsule -->
     </span>

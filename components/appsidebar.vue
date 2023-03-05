@@ -61,6 +61,16 @@
                   </a>
                 </li>
                 <li>
+                  <router-link to="/bible" class="item">
+                    <div class="icon-box">
+                      <v-icon>mdi-book-cross</v-icon>
+                    </div>
+                    <div class="in">
+                      Bible
+                    </div>
+                  </router-link>
+                </li>
+                <li>
                 <div class="item">
                   <div class="icon-box">
                       <v-icon>mdi-weather-night</v-icon>
@@ -208,4 +218,5 @@
   .dark-mode-active .v-icon {
     color: white !important;
   }
+
   </style>
