@@ -54,7 +54,7 @@ if(responseFromBackend.status === 200) {
     contents: { en: 'New quote added for: '+category+'. View now.' },
     headings: { en: 'Update' },
     included_segments: ['Subscribed Users'],
-    url: process.env.APP_URL+'/prayer',
+    url: process.env.APP_URL+'/home',
     web_push_topic: 'tag',
     chrome_web_image: `https://cdn.pixabay.com/photo/2016/11/29/08/17/bible-1868359_960_720.jpg`, // 512 or >
     chrome_web_badge: 'https://res.cloudinary.com/ddvotdlwm/image/upload/v1675935424/PrayerPath/ilsbobcrzemxhaihgwxs.png',// 72 or >
