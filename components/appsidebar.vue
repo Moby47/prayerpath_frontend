@@ -180,7 +180,7 @@
     mounted() {
        // check if dark mode is on from local storage
        const isDarkMode = this.$storage.getUniversal("isDarkMode");
-      if (isDarkMode === true) {
+      if (isDarkMode === 'true') {
         this.isChecked = true;
         document.body.classList.add("dark-mode-active");
       }
