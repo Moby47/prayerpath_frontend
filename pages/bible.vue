@@ -511,7 +511,7 @@ this.selectedTranslation = this.$storage.getUniversal("selectedTranslation") || 
     }
     next();
   },
-
+//Solved the modal overlay not leaving after route change issue
 
 };
 </script>

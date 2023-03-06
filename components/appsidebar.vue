@@ -1,5 +1,8 @@
 <template>
     <div>
+
+      <apploader v-if="isLoading"/>
+
       <!-- App Sidebar -->
       <div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -41,25 +44,38 @@
                   </router-link>
                 </li>
                 <li>
-                  <a href="#" @click="showEmotion()" class="item">
+                  <span @click="showEmotion()" class="item">
                     <div class="icon-box">
                       <v-icon>mdi-head-heart</v-icon>
                     </div>
                     <div class="in">
                       <div>Emotions</div>
                     </div>
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#" @click="showCat()" class="item">
+                  <span  @click="showCat()" class="item">
                     <div class="icon-box">
                       <v-icon>mdi-layers</v-icon>
                     </div>
                     <div class="in">
                       <div>Categories</div>
                     </div>
-                  </a>
+                  </span>
                 </li>
+
+                <li>
+                  <router-link to="/features" class="item">
+                    <div class="icon-box">
+                      <v-icon>mdi-feature-search</v-icon>
+                    </div>
+                    <div class="in">
+                      Feature Request
+                    </div>
+                  </router-link>
+                </li>
+
+          
                 <li>
                   <router-link to="/bible" class="item">
                     <div class="icon-box">
@@ -70,6 +86,7 @@
                     </div>
                   </router-link>
                 </li>
+
                 <li>
                 <div class="item">
                   <div class="icon-box">
@@ -93,6 +110,8 @@
         </div>
       </div>
       <!-- * App Sidebar -->
+
+       
 
       <!-- Multi purpose modal-->
     <div id="sidebarMultiModal" class="notification-box" @click="hideNotification()">
@@ -118,19 +137,24 @@
   
   <script>
   // Define your component using the Vue.js API
-  export default {
-    // Add data properties here
-    data() {
-      return {
+  import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      isLoading: false,
         isChecked: false,
         notificationMessage: '',
       notificationImg: '',
+      showFeatureList: false,
+      key: this.$config.BACKEND_API_KEY,
+      backend_url: this.$config.BACKEND_APP_URL,
+      app_url: this.$config.APP_URL,
       }
     },
+
     // Add methods here
     methods: {
-      // Your methods here
-  
       // Show category modal
       showCat() {
         $('#sidebarPanel').modal('toggle');

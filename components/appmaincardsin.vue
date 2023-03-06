@@ -89,7 +89,7 @@ v-else
                 </div>
             </div>
            
-             <!--Disqus-->
+    <!--Disqus-->
 <template>
   <div  class="mt-2">
     <div id="disqus_thread"></div>
@@ -341,7 +341,7 @@ showTranslation(reference, translation) {
     this.page.identifier = this.id;
     };
     const script = document.createElement('script');
-    script.src = 'https://prayerpath.disqus.com/embed.js';
+    script.src = 'https://prayerpath-bible-comments.disqus.com/embed.js';
     script.setAttribute('data-timestamp', +new Date());
     (document.head || document.body).appendChild(script);
 

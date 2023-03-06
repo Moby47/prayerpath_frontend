@@ -1,6 +1,6 @@
-console.log('Custom service worker!');
+//console.log('Custom service worker!');
 
-const CACHE_NAME = 'image-cache-v9' + new Date().getTime();
+const CACHE_NAME = 'image-cache-v10' + new Date().getTime();
 const IMAGE_URLS_TO_CACHE = [
   '/logo.png', 
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif',
@@ -24,11 +24,12 @@ const IMAGE_URLS_TO_CACHE = [
   'https://media.giphy.com/media/l0HlOBZcl7sbV6LnO/giphy.gif',
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif',
   'https://media.giphy.com/media/YoYOhif8otaJI8uIMT/giphy.gif',
-  'https://media.giphy.com/media/LrG5hpEkf2XqjyK4AY/giphy.gif'
+  'https://media.giphy.com/media/LrG5hpEkf2XqjyK4AY/giphy.gif',
+  'https://media.giphy.com/media/PwWDPvnQdLv8vcZkx5/giphy.gif'
 ];
 
 self.addEventListener('install', event => {
-    console.log('Service Worker installed - running from custom-sw');
+   // console.log('Service Worker installed - running from custom-sw');
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(IMAGE_URLS_TO_CACHE);
@@ -37,7 +38,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-    console.log('Service Worker intercepting fetch request - running from custom-sw');
+   // console.log('Service Worker intercepting fetch request - running from custom-sw');
   if (event.request.url.endsWith('.jpg') || event.request.url.endsWith('.png') || event.request.url.endsWith('.gif')) {
     event.respondWith(
       caches.match(event.request).then(response => {
