@@ -173,7 +173,7 @@ export default {
     this.notificationImg = notificationImg
 
     var a = "#" + notificationId;
-    var time = 4000;
+    var time = 3500;
     $(".notification-box").removeClass("show");
     setTimeout(() => {
     $(a).addClass("show");
