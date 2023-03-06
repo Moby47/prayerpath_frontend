@@ -176,26 +176,29 @@
       }
   
     },
-    // The mounted hook is called after the component is mounted to the DOM
+   
     mounted() {
-       // check if dark mode is on from local storage
-       const isDarkMode = this.$storage.getUniversal("isDarkMode");
-      if (isDarkMode === 'true') {
-        this.isChecked = true;
-        document.body.classList.add("dark-mode-active");
-      }
-    },
+  // retrieve dark mode state from local storage
+  const isDarkMode = this.$storage.getUniversal("isDarkMode")
+if(isDarkMode == 1){
+  this.isChecked = true
+  document.body.classList.add("dark-mode-active");
+}else{
+  this.isChecked = false
+  document.body.classList.remove("dark-mode-active");
+}
+},
+
+
 
     watch: {
       isChecked(value) {
         if (value) {
           document.body.classList.add("dark-mode-active");
-          this.$storage.setUniversal("isDarkMode", "true");
-          console.log('Watcher said: dark')
+          this.$storage.setUniversal("isDarkMode", 1);
           } else {
           document.body.classList.remove("dark-mode-active");
-          this.$storage.setUniversal("isDarkMode", "false");
-          console.log('Watcher said: light')
+          this.$storage.setUniversal("isDarkMode", 0);
          }
         //remove any menu or modal overlay
         document.body.classList.remove('modal-open');
