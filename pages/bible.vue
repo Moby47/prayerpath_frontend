@@ -1,37 +1,37 @@
 <template>
   <div>
-   <apploader v-if="isLoading"/>
+    <!-- Display loader if isLoading is true -->
+    <apploader v-if="isLoading"/>
 
     <appheader/>
 
+    <!-- App Capsule -->
+    <div id="appCapsule">
+      <!-- Header Tabs -->
+      <div class="extraHeader p-0">
+        <ul class="nav nav-tabs lined" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#find" role="tab">
+              Find
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#searchId" role="tab">
+              Search
+            </a>
+          </li>
+          <!--  <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
+              Settings
+            </a>
+          </li>-->
+        </ul>
+      </div>
+      <!-- * Header Tabs -->
 
       <!-- App Capsule -->
-      <div id="appCapsule">
-  
+     
 
-         <!-- Header Tabs -->
-    <div class="extraHeader p-0">
-        <ul class="nav nav-tabs lined" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#find" role="tab">
-                    Find
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#searchId" role="tab">
-                    Search
-                </a>
-            </li>
-        <!--  <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-                    Settings
-                </a>
-            </li>-->
-        </ul>
-    </div>
-    <!-- * Header Tabs -->
-
-    <!-- App Capsule -->
     <div id="appCapsule" class="extra-header-active">
 
 
@@ -48,136 +48,127 @@
 
               <form @submit.prevent="getBibleVerses">
 
-                <div class="dropdown">
-                  <label class="label">Select a book</label><br>
-                    <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
-                      {{ selectedBook }}
-                    </button>
-                    <div class="dropdown-menu">
-          <a class="dropdown-item" href="#" v-for="book in books" :key="book" :value="book" @click="runSelectedBook(book)">{{book}}</a>
-                    </div>
-                </div>
-
-                <div class="dropdown mt-3">
-                  <label class="label">Select a chapter</label><br>
-                    <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
-                      {{ selectedChapter }}
-                    </button>
-                    <div class="dropdown-menu">
-          <a class="dropdown-item" href="#" v-for="chapter in chapters" :key="chapter" :value="chapter" @click="runSelectedchapter(chapter)">{{chapter}}</a>
-                    </div>
-                </div>
-
-                <div class="form-group boxed mt-2">
-                        <div class="input-wrapper">
-                            <label class="label" for="verseInput">Enter verse or range</label>
-          <input v-model="selectedVerse" pattern="^\d+(-\d+)?$" required type="text" class="form-control custom-width" id="verseInput" placeholder="Eg: 2 or 2-4">
-          <small v-if="!isValidVerseInput">Examples: 1, 3, 12, 119, 2-5, 10-15</small>
-        </div>
-                    </div>
-
-           <div class="mt-2">
-            <button type="submit" class="btn btn-outline-primary mb-1">Find</button>
-        </div>            
-
-              </form>
-
-            </div>
-        </div>
-
-                </div>
-
-            </div>
-            <!-- * find tab -->
-
-
-
-            <!-- search tab -->
-            <div class="tab-pane fade" id="searchId" role="tabpanel">
-
-              <div class="section full mt-1">
-                    <div class="section full mt-1">
-            <div class="section-title">Search Bible Verses</div>
-
-            <div class="wide-block pt-2 pb-2">
-
-              <form @submit.prevent="searchBibleVerses">
-
-                <div class="form-group boxed mt-2">
-                        <div class="input-wrapper">
-                            <label class="label" for="searchInput">Search</label>
-          <input v-model="searchInput" required type="text" class="form-control" id="searchInput" 
-          placeholder="Eg. John 3:16 or Genesis 1:1-5">
-          <small v-if="searchInput && !isValidRefInput">
-            Examples: Mark 2, 1 John 3, Mark 2:4, 1 Samuel 4-5, Genesis 2:3-5, and 2 Samuel 3:1-3</small>
-        </div>
-                    </div>
-
-           <div class="mt-2">
-            <button type="submit" class="btn btn-outline-primary mb-1">Search</button>
-        </div>            
-
-              </form>
-
-            </div>
-        </div>
-
-                </div>
-
-
-            </div>
-            <!-- * search tab -->
-
-
-            <!-- settings tab 
-            <div class="tab-pane fade" id="settings" role="tabpanel">
-
-                <div class="section full mt-1">
-                    <div class="section-title">settings</div>
-                    <div class="wide-block pt-2 pb-2">
-                        This is an example text.
-                    </div>
-                </div>
-
-            </div>
-      settings tab -->
-
-        </div>
-
-
-          <!--Translation-->
-<!-- top right -->
-<div class="fab-button animate top-right dropdown">
-  <a href="#" class="fab" data-toggle="dropdown">
-    <v-icon class="fabBtn">mdi-translate</v-icon>
-  </a>
+<div class="dropdown">
+  <label class="label">Select a book</label><br>
+  <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
+    {{ selectedBook }}
+  </button>
   <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" @click="runSelectedTranslation('kjv')">
-      <v-icon class="fabBtn">mdi-alpha-k</v-icon>
-      <p>KJV</p>
-    </a>
-    <a class="dropdown-item" href="#" @click="runSelectedTranslation('web')">
-      <v-icon class="fabBtn">mdi-alpha-w</v-icon>
-      <p>WEB</p>
-    </a>
-    <a class="dropdown-item" href="#" @click="runSelectedTranslation('bbe')">
-      <v-icon class="fabBtn">mdi-alpha-b</v-icon>
-      <p>BBE</p>
-    </a>
+    <a class="dropdown-item" href="#" v-for="book in books" :key="book" :value="book" @click="runSelectedBook(book)">{{book}}</a>
   </div>
 </div>
-<!-- * top right -->
-<!--Translation-->
 
+<div class="dropdown mt-3">
+  <label class="label">Select a chapter</label><br>
+  <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
+    {{ selectedChapter }}
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" v-for="chapter in chapters" :key="chapter" :value="chapter" @click="runSelectedchapter(chapter)">{{chapter}}</a>
+  </div>
+</div>
+
+<div class="form-group boxed mt-2">
+  <div class="input-wrapper">
+    <label class="label" for="verseInput">Enter verse or range</label>
+    <input v-model="selectedVerse" pattern="^\d+(-\d+)?$" required type="text" class="form-control custom-width" id="verseInput" placeholder="Eg: 2 or 2-4">
+    <small v-if="!isValidVerseInput">Examples: 1, 3, 12, 119, 2-5, 10-15</small>
+  </div>
+</div>
+
+<div class="mt-2">
+  <button type="submit" class="btn btn-outline-primary mb-1">Find</button>
+</div>            
+
+</form>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- * find tab -->
+
+          <!-- search tab -->
+          <div class="tab-pane fade" id="searchId" role="tabpanel">
+
+            <div class="section full mt-1">
+              <div class="section full mt-1">
+                <div class="section-title">Search Bible Verses</div>
+
+                <div class="wide-block pt-2 pb-2">
+
+                  <form @submit.prevent="searchBibleVerses">
+
+                    <div class="form-group boxed mt-2">
+                      <div class="input-wrapper">
+                        <label class="label" for="searchInput">Search</label>
+                        <input v-model="searchInput" required type="text" class="form-control" id="searchInput" placeholder="Eg. John 3:16 or Genesis 1:1-5">
+                        <small v-if="searchInput && !isValidRefInput">
+                          Examples: Mark 2, 1 John 3, Mark 2:4, 1 Samuel 4-5, Genesis 2:3-5, and 2 Samuel 3:1-3
+                        </small>
+                      </div>
+                    </div>
+
+                    <div class="mt-2">
+                      <button type="submit" class="btn btn-outline-primary mb-1">Search</button>
+                    </div>            
+
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- * search tab -->
+
+          <!-- settings tab 
+          <div class="tab-pane fade" id="settings" role="tabpanel">
+
+            <div class="section full mt-1">
+              <div class="section-title">settings</div>
+              <div class="wide-block pt-2 pb-2">
+                This is an example text.
+              </div>
+            </div>
+
+          </div>
+          settings tab -->
+
+        </div>
+
+        <!-- Translation dropdown -->
+        <!-- top right -->
+        <div class="fab-button animate top-right dropdown">
+          <a href="#" class="fab" data-toggle="dropdown">
+            <v-icon class="fabBtn">mdi-translate</v-icon>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('kjv')">
+              <v-icon class="fabBtn">mdi-alpha-k</v-icon>
+              <p>KJV</p>
+            </a>
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('web')">
+              <v-icon class="fabBtn">mdi-alpha-w</v-icon>
+              <p>WEB</p>
+            </a>
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('bbe')">
+              <v-icon class="fabBtn">mdi-alpha-b</v-icon>
+              <p>BBE</p>
+            </a>
+          </div>
+        </div>
+        <!-- * top right -->
+        <!-- * Translation dropdown -->
 
         <!-- Bible Panel Left -->
         <div class="modal fade panelbox panelbox-left" id="biblePanelLeft" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{panelTitle}}</h4>
-                        <a href="javascript:;" data-dismiss="modal" class="panel-close">
-                            <v-icon>mdi-close</v-icon>
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">{{panelTitle}}</h4>
+                <a href="javascript:;" data-dismiss="modal" class="panel-close">
+                  <v-icon>mdi-close</v-icon>
                         </a>
                     </div>
                     <div class="modal-body">
@@ -278,6 +269,23 @@ export default {
     appfooter,
     appbottommenu,
   },
+  head() {
+  return {
+    title: "PrayerPath - Explore, Study and Connect with God's Word",
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: "Explore and study God's Word with the Bible App. Connect with other believers, discuss scripture, and grow your faith. Get access to devotionals, daily verses, and more."
+      },
+      {
+        name: 'keywords',
+        content: 'bible, scripture, faith, devotionals, daily verses, community, study, God, prayer, religious, discussion'
+      }
+    ]
+  }
+},
+
   data() {
     return {
       books: ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth", "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Solomon", "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi", "Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon", "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", "3 John", "Jude", "Revelation"],
