@@ -36,12 +36,9 @@
         <!-- * comment block -->
 
         <!--Disqus-->
-        <template>
-          <div>
-            <div id="disqus_thread"></div>
-          </div>
-        </template>
+        <appfeaturedisqus />
         <!--Disqus-->
+
       </div>
     </div>
 
@@ -58,9 +55,15 @@
   </template>
   
   <script>
+
+import appfeaturedisqus from "~/components/appfeaturedisqus.vue";
+
   import axios from 'axios';
 
   export default {
+    components: {
+      appfeaturedisqus,
+  },
     head() {
       return {
         title: "PrayerPath - Request New Feature",
@@ -113,16 +116,6 @@
     mounted() {
       // Your mounted code here
       this.singleFeatureReq();
-
-      // Load up Disqus
-      const disqus_config = function () {
-        this.page.url = window.location.href;
-        this.page.identifier = this.id;
-      };
-      const script = document.createElement('script');
-      script.src = 'https://prayerpath-feature-request.disqus.com/embed.js';
-      script.setAttribute('data-timestamp', +new Date());
-      (document.head || document.body).appendChild(script);
     },
 
     beforeRouteLeave(to, from, next) {
