@@ -88,9 +88,15 @@
               </p>
             </div>
   
-            <p class="card-text">
-              <small><i class='badge'>Prayer For {{quote.category}}</i></small>
-            </p>
+            <div class="row">
+                <div class="col-6">
+                  <p class="card-text"><small><i class='badge'>Category: {{quote.category}}</i></small></p>
+                </div>
+                <div class="col-6">
+                  <p class="card-text"><small><i class='badge'>Added {{ $luxon.fromISO(quote.created_at).toRelative() }}</i></small></p>
+                </div>
+              </div>
+              
             <div class="section full">
               <div class="wide-block pt-2 pb-1">
                 <div class="row">

@@ -109,6 +109,7 @@ import appfeaturedisqus from "~/components/appfeaturedisqus.vue";
         } catch (error) {
           console.error(error);
           this.fetching = false;
+          alert('Network error occured, please refresh page.')
         }
       },
     },

@@ -325,10 +325,11 @@
             this.showNotification('reqMultiModal', "Alas, our search has come up empty", 'https://media.giphy.com/media/PwWDPvnQdLv8vcZkx5/giphy.gif');
           }
         } catch (error) {
-          console.error(error);
+          console.error(error)
           this.showLoadButton = false;
           this.fetching = false;
           this.spinner = false;
+          alert('Network error occured, please refresh page.')
         }
       },
 
