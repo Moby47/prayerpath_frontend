@@ -60,6 +60,15 @@
                       <v-icon class="color-app">mdi-comment-multiple</v-icon>
                       <span class="ml-1"> Leave a comment</span>
                     </router-link>
+
+                    <span
+                      class="comment-button"
+                      @click="shareApp(req.id)"
+                    >
+                    <v-icon style="color:green">mdi-share-variant</v-icon>
+                      <span class="ml-1"> Share</span>
+                  </span>
+
                   </div>
                 </div>
                 <!--feature req-->
@@ -281,6 +290,19 @@
       showFeaturesModal() {
         $('#featureModalForm').modal('toggle');
       },
+
+      shareApp(id) {
+  const appUrl = window.location.href+'/'+id;
+
+  navigator.share({
+    title: 'Check out this PrayerPath feature request',
+    text: 'I would love to see this feature added to PrayerPath.',
+    url: appUrl,
+  })
+    .then(() => console.log('Shared successfully.'))
+    .catch((error) => console.error('Error sharing:', error));
+    },
+
 
       submitForm() {
         this.fetching = true;
