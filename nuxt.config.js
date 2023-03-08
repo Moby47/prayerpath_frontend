@@ -229,6 +229,8 @@ oneSignal: {
 
       ONESIGNAL_BASIC_KEY: process.env.ONESIGNAL_BASIC_KEY,
       ONESIGNAL_APP_ID: process.env.ONESIGNAL_APP_ID,
+
+      GTAG: process.env.GTAG,
     },
   
 }
