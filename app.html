@@ -3,7 +3,7 @@
   <head {{ HEAD_ATTRS }}>
     {{ HEAD }}
    
-    <!-- Staging prayerpath Google tag (gtag.js) -->
+    <!-- Staging prayerpath Google tag (gtag.js) 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NS3CR7LXLD"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -11,7 +11,15 @@
   gtag('js', new Date());
 
   gtag('config', 'G-NS3CR7LXLD');
+</script>-->
+
+<!-- Cronitor RUM -->
+<script async src="https://rum.cronitor.io/script.js"></script>
+<script>
+    window.cronitor = window.cronitor || function() { (window.cronitor.q = window.cronitor.q || []).push(arguments); };
+    cronitor('config', { clientKey: 'bc45cfa9bdc386ab1e20df03943787d5' });
 </script>
+
   </head>
   <body {{ BODY_ATTRS }}>
     {{ APP }}
