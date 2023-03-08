@@ -118,7 +118,12 @@ export default {
     '@nuxtjs/cloudinary',
     'vue-social-sharing/nuxt',
     '@nuxtjs/universal-storage',
+      '@nuxtjs/google-analytics',
   ],
+
+  googleAnalytics: {
+  id: 'G-NS3CR7LXLD'
+},
 
   // Options
 oneSignal: {
