@@ -88,6 +88,17 @@
                 </li>
 
                 <li>
+                  <a target="_blank" href="https://tawk.to/chat/5b092b0810b99c7b36d453f7/1gr3u6udm" class="item">
+                    <div class="icon-box">
+                      <v-icon>mdi-chat</v-icon>
+                    </div>
+                    <div class="in">
+                      Contact Us
+                    </div>
+                  </a>
+                </li>
+
+                <li>
                 <div class="item">
                   <div class="icon-box">
                       <v-icon>mdi-weather-night</v-icon>
