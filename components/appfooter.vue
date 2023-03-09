@@ -18,7 +18,8 @@
         class="btn btn-icon btn-sm" style="background-color:rgb(149 149 149 / 28%)">
           <v-icon style="color:#3DDC84">mdi-android</v-icon>
         </a>
-        <span class="btn btn-icon btn-sm" style="background-color:rgb(149 149 149 / 28%)" onclick="alert('The iOS version of this app is currently under construction.')">
+        <span class="btn btn-icon btn-sm" style="background-color:rgb(149 149 149 / 28%)" 
+        @click="iosInfo()">
         <v-icon style="color:black">mdi-apple</v-icon>
       </span>
       <span class="btn btn-icon btn-sm" style="background-color:rgb(149 149 149 / 28%)" @click="shareApp">
@@ -39,6 +40,40 @@
       </div>
     </template>
     <!-- * bottom right -->
+
+     <!-- Dialog Image -->
+     <div class="modal fade dialogbox" id="iosMessageDialog" data-backdrop="static" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                  <div class="modal-icon">
+                    <v-icon>mdi-apple-ios</v-icon>
+                    </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title">The iOS version of this app is currently under construction. </h5>
+                    </div>
+                    <div class="modal-body">
+                        We have a temporary workaround for you here 🙂:<br>
+                        <a target="_blank" href='https://support.apple.com/en-ng/guide/iphone/iph42ab2f3a7/ios#:~:text=You%20can%20add%20a%20website,Home%20Screen%20for%20quick%20access.&text=in%20the%20menu%20bar%2C%20scroll,device%20where%20you%20add%20it.&text=Helpful%3F'>
+                          Add a shortcut to the Home Screen on iPhone or iPad (Article)</a>
+                          <br>
+                          OR
+                          <br>
+                          <a target="_blank" href='https://www.youtube.com/watch?v=B7fKs4dTeu0'>
+                          Add a shortcut to the Home Screen on iPhone or iPad (Video)</a> 
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="btn-inline">
+                            <a href="#" class="btn btn-text-primary" data-dismiss="modal">CLOSE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- * Dialog Image -->
+
+
   </div>
 </template>
 
@@ -77,6 +112,9 @@ export default {
     .catch((error) => console.error('Error sharing:', error));
 },
 
+  iosInfo(){
+    $('#iosMessageDialog').modal('toggle');
+  },
 
   },
   // The mounted hook is called after the component is mounted to the DOM
