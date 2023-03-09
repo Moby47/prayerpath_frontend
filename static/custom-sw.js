@@ -1,6 +1,6 @@
 //console.log('Custom service worker!');
 
-const CACHE_NAME = 'image-cache-v12' + new Date().getTime();
+const CACHE_NAME = 'image-cache-v13' + new Date().getTime();
 const IMAGE_URLS_TO_CACHE = [
   '/logo.png', 
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Q0MWI3ZjJiODlkN2Q4NjU2MzhhNzIwYzc5YzFmNTU4NzljODMwNiZjdD1n/6zdkYKBBTHTITFQ4xA/giphy.gif',
@@ -25,7 +25,11 @@ const IMAGE_URLS_TO_CACHE = [
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif',
   'https://media.giphy.com/media/YoYOhif8otaJI8uIMT/giphy.gif',
   'https://media.giphy.com/media/LrG5hpEkf2XqjyK4AY/giphy.gif',
-  'https://media.giphy.com/media/PwWDPvnQdLv8vcZkx5/giphy.gif'
+  'https://media.giphy.com/media/PwWDPvnQdLv8vcZkx5/giphy.gif',
+  'https://media.giphy.com/media/l0MYCn3DDRBBqk6nS/giphy.gif',
+  'https://media.giphy.com/media/qUIm5wu6LAAog/giphy.gif',
+  'https://media.giphy.com/media/SVH9y2LQUVVCRcqD7o/giphy.gif',
+  'https://media.giphy.com/media/ZHkVpDiI3vIiY/giphy.gif'
 ];
 
 self.addEventListener('install', event => {
