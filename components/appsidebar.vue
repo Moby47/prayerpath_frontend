@@ -65,12 +65,12 @@
                 </li>
 
                 <li>
-                  <router-link to="/features" class="item">
+                  <router-link to="/feedback" class="item">
                     <div class="icon-box">
-                      <v-icon>mdi-feature-search</v-icon>
+                      <v-icon>mdi-comment-quote</v-icon>
                     </div>
                     <div class="in">
-                      Feature Request
+                      Feedback
                     </div>
                   </router-link>
                 </li>
