@@ -1,16 +1,25 @@
 <template>
   <div>
+    
     <apploader v-if="fetching" />
+
+     <!-- App Capsule -->
+     <div id="appCapsule">
+
+<div>
+<h4 class="subtitle mt-2 ml-1"><a target="_blank" href='https://prayerpath.canny.io'>Our Roadmap 👨‍💻</a> </h4>
+</div>
 
     <appheader />
 
-    <div style="margin-top:75px" data-canny />
+    <div data-canny />
 
-    <appsidebar/>
-
+  
     <appfooter/>
+  </div>
 
-    <appbottommenu/>
+  <appsidebar/>
+  <appbottommenu/>
 
   </div>
 </template>
