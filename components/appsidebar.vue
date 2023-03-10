@@ -63,20 +63,19 @@
                     </div>
                   </span>
                 </li>
-
+            <!--
                 <li>
-                  <router-link to="/feedback" class="item">
+                  <router-link to="/features" class="item">
                     <div class="icon-box">
-                      <v-icon>mdi-comment-quote</v-icon>
+                      <v-icon>mdi-feature-search</v-icon>
                     </div>
                     <div class="in">
-                      Feedback
+                      Feature Request
                     </div>
                   </router-link>
                 </li>
-
-          
-                <li>
+          -->
+          <li>
                   <router-link to="/bible" class="item">
                     <div class="icon-box">
                       <v-icon>mdi-book-cross</v-icon>
@@ -86,6 +85,18 @@
                     </div>
                   </router-link>
                 </li>
+
+                   <li>
+                  <router-link to="/feedback" class="item">
+                    <div class="icon-box">
+                      <v-icon>mdi-comment-quote</v-icon>
+                    </div>
+                    <div class="in">
+                      Feedback
+                    </div>
+                  </router-link>
+                </li>
+               
 
                 <li>
                   <a target="_blank" href="https://tawk.to/chat/5b092b0810b99c7b36d453f7/1gr3u6udm" class="item">
