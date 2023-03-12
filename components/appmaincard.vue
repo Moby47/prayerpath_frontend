@@ -37,26 +37,27 @@
     </div>
      <!--Translation-->
      
-
+       <!--If image generated-->
           <div 
             v-if="quote.imageurl"
             style="position: relative; height: auto; display: flex; flex-direction: column;" 
             :style="{ backgroundImage: `url(${quote.imageurl})` }"
             class="card card-img-overlay prayer"
           >
-            <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+            <div style="background-color: rgba(0,0,0,0.75); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
             <p style="position: relative; z-index: 1;" class="card-text">
               {{quote.prayer}} 
             </p>
           </div>
 
+          <!--If no image generated-->
           <div 
             v-else
             style="position: relative; height: auto; display: flex; flex-direction: column;" 
             :style="{ backgroundImage: `url(https://cdn.pixabay.com/photo/2019/05/05/00/41/bible-4179472_960_720.jpg)` }"
             class="card card-img-overlay prayer"
           >
-            <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
+            <div style="background-color: rgba(0,0,0,0.75); position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></div>
             <p style="position: relative; z-index: 1;" class="card-text">
               {{quote.prayer}}
             </p>
