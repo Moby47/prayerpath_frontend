@@ -128,6 +128,25 @@
   
             </div>
   
+                  <!-- sidebar buttons -->
+                  <div class="sidebar-buttons">
+                    <a href="#" class="button">
+
+                        <appchangelog/>
+
+                    </a>
+                    <a href="#" class="button">
+                      
+                    </a>
+                    <a href="#" class="button">
+                      
+                    </a>
+                    <a href="#" class="button">
+                     
+                    </a>
+                </div>
+                <!-- * sidebar buttons -->
+
           </div>
         </div>
       </div>
@@ -159,9 +178,17 @@
   
   <script>
   // Define your component using the Vue.js API
-  import axios from 'axios'
+
+  import appchangelog from "~/components/appchangelog.vue";
+
+  //import axios from 'axios'
 
 export default {
+
+  components: {
+    appchangelog,
+  },
+
   data() {
     return {
       isLoading: false,
