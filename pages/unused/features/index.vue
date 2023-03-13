@@ -233,21 +233,21 @@
   
   
   <script>
-  import appsidebar from "~/components/appsidebar.vue";
-  import apploader from "~/components/apploader.vue";
-  import appheader from "~/components/appheader.vue";
-  import appfooter from "~/components/appfooter.vue";
-  import appbottommenu from "~/components/appbottommenu.vue";
-  import axios from 'axios';
+  //import appsidebar from "~/components/appsidebar.vue";
+  //import apploader from "~/components/apploader.vue";
+  //import appheader from "~/components/appheader.vue";
+  //import appfooter from "~/components/appfooter.vue";
+  //import appbottommenu from "~/components/appbottommenu.vue";
+  //import axios from 'axios';
   //import * as idb from 'idb-keyval'
 
   export default {
     components: {
-      appsidebar,
-      apploader,
-      appheader,
-      appfooter,
-      appbottommenu,
+     // appsidebar,
+     // apploader,
+     // appheader,
+      //appfooter,
+     // appbottommenu,
     },
     head() {
       return {

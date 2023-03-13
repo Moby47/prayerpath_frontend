@@ -56,13 +56,13 @@
   
   <script>
 
-import appfeaturedisqus from "~/components/appfeaturedisqus.vue";
+//import appfeaturedisqus from "~/components/appfeaturedisqus.vue";
 
-  import axios from 'axios';
+ // import axios from 'axios';
 
   export default {
     components: {
-      appfeaturedisqus,
+    //  appfeaturedisqus,
   },
     head() {
       return {

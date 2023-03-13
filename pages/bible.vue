@@ -1,142 +1,109 @@
 <template>
-  <div>
-    <!-- Display loader if isLoading is true -->
-    <apploader v-if="isLoading"/>
-
-    <appheader/>
-
-    <!-- App Capsule -->
-    <div id="appCapsule">
-      <!-- Header Tabs -->
-      <div class="extraHeader p-0">
-        <ul class="nav nav-tabs lined" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#find" role="tab">
-              Find
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#searchId" role="tab">
-              Search
-            </a>
-          </li>
-          <!--  <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-              Settings
-            </a>
-          </li>-->
-        </ul>
-      </div>
-      <!-- * Header Tabs -->
-
+    <div>
+      <!-- Display loader if isLoading is true -->
+      <apploader v-if="isLoading" />
+  
+      <appheader />
+  
       <!-- App Capsule -->
-     
-
-    <div id="appCapsule" class="extra-header-active">
-
-
-        <div class="tab-content mt-1">
-
-            <!-- find tab -->
-            <div class="tab-pane fade show active" id="find" role="tabpanel">
-
-                <div class="section full mt-1">
-                    <div class="section full mt-1">
-            <div class="section-title">Choose A Book/Chapter/Verse</div>
-
-            <div class="wide-block pt-2 pb-2">
-
-              <form @submit.prevent="getBibleVerses">
-
-<div class="dropdown">
-  <label class="label">Select a book</label><br>
-  <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
-    {{ selectedBook }}
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" v-for="book in books" :key="book" :value="book" @click="runSelectedBook(book)">{{book}}</a>
-  </div>
-</div>
-
-<div class="dropdown mt-3">
-  <label class="label">Select a chapter</label><br>
-  <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
-    {{ selectedChapter }}
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" v-for="chapter in chapters" :key="chapter" :value="chapter" @click="runSelectedchapter(chapter)">{{chapter}}</a>
-  </div>
-</div>
-
-<div class="form-group boxed mt-2">
-  <div class="input-wrapper">
-    <label class="label" for="verseInput">Enter verse or range</label>
-    <input v-model="selectedVerse" pattern="^\d+(-\d+)?$" required type="text" class="form-control custom-width" id="verseInput" placeholder="Eg: 2 or 2-4">
-    <small v-if="!isValidVerseInput">Examples: 1, 3, 12, 119, 2-5, 10-15</small>
-  </div>
-</div>
-
-<div class="mt-2">
-  <button type="submit" class="btn btn-outline-primary mb-1">Find</button>
-</div>            
-
-</form>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!-- * find tab -->
-
-          <!-- search tab -->
-          <div class="tab-pane fade" id="searchId" role="tabpanel">
-
-            <div class="section full mt-1">
-              <div class="section full mt-1">
-                <div class="section-title">Search Bible Verses</div>
-
-                <div class="wide-block pt-2 pb-2">
-
-                  <form @submit.prevent="searchBibleVerses">
-
-                    <div class="form-group boxed mt-2">
-                      <div class="input-wrapper">
-                        <label class="label" for="searchInput">Search</label>
-                        <input v-model="searchInput" required type="text" class="form-control" id="searchInput" placeholder="Eg. John 3:16 or Genesis 1:1-5">
-                        <small v-if="searchInput && !isValidRefInput">
-                          Examples: Mark 2, 1 John 3, Mark 2:4, 1 Samuel 4-5, Genesis 2:3-5, and 2 Samuel 3:1-3
-                        </small>
-                      </div>
+      <div id="appCapsule">
+        <div class="section full mt-2">
+          <div class="section-title">
+            <form @submit.prevent="getBibleVerses">
+              <div class="row">
+                <div class="col-3">
+                  <div>
+                    <button
+                      class="btn btn-outline-primary dropdown-toggle custom-width"
+                      type="button"
+                      data-toggle="dropdown"
+                    >
+                      {{
+                        selectedBook.length > 6
+                          ? selectedBook.slice(0, 6) + ".."
+                          : selectedBook
+                      }}
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                      style="height: 412px; overflow-y: scroll;"
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        v-for="book in books"
+                        :key="book"
+                        :value="book"
+                        @click="runSelectedBook(book)"
+                        >{{ book }}</a
+                      >
                     </div>
-
-                    <div class="mt-2">
-                      <button type="submit" class="btn btn-outline-primary mb-1">Search</button>
-                    </div>            
-
-                  </form>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="chapter">
+                    <button
+                      class="btn btn-outline-primary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown"
+                    >
+                      {{ selectedChapter }}
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                      style="height: 240px; overflow-y: scroll;"
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        v-for="chapter in chapters"
+                        :key="chapter"
+                        :value="chapter"
+                        @click="runSelectedchapter(chapter)"
+                        >{{ chapter }}</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div>
+                    <input
+                      v-model="selectedVerse"
+                      pattern="^\d+$"
+                      type="text"
+                      class="form-control btn-outline-primary verse"
+                      id="verseInput"
+                      placeholder="Verse"
+                    />
+                  </div>
+                </div>
+                <div class="col-3">
+                  <button type="submit" class="btn btn-primary mb-1">Go</button>
                 </div>
               </div>
-            </div>
-
+            </form>
           </div>
-          <!-- * search tab -->
-
-          <!-- settings tab 
-          <div class="tab-pane fade" id="settings" role="tabpanel">
-
-            <div class="section full mt-1">
-              <div class="section-title">settings</div>
-              <div class="wide-block pt-2 pb-2">
-                This is an example text.
-              </div>
+  
+          <div class="wide-block pt-2 pb-2">
+            <img
+              v-if="verses.length === 0"
+              :src="selectedImageUrl"
+              alt="image"
+              style="display: block; margin: 0 auto;"
+            />
+            <div v-for="verse in verses" :key="verse.verseId">
+              <p
+                :class="{ 'highlight': verse.verse === Number(selectedVerse) }"
+                ref="verseElement"
+              >
+                <strong>{{ verse.book_name }} {{ verse.chapter }}:{{ verse.verse }}</strong> {{ verse.text }}
+              </p>
             </div>
-
           </div>
-          settings tab -->
-
         </div>
-
+  
         <!-- Translation dropdown -->
         <!-- top right -->
         <div class="fab-button animate top-right dropdown">
@@ -144,16 +111,16 @@
             <v-icon class="fabBtn">mdi-translate</v-icon>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#" @click="runSelectedTranslation('kjv')">
-              <v-icon class="fabBtn">mdi-alpha-k</v-icon>
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('kjv')" >
+              <v-icon class="fabBtn" :class="{ 'activeversion': selectedTranslation === 'kjv' }">mdi-alpha-k</v-icon>
               <p>KJV</p>
             </a>
-            <a class="dropdown-item" href="#" @click="runSelectedTranslation('web')">
-              <v-icon class="fabBtn">mdi-alpha-w</v-icon>
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('web')" >
+              <v-icon class="fabBtn" :class="{ 'activeversion': selectedTranslation === 'web' }">mdi-alpha-w</v-icon>
               <p>WEB</p>
             </a>
-            <a class="dropdown-item" href="#" @click="runSelectedTranslation('bbe')">
-              <v-icon class="fabBtn">mdi-alpha-b</v-icon>
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('bbe')" >
+              <v-icon class="fabBtn" :class="{ 'activeversion': selectedTranslation === 'bbe' }">mdi-alpha-b</v-icon>
               <p>BBE</p>
             </a>
           </div>
@@ -161,28 +128,7 @@
         <!-- * top right -->
         <!-- * Translation dropdown -->
 
-        <!-- Bible Panel Left -->
-        <div class="modal fade panelbox panelbox-left" id="biblePanelLeft" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">{{panelTitle}}</h4>
-                <a href="javascript:;" data-dismiss="modal" class="panel-close">
-                  <v-icon>mdi-close</v-icon>
-                        </a>
-                    </div>
-                    <div class="modal-body">
-                      <div v-for="verse in verses" :key="verse.verseId">
-                        <p>
-                          <strong>{{ verse.book_name }} {{ verse.chapter }}:{{ verse.verse }}</strong> {{ verse.text }}
-                        </p>
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- * Bible Panel Left -->
-
+       
 
 
         <!-- Multi purpose notification modal-->
@@ -206,28 +152,109 @@
         </div>
         <!-- Multi purpose notification modal -->
 
+    
+   
+        <template>
+  <div class="button-container" v-if="verses.length !== 0">
+
+    <button class="left-button btn" @click="goToPreviousChapter()">
+      <v-icon style='color:#3f51b5;'>mdi-step-backward</v-icon>
+    </button>
+
+    <button class="right-button btn" @click="goToNextChapter()">
+        <v-icon style='color:#3f51b5;'>mdi-step-forward</v-icon> 
+    </button>
+
+  </div>
+</template>
+
+
+ <!-- bottom left -->
+ <template>
+      <div class="fab-button animate bottom-left dropdown" :class="{ hide: scrolled }" v-if="verses.length !== 0">
+        <a href="#" class="fab" style='background-color:#3f51b5;' @click.prevent="$scrollToBottom()">
+          <v-icon color="#fff">mdi-arrow-down</v-icon>
+        </a>
+      </div>
+    </template>
+    <!-- * bottom left -->
+
+        <appfooter/>
+
     </div>
-    <!-- * App Capsule -->
-
-
-       <!-- <appfooter/>-->
-
+     <!-- * App Capsule -->
 
     <appbottommenu/>
 
     <appsidebar/>
-  </div>
+  
 
   </div>
 </template>
 
 <style scoped>
+
+.hide {
+    display: none;
+  }
+.button-container {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.left-button {
+  position: absolute;
+  left: 1%;
+  background-color: rgb(0 0 0 / 16%);
+  width: 40px;
+}
+
+.right-button {
+  position: absolute;
+  right: 1%;
+  background-color: rgb(0 0 0 / 16%);
+  width: 40px;
+}
+
+.section-title {
+  position: fixed;
+  top: 55px;
+  left: 0;
+  width: 100%;
+  background: rgb(255 255 255 / 92%);
+  z-index: 1;
+}
+
+.chapter{
+    margin-left: 15px;
+}
+
+.verse{
+    height:40px;
+}
+
+.wide-block {
+    margin-top: 112px;
+}
+
 #appCapsule.extra-header-active {
     padding-top: 70px;
 }
 
 .custom-width {
-    width: 53%;
+    width: 130%;
+}
+
+.highlight {
+  background-color: rgb(0 0 0 / 54%);
+  color:white;
+}
+
+.activeversion{
+background-color: #3f51b5 !important;
+color:#fff !important;
 }
 
 .fab-button {
@@ -271,7 +298,7 @@ export default {
   },
   head() {
   return {
-    title: "PrayerPath - Explore, Study and Connect with God's Word",
+    title: "PrayerPath | Explore, Study and Connect with God's Word",
     meta: [
       {
         hid: 'description',
@@ -292,31 +319,36 @@ export default {
       selectedBook: "Genesis",
       selectedChapter: "1",
       chapters: [],
-      selectedVerse: "1",
+      selectedVerse: "",
       verses: [],
       isLoading: false,
       error: "",
       selectedTranslation: "kjv",
 
-      searchInput: "",
-
-      panelTitle:'',
 
       notificationTitle:'',
       notificationMessage:'',
       notificationImg:'',
+
+      selectedImageUrl:'',
+      imageUrls: [
+        'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjhhMzI2OTNiYTQxNDZmZWNhNDcyNjNkZGY1ZjkzNmQ5ZTM4NzA1MiZjdD1n/ovdFmyRxvbT2Wk75ft/giphy.gif',
+        'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGY0ODE0MWRmMTYzMjM2ODhjZWUxNmFkYzAxZmE4ZjNkYzFmOTVjNSZjdD1n/HvwHUZcmfYVJwN3BPb/giphy.gif',
+        'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDQ3YjAxMTk0YjE5NjhjZmRhYjczYWI5MzJjOGI5YWZkODU5NDY0YSZjdD1n/WcpAGftWy7UtWnEESJ/giphy-downsized-large.gif',
+        'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjgyMjcxZDgyZGQxZmY1NWYwNDViYzY5NWU5ZWNmN2RkMWZiYTAxNiZjdD1n/jwSBM5rLF2aybN96LP/giphy.gif',
+        'https://media.giphy.com/media/bpeHHmOnYFRged50S0/giphy.gif'
+    ],
+
+    scrolled: false,
+
     };
   },
   computed: {
     isValidVerseInput() {
-      const inputRegex = new RegExp("^[0-9]+(-[0-9]+)?$");
+      const inputRegex = new RegExp("^[0-9]+$");
       return inputRegex.test(this.selectedVerse);
     },
 
-    isValidRefInput() {
-      const regex = /^(?:(?:[1234]?\s)?[a-zа-я]+\s*)?\d+(?::\d+)?(?:-\d+(?::\d+)?)?$/i;
-    return regex.test(this.searchInput);
-    },
 
   },
   methods: {
@@ -327,6 +359,7 @@ export default {
 
     runSelectedchapter(chapter){
       this.selectedChapter = chapter
+      this.selectedVerse = ''
     },
 
     runSelectedTranslation(translation){
@@ -335,62 +368,78 @@ export default {
 
     },
 
-    async searchBibleVerses() {
 
-      if (!this.isValidRefInput) {
-        console.log('invalid reference')
-        //notify
-        this.showNotification('bibleMultiModal', 'Alert', "Incorrect reference format. Please use a correct format." , 'https://media.giphy.com/media/YoYOhif8otaJI8uIMT/giphy.gif');
-    return;
-    }
 
-    this.isLoading = true;
-   
-    try {
-      const response = await axios.get(`https://bible-api.com/${this.searchInput}?translation=${this.selectedTranslation}`);
+  goToPreviousChapter() {
+  const currentIndex = this.chapters.indexOf(this.selectedChapter);
+  if (currentIndex > 0) {
+    this.selectedChapter = this.chapters[currentIndex - 1];
+    this.selectedVerse = ''
+    this.getBibleVerses();
+     this.$nextTick(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  } else {
+    console.log('Already on the first chapter');
+    this.showNotification('bibleMultiModal', 'Chill', "You are on chapter 1" , 'https://media.giphy.com/media/QVs6OmwbbGvWPJJ75m/giphy.gif');
+  }
+},
+goToNextChapter() {
+  const currentIndex = this.chapters.indexOf(this.selectedChapter);
+  if (currentIndex < this.chapters.length - 1) {
+    this.selectedChapter = this.chapters[currentIndex + 1];
+    this.selectedVerse = ''
+    this.getBibleVerses();
+     this.$nextTick(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  } else {
+    console.log('Already on the last chapter');
+    this.showNotification('bibleMultiModal', 'Notice', "You have reached the last chapter" , 'https://media.giphy.com/media/B0vFTrb0ZGDf2/giphy.gif');
+  }
+},
+
+async getBibleVerses() {
+  this.isLoading = true;
+  try {
+    const response = await axios.get(`https://bible-api.com/${this.selectedBook} ${this.selectedChapter}?translation=${this.selectedTranslation}`);
     const data = response.data;
     this.verses = data.verses.map((verse, index) => ({ ...verse, verseId: index }));
-    if (!this.verses || this.verses.length === 0) {
-      this.showNotification('bibleMultiModal', 'Notice', "No results found." , 'https://media.giphy.com/media/l0HlOBZcl7sbV6LnO/giphy.gif');
-    } 
 
-     //result found
-     this.panelTitle = this.searchInput +' - '+this.selectedTranslation.toUpperCase()
-    $('#biblePanelLeft').modal('toggle');
-
-    } catch (err) {
-         //notify err and
-    this.showNotification('bibleMultiModal', 'Error', "Error retrieving bible verses. Is your verse correct? Try again." , 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif');
-      } finally {
-      this.isLoading = false;
-    }
-  },
-
-
-
-
-   async getBibleVerses() {
-      this.isLoading = true;
-      try {
-        const response = await axios.get(`https://bible-api.com/${this.selectedBook} ${this.selectedChapter}:${this.selectedVerse}?translation=${this.selectedTranslation}`);
-    const data = response.data;
-    this.verses = data.verses.map((verse, index) => ({ ...verse, verseId: index }));
     if (!this.verses || this.verses.length === 0) {
       //notify info
       this.showNotification('bibleMultiModal', 'Notice', "No results found." , 'https://media.giphy.com/media/l0HlOBZcl7sbV6LnO/giphy.gif');
     } 
 
-    //result found
-    this.panelTitle = this.selectedBook +' '+ this.selectedChapter +':'+ this.selectedVerse +' - '+this.selectedTranslation.toUpperCase()
-    $('#biblePanelLeft').modal('toggle');
-    
-      } catch (err) {
-        //notify err and
-        this.showNotification('bibleMultiModal', 'Error', "Error retrieving bible verses. Is your verse correct? Try again." , 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif');
-      } finally {
-        this.isLoading = false;
+    // get and scroll to the element being styled by selectedVerse
+    this.$nextTick(() => {
+      let verseFound = false;
+      this.verses.forEach((verse) => {
+        if (verse.verse === Number(this.selectedVerse)) {
+          const element = this.$refs.verseElement[verse.verseId];
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          verseFound = true;
+        }
+      });
+      if (!verseFound && this.selectedVerse) {
+        this.showNotification('bibleMultiModal', 'Info', this.selectedBook + ' does not have verse ' + this.selectedVerse , 'https://media.giphy.com/media/giOgF30tDPfkQ/giphy.gif');
       }
+    });
+  } catch (err) {
+    //notify err and
+    this.showNotification('bibleMultiModal', 'Error', "Error retrieving bible verses. Try again." , 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif');
+  } finally {
+    this.isLoading = false;
+  }
+},
+
+
+
+    chooseRandomImage() {
+      const randomIndex = Math.floor(Math.random() * this.imageUrls.length);
+      this.selectedImageUrl = this.imageUrls[randomIndex];
     },
+
 
  showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
 
@@ -419,7 +468,6 @@ setTimeout(() => {
     },
     getNumChapters() {
       // Get the number of chapters in the selected book
-      // TODO: Replace with actual data source
       const numChaptersMap = {
         "Genesis": 50,
         "Exodus": 40,
@@ -491,6 +539,10 @@ setTimeout(() => {
   return numChaptersMap[this.selectedBook];
 },
 
+handleScroll() {
+      this.scrolled = window.scrollY > 0
+    },
+
 },
 
 watch: {
@@ -502,13 +554,39 @@ this.updateChapterList();
 selectedTranslation() {
     this.$storage.setUniversal("selectedTranslation", this.selectedTranslation);
  },
+
+
+  selectedVerse(newVal, oldVal) {
+    let verseFound = false;
+    this.verses.forEach((verse) => {
+      if (verse.verse === Number(newVal)) {
+        const element = this.$refs.verseElement[verse.verseId];
+        element.scrollIntoView({ block: 'center' });
+        verseFound = true;
+      }
+    });
+
+    if (!verseFound && this.selectedVerse && this.verses.length !== 0) {
+    this.showNotification('bibleMultiModal', 'Info', this.selectedBook + ' does not have verse ' + this.selectedVerse , 'https://media.giphy.com/media/giOgF30tDPfkQ/giphy.gif');
+  }
+
+  },
+
+
   
 },
 
 mounted() {
+ this.chooseRandomImage();
 this.updateChapterList();
 this.selectedTranslation = this.$storage.getUniversal("selectedTranslation") || "kjv";
+
+window.addEventListener('scroll', this.handleScroll)
 },
+
+beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
 
    //Solved the modal overlay not leaving after route change issue
    beforeRouteLeave(to, from, next) {
