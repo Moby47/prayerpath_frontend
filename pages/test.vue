@@ -12,49 +12,55 @@
         
         <div class="section full mt-2">
 
-           <div class="section-title" id="search-bar">
+            <div class="section-title">
 
-            <form @submit.prevent="getBibleVerses">
-                <div class="row">
-                    <div class="col-3">
-                      
-                        <select>
-                            <option v-for="book in books" :key="book" :value="book">{{book}}</option>
-                        </select>
-                            
-                       
-                    </div>
-                    <div class="col-3">
-                      
-                        <div class="dropdown">
-    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
-      {{ selectedChapter }}
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#" v-for="chapter in chapters" :key="chapter" :value="chapter" @click="runSelectedchapter(chapter)">{{chapter}}</a>
+<form @submit.prevent="getBibleVerses">
+    <div class="row">
+        <div class="col-3">
+          
+                <div class="dropdown">
+<button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
+{{ selectedBook.length > 6
+            ? selectedBook.slice(0, 6) + ".."
+            : selectedBook }}
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="height: 412px; overflow-y: scroll;">
+<a class="dropdown-item" href="#" v-for="book in books" :key="book" :value="book" @click="runSelectedBook(book)">{{book}}</a>
+</div>
+</div>
+           
+        </div>
+        <div class="col-3">
+          
+            <div class="dropdown">
+<button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
+{{ selectedChapter }}
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="height: 240px; overflow-y: scroll;">
+<a class="dropdown-item" href="#" v-for="chapter in chapters" :key="chapter" :value="chapter" @click="runSelectedchapter(chapter)">{{chapter}}</a>
+</div>
+</div>
+
+        </div>
+        <div class="col-3">
+           
+            <div class="boxed">
+<div class="input-wrapper">
+<input v-model="selectedVerse" pattern="^\d+$" type="text" class="form-control btn-outline-primary" id="verseInput">
+
+</div>
+</div>
+
+        </div>
+        <div class="col-3">
+           
+            <button type="submit" class="btn btn-outline-primary mb-1">Find</button>
+
+        </div>
     </div>
-  </div>
+    </form>
 
-                    </div>
-                    <div class="col-3">
-                       
-                        <div class="boxed">
-    <div class="input-wrapper">
-      <input v-model="selectedVerse" pattern="^\d+$" type="text" class="form-control btn-outline-primary" id="verseInput">
-    
-    </div>
-  </div>
-
-                    </div>
-                    <div class="col-3">
-                       
-                        <button type="submit" class="btn btn-outline-primary mb-1">Find</button>
-
-                    </div>
-                </div>
-                </form>
-
-           </div>
+</div>
 
             <div class="wide-block pt-2 pb-2">
 
@@ -342,17 +348,23 @@ goToNextChapter() {
     this.panelTitle = this.selectedBook +' '+ this.selectedChapter +':'+ this.selectedVerse +' - '+this.selectedTranslation.toUpperCase()
    // $('#biblePanelLeft').modal('toggle');
     
-    // console log the element being styled by selectedVerse
-    this.$nextTick(() => {
-        this.verses.forEach((verse) => {
-      if (verse.verse === Number(this.selectedVerse)) {
-        const element = this.$refs.verseElement[verse.verseId];
-        console.log('Element being styled:', element);
-       // element.scrollIntoView(false);
-       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-    });
+   // console log the element being styled by selectedVerse
+this.$nextTick(() => {
+  let verseFound = false;
+  this.verses.forEach((verse) => {
+    if (verse.verse === Number(this.selectedVerse)) {
+      const element = this.$refs.verseElement[verse.verseId];
+      console.log('Element being styled:', element);
+      // element.scrollIntoView(false);
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      verseFound = true;
+    }
+  });
+  if (!verseFound) {
+    console.log(this.selectedBook + ' does not have verse ' + this.selectedVerse);
+  }
+});
+
 
       } catch (err) {
         //notify err and
