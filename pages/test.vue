@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-3">
           
-                <div class="dropdown">
+                <div>
 <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
 {{ selectedBook.length > 6
             ? selectedBook.slice(0, 6) + ".."
@@ -32,7 +32,7 @@
         </div>
         <div class="col-3">
           
-            <div class="dropdown">
+            <div class="chapter">
 <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
 {{ selectedChapter }}
 </button>
@@ -44,11 +44,9 @@
         </div>
         <div class="col-3">
            
-            <div class="boxed">
-<div class="input-wrapper">
-<input v-model="selectedVerse" pattern="^\d+$" type="text" class="form-control btn-outline-primary" id="verseInput">
+            <div>
 
-</div>
+<input v-model="selectedVerse" pattern="^\d+$" type="text" class="form-control btn-outline-primary" id="verseInput">
 </div>
 
         </div>
@@ -150,6 +148,10 @@
   width: 100%;
   background: rgb(255 255 255 / 92%);
   z-index: 1;
+}
+
+.chapter{
+    margin-left: 15px;
 }
 
 .wide-block {
