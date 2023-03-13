@@ -18,16 +18,10 @@
                 <div class="row">
                     <div class="col-3">
                       
-                            <div class="dropdown">
-    <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
-      {{ selectedBook.length > 6
-                        ? selectedBook.slice(0, 6) + ".."
-                        : selectedBook }}
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#" v-for="book in books" :key="book" :value="book" @click="runSelectedBook(book)">{{book}}</a>
-    </div>
-  </div>
+                        <select>
+                            <option v-for="book in books" :key="book" :value="book">{{book}}</option>
+                        </select>
+                            
                        
                     </div>
                     <div class="col-3">
