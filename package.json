@@ -28,6 +28,7 @@
     "node-cron": "^3.0.2",
     "node-fetch": "^2.6.9",
     "nuxt": "^2.15.8",
+    "speak-tts": "^2.0.8",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
     "vue-social-sharing": "^3.0.9",
