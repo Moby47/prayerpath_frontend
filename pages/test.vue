@@ -5,155 +5,76 @@
 
     <appheader/>
 
+    
     <!-- App Capsule -->
     <div id="appCapsule">
-      <!-- Header Tabs -->
-      <div class="extraHeader p-0">
-        <ul class="nav nav-tabs lined" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#find" role="tab">
-              Find
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#searchId" role="tab">
-              Search
-            </a>
-          </li>
-          <!--  <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-              Settings
-            </a>
-          </li>-->
-        </ul>
-      </div>
-      <!-- * Header Tabs -->
+   
+        
+        <div class="section full mt-2">
 
-      <!-- App Capsule -->
-     
+           <div class="section-title" id="search-bar">
 
-    <div id="appCapsule" class="extra-header-active">
+            <form @submit.prevent="getBibleVerses">
+                <div class="row">
+                    <div class="col-3">
+                      
+                            <div class="dropdown">
+    <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
+      {{ selectedBook.length > 6
+                        ? selectedBook.slice(0, 6) + ".."
+                        : selectedBook }}
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#" v-for="book in books" :key="book" :value="book" @click="runSelectedBook(book)">{{book}}</a>
+    </div>
+  </div>
+                       
+                    </div>
+                    <div class="col-3">
+                      
+                        <div class="dropdown">
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
+      {{ selectedChapter }}
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#" v-for="chapter in chapters" :key="chapter" :value="chapter" @click="runSelectedchapter(chapter)">{{chapter}}</a>
+    </div>
+  </div>
 
+                    </div>
+                    <div class="col-3">
+                       
+                        <div class="boxed">
+    <div class="input-wrapper">
+      <input v-model="selectedVerse" pattern="^\d+$" type="text" class="form-control btn-outline-primary" id="verseInput">
+    
+    </div>
+  </div>
 
-        <div class="tab-content mt-1">
+                    </div>
+                    <div class="col-3">
+                       
+                        <button type="submit" class="btn btn-outline-primary mb-1">Find</button>
 
-            <!-- find tab -->
-            <div class="tab-pane fade show active" id="find" role="tabpanel">
+                    </div>
+                </div>
+                </form>
 
-                <div class="section full mt-1">
-                    <div class="section full mt-1">
-            <div class="section-title">Choose A Book/Chapter/Verse</div>
+           </div>
 
             <div class="wide-block pt-2 pb-2">
 
-              <form @submit.prevent="getBibleVerses">
-
-<div class="dropdown">
-  <label class="label">Select a book</label><br>
-  <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
-    {{ selectedBook }}
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" v-for="book in books" :key="book" :value="book" @click="runSelectedBook(book)">{{book}}</a>
-  </div>
-</div>
-
-<div class="dropdown mt-3">
-  <label class="label">Select a chapter</label><br>
-  <button class="btn btn-outline-primary dropdown-toggle custom-width" type="button" data-toggle="dropdown">
-    {{ selectedChapter }}
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" v-for="chapter in chapters" :key="chapter" :value="chapter" @click="runSelectedchapter(chapter)">{{chapter}}</a>
-  </div>
-</div>
-
-<div class="form-group boxed mt-2">
-  <div class="input-wrapper">
-    <label class="label" for="verseInput">Enter verse (Optional) </label>
-    <input v-model="selectedVerse" pattern="^\d+$" type="text" class="form-control custom-width" id="verseInput" placeholder="Eg: 2 or 13">
-    <small v-if="!isValidVerseInput">Examples: 1, 3, 12, 119</small>
-  </div>
-</div>
-
-<div class="mt-2">
-  <button type="submit" class="btn btn-outline-primary mb-1">Find</button>
-</div>            
-
-</form>
-
-<template>
-  <div>
-    <!-- previous button -->
-    <button @click="goToPreviousChapter()">Previous Chapter</button>
-
-    <!-- chapter select -->
-    <select v-model="selectedChapter" @change="getBibleVerses">
-      <option v-for="chapter in chapters" :key="chapter" :value="chapter">{{ chapter }}</option>
-    </select>
-
-    <!-- next button -->
-    <button @click="goToNextChapter()">Next Chapter</button>
-
-  </div>
-</template>
-
-
-
-                </div>
-              </div>
+                <div v-for="verse in verses" :key="verse.verseId">
+                          <p :class="{ 'highlight': verse.verse === Number(selectedVerse) }" ref="verseElement">
+                            <strong>{{ verse.book_name }} {{ verse.chapter }}:{{ verse.verse }}</strong> {{ verse.text }}
+                          </p>
+                        </div>
+             
             </div>
-
-          </div>
-          <!-- * find tab -->
-
-          <!-- search tab -->
-          <div class="tab-pane fade" id="searchId" role="tabpanel">
-
-            <div class="section full mt-1">
-              <div class="section full mt-1">
-                <div class="section-title">Search Bible Verses</div>
-
-                <div class="wide-block pt-2 pb-2">
-
-                  <form @submit.prevent="searchBibleVerses">
-
-                    <div class="form-group boxed mt-2">
-                      <div class="input-wrapper">
-                        <label class="label" for="searchInput">Search</label>
-                        <input v-model="searchInput" required type="text" class="form-control" id="searchInput" placeholder="Eg. John 3:16 or Genesis 1:1-5">
-                        <small v-if="searchInput && !isValidRefInput">
-                          Examples: Mark 2, 1 John 3, Mark 2:4, 1 Samuel 4-5, Genesis 2:3-5, and 2 Samuel 3:1-3
-                        </small>
-                      </div>
-                    </div>
-
-                    <div class="mt-2">
-                      <button type="submit" class="btn btn-outline-primary mb-1">Search</button>
-                    </div>            
-
-                  </form>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!-- * search tab -->
-
-          <!-- settings tab 
-          <div class="tab-pane fade" id="settings" role="tabpanel">
-
-            <div class="section full mt-1">
-              <div class="section-title">settings</div>
-              <div class="wide-block pt-2 pb-2">
-                This is an example text.
-              </div>
-            </div>
-
-          </div>
-          settings tab -->
-
         </div>
+
+   
+
 
         <!-- Translation dropdown -->
         <!-- top right -->
@@ -179,33 +100,8 @@
         <!-- * top right -->
         <!-- * Translation dropdown -->
 
-        <!-- Bible Panel Left -->
-        <div class="modal fade panelbox panelbox-left" id="biblePanelLeft" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">{{panelTitle}}</h4>
-                <a href="javascript:;" data-dismiss="modal" class="panel-close">
-                  <v-icon>mdi-close</v-icon>
-                        </a>
-                    </div>
-                    <div class="modal-body">
-                    <!--  <div v-for="verse in verses" :key="verse.verseId">
-                        <p :class="{ 'bold': verse.verse === Number(selectedVerse) }" ref="verseElement">
-                          <strong>{{ verse.book_name }} {{ verse.chapter }}:{{ verse.verse }}</strong> {{ verse.text }}
-                        </p>
-                      </div>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- * Bible Panel Left -->
+       
 
-        <div v-for="verse in verses" :key="verse.verseId">
-                        <p :class="{ 'highlight': verse.verse === Number(selectedVerse) }" ref="verseElement">
-                          <strong>{{ verse.book_name }} {{ verse.chapter }}:{{ verse.verse }}</strong> {{ verse.text }}
-                        </p>
-                      </div>
 
         <!-- Multi purpose notification modal-->
         <div id="bibleMultiModal" class="notification-box">
@@ -228,28 +124,44 @@
         </div>
         <!-- Multi purpose notification modal -->
 
+    
+   
+
+
+        <appfooter/>
+
     </div>
-    <!-- * App Capsule -->
-
-
-       <!-- <appfooter/>-->
-
+     <!-- * App Capsule -->
 
     <appbottommenu/>
 
     <appsidebar/>
-  </div>
+  
 
   </div>
 </template>
 
 <style scoped>
+
+.section-title {
+  position: fixed;
+  top: 55px;
+  left: 0;
+  width: 100%;
+  background: rgb(255 255 255 / 92%);
+  z-index: 1;
+}
+
+.wide-block {
+    margin-top: 112px;
+}
+
 #appCapsule.extra-header-active {
     padding-top: 70px;
 }
 
 .custom-width {
-    width: 53%;
+    width: 130%;
 }
 
 .highlight {
@@ -319,7 +231,7 @@ export default {
       selectedBook: "Genesis",
       selectedChapter: "1",
       chapters: [],
-      selectedVerse: "",
+      selectedVerse: "0",
       verses: [],
       isLoading: false,
       error: "",
@@ -442,7 +354,8 @@ goToNextChapter() {
       if (verse.verse === Number(this.selectedVerse)) {
         const element = this.$refs.verseElement[verse.verseId];
         console.log('Element being styled:', element);
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+       // element.scrollIntoView(false);
+       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
     });
