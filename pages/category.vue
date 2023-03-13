@@ -71,7 +71,7 @@ export default {
   },
   head() {
     return {
-      title: "PrayerPath - Quote God & Pray",
+      title: "PrayerPath | Quote God & Pray",
       meta: [
         {
           hid: 'description',

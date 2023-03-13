@@ -61,7 +61,7 @@ export default {
   },
   head() {
     return {
-      title: "PrayerPath - Community Chat",
+      title: "PrayerPath | Community Chat",
       meta: [
         {
           hid: 'description',

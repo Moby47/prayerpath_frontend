@@ -39,6 +39,22 @@
       appfooter,
       appbottommenu,
     },
+    head() {
+    return {
+    title: "PrayerPath - Feedback",
+    meta: [
+    {
+    hid: 'description',
+    name: 'description',
+    content: "We would love to hear your feedback on PrayerPath. Let us know how we can improve the app and make your spiritual journey even more fulfilling."
+    },
+    {
+    name: 'keywords',
+    content: 'feedback, suggestions, app improvement, spiritual journey, PrayerPath'
+    }
+    ]
+    }
+    },
     data() {
       return {
         fetching: true,

@@ -9,7 +9,6 @@
     <!-- App Capsule -->
     <div id="appCapsule">
    
-        
         <div class="section full mt-2">
 
             <div class="section-title">
@@ -46,13 +45,14 @@
            
             <div>
 
-<input v-model="selectedVerse" pattern="^\d+$" type="text" class="form-control btn-outline-primary" id="verseInput">
+<input v-model="selectedVerse" pattern="^\d+$" type="text" class="form-control btn-outline-primary verse" 
+id="verseInput" placeholder="Verse">
 </div>
 
         </div>
         <div class="col-3">
            
-            <button type="submit" class="btn btn-outline-primary mb-1">Find</button>
+            <button type="submit" class="btn btn-primary mb-1">Go</button>
 
         </div>
     </div>
@@ -60,19 +60,21 @@
 
 </div>
 
-            <div class="wide-block pt-2 pb-2">
+<div class="wide-block pt-2 pb-2">
 
-                <div v-for="verse in verses" :key="verse.verseId">
-                          <p :class="{ 'highlight': verse.verse === Number(selectedVerse) }" ref="verseElement">
-                            <strong>{{ verse.book_name }} {{ verse.chapter }}:{{ verse.verse }}</strong> {{ verse.text }}
-                          </p>
-                        </div>
-             
-            </div>
+  <img v-if="verses.length === 0" :src="selectedImageUrl" alt="image" style="display: block; margin: 0 auto;">
+
+  <div v-for="verse in verses" :key="verse.verseId">
+    <p :class="{ 'highlight': verse.verse === Number(selectedVerse) }" ref="verseElement">
+      <strong>{{ verse.book_name }} {{ verse.chapter }}:{{ verse.verse }}</strong> {{ verse.text }}
+    </p>
+  </div>
+</div>
+
+
         </div>
 
    
-
 
         <!-- Translation dropdown -->
         <!-- top right -->
@@ -81,16 +83,16 @@
             <v-icon class="fabBtn">mdi-translate</v-icon>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#" @click="runSelectedTranslation('kjv')">
-              <v-icon class="fabBtn">mdi-alpha-k</v-icon>
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('kjv')" >
+              <v-icon class="fabBtn" :class="{ 'activeversion': selectedTranslation === 'kjv' }">mdi-alpha-k</v-icon>
               <p>KJV</p>
             </a>
-            <a class="dropdown-item" href="#" @click="runSelectedTranslation('web')">
-              <v-icon class="fabBtn">mdi-alpha-w</v-icon>
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('web')" >
+              <v-icon class="fabBtn" :class="{ 'activeversion': selectedTranslation === 'web' }">mdi-alpha-w</v-icon>
               <p>WEB</p>
             </a>
-            <a class="dropdown-item" href="#" @click="runSelectedTranslation('bbe')">
-              <v-icon class="fabBtn">mdi-alpha-b</v-icon>
+            <a class="dropdown-item" href="#" @click="runSelectedTranslation('bbe')" >
+              <v-icon class="fabBtn" :class="{ 'activeversion': selectedTranslation === 'bbe' }">mdi-alpha-b</v-icon>
               <p>BBE</p>
             </a>
           </div>
@@ -124,7 +126,30 @@
 
     
    
+        <template>
+  <div class="button-container" v-if="verses.length !== 0">
 
+    <button class="left-button btn" @click="goToPreviousChapter()">
+      <v-icon style='color:#3f51b5;'>mdi-step-backward</v-icon>
+    </button>
+
+    <button class="right-button btn" @click="goToNextChapter()">
+        <v-icon style='color:#3f51b5;'>mdi-step-forward</v-icon> 
+    </button>
+
+  </div>
+</template>
+
+
+ <!-- bottom left -->
+ <template>
+      <div class="fab-button animate bottom-left dropdown" :class="{ hide: scrolled }" v-if="verses.length !== 0">
+        <a href="#" class="fab" style='background-color:#3f51b5;' @click.prevent="$scrollToBottom()">
+          <v-icon color="#fff">mdi-arrow-down</v-icon>
+        </a>
+      </div>
+    </template>
+    <!-- * bottom left -->
 
         <appfooter/>
 
@@ -141,6 +166,30 @@
 
 <style scoped>
 
+.hide {
+    display: none;
+  }
+.button-container {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.left-button {
+  position: absolute;
+  left: 1%;
+  background-color: rgb(0 0 0 / 16%);
+  width: 40px;
+}
+
+.right-button {
+  position: absolute;
+  right: 1%;
+  background-color: rgb(0 0 0 / 16%);
+  width: 40px;
+}
+
 .section-title {
   position: fixed;
   top: 55px;
@@ -152,6 +201,10 @@
 
 .chapter{
     margin-left: 15px;
+}
+
+.verse{
+    height:40px;
 }
 
 .wide-block {
@@ -169,6 +222,11 @@
 .highlight {
   background-color: rgb(0 0 0 / 54%);
   color:white;
+}
+
+.activeversion{
+background-color: #3f51b5 !important;
+color:#fff !important;
 }
 
 .fab-button {
@@ -212,7 +270,7 @@ export default {
   },
   head() {
   return {
-    title: "PrayerPath - Explore, Study and Connect with God's Word",
+    title: "PrayerPath | Explore, Study and Connect with God's Word",
     meta: [
       {
         hid: 'description',
@@ -233,19 +291,28 @@ export default {
       selectedBook: "Genesis",
       selectedChapter: "1",
       chapters: [],
-      selectedVerse: "0",
+      selectedVerse: "",
       verses: [],
       isLoading: false,
       error: "",
       selectedTranslation: "kjv",
 
-      searchInput: "",
-
-      panelTitle:'',
 
       notificationTitle:'',
       notificationMessage:'',
       notificationImg:'',
+
+      selectedImageUrl:'',
+      imageUrls: [
+        'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjhhMzI2OTNiYTQxNDZmZWNhNDcyNjNkZGY1ZjkzNmQ5ZTM4NzA1MiZjdD1n/ovdFmyRxvbT2Wk75ft/giphy.gif',
+        'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGY0ODE0MWRmMTYzMjM2ODhjZWUxNmFkYzAxZmE4ZjNkYzFmOTVjNSZjdD1n/HvwHUZcmfYVJwN3BPb/giphy.gif',
+        'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDQ3YjAxMTk0YjE5NjhjZmRhYjczYWI5MzJjOGI5YWZkODU5NDY0YSZjdD1n/WcpAGftWy7UtWnEESJ/giphy-downsized-large.gif',
+        'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjgyMjcxZDgyZGQxZmY1NWYwNDViYzY5NWU5ZWNmN2RkMWZiYTAxNiZjdD1n/jwSBM5rLF2aybN96LP/giphy.gif',
+        'https://media.giphy.com/media/bpeHHmOnYFRged50S0/giphy.gif'
+    ],
+
+    scrolled: false,
+
     };
   },
   computed: {
@@ -254,10 +321,6 @@ export default {
       return inputRegex.test(this.selectedVerse);
     },
 
-    isValidRefInput() {
-      const regex = /^(?:(?:[1234]?\s)?[a-zа-я]+\s*)?\d+(?::\d+)?(?:-\d+(?::\d+)?)?$/i;
-    return regex.test(this.searchInput);
-    },
 
   },
   methods: {
@@ -268,6 +331,7 @@ export default {
 
     runSelectedchapter(chapter){
       this.selectedChapter = chapter
+      this.selectedVerse = ''
     },
 
     runSelectedTranslation(translation){
@@ -276,36 +340,6 @@ export default {
 
     },
 
-    async searchBibleVerses() {
-
-      if (!this.isValidRefInput) {
-        console.log('invalid reference')
-        //notify
-        this.showNotification('bibleMultiModal', 'Alert', "Incorrect reference format. Please use a correct format." , 'https://media.giphy.com/media/YoYOhif8otaJI8uIMT/giphy.gif');
-    return;
-    }
-
-    this.isLoading = true;
-   
-    try {
-      const response = await axios.get(`https://bible-api.com/${this.searchInput}?translation=${this.selectedTranslation}`);
-    const data = response.data;
-    this.verses = data.verses.map((verse, index) => ({ ...verse, verseId: index }));
-    if (!this.verses || this.verses.length === 0) {
-      this.showNotification('bibleMultiModal', 'Notice', "No results found." , 'https://media.giphy.com/media/l0HlOBZcl7sbV6LnO/giphy.gif');
-    } 
-
-     //result found
-     this.panelTitle = this.searchInput +' - '+this.selectedTranslation.toUpperCase()
-    $('#biblePanelLeft').modal('toggle');
-
-    } catch (err) {
-         //notify err and
-    this.showNotification('bibleMultiModal', 'Error', "Error retrieving bible verses. Is your verse correct? Try again." , 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif');
-      } finally {
-      this.isLoading = false;
-    }
-  },
 
 
   goToPreviousChapter() {
@@ -314,6 +348,9 @@ export default {
     this.selectedChapter = this.chapters[currentIndex - 1];
     this.selectedVerse = ''
     this.getBibleVerses();
+     this.$nextTick(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   } else {
     console.log('Already on the first chapter');
     this.showNotification('bibleMultiModal', 'Chill', "You are on chapter 1" , 'https://media.giphy.com/media/QVs6OmwbbGvWPJJ75m/giphy.gif');
@@ -325,6 +362,9 @@ goToNextChapter() {
     this.selectedChapter = this.chapters[currentIndex + 1];
     this.selectedVerse = ''
     this.getBibleVerses();
+     this.$nextTick(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   } else {
     console.log('Already on the last chapter');
     this.showNotification('bibleMultiModal', 'Notice', "You have reached the last chapter" , 'https://media.giphy.com/media/B0vFTrb0ZGDf2/giphy.gif');
@@ -336,45 +376,43 @@ goToNextChapter() {
       try {
         const response = await axios.get(`https://bible-api.com/${this.selectedBook} ${this.selectedChapter}?translation=${this.selectedTranslation}`);
     const data = response.data;
-    //console.log('data',data)
     this.verses = data.verses.map((verse, index) => ({ ...verse, verseId: index }));
-    //console.log('verses',this.verses)
-     //   console.log(this.selectedVerse)
 
     if (!this.verses || this.verses.length === 0) {
       //notify info
       this.showNotification('bibleMultiModal', 'Notice', "No results found." , 'https://media.giphy.com/media/l0HlOBZcl7sbV6LnO/giphy.gif');
     } 
-
-    //result found
-    this.panelTitle = this.selectedBook +' '+ this.selectedChapter +':'+ this.selectedVerse +' - '+this.selectedTranslation.toUpperCase()
-   // $('#biblePanelLeft').modal('toggle');
     
-   // console log the element being styled by selectedVerse
+   // get and scroll to the element being styled by selectedVerse
 this.$nextTick(() => {
   let verseFound = false;
   this.verses.forEach((verse) => {
     if (verse.verse === Number(this.selectedVerse)) {
       const element = this.$refs.verseElement[verse.verseId];
-      console.log('Element being styled:', element);
-      // element.scrollIntoView(false);
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       verseFound = true;
     }
   });
-  if (!verseFound) {
-    console.log(this.selectedBook + ' does not have verse ' + this.selectedVerse);
+  if (!verseFound && this.selectedVerse) {
+    this.showNotification('bibleMultiModal', 'Info', this.selectedBook + ' does not have verse ' + this.selectedVerse , 'https://media.giphy.com/media/giOgF30tDPfkQ/giphy.gif');
   }
 });
 
 
       } catch (err) {
         //notify err and
-        this.showNotification('bibleMultiModal', 'Error', "Error retrieving bible verses. Is your verse correct? Try again." , 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif');
+        this.showNotification('bibleMultiModal', 'Error', "Error retrieving bible verses. Try again." , 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjFmMzhhZWFiODgyMzA4OTNiNjhmN2MyYTMxNDQwODg5NmQzMzk5NCZjdD1n/3osxY9kuM2NGUfvThe/giphy.gif');
       } finally {
         this.isLoading = false;
       }
     },
+
+
+    chooseRandomImage() {
+      const randomIndex = Math.floor(Math.random() * this.imageUrls.length);
+      this.selectedImageUrl = this.imageUrls[randomIndex];
+    },
+
 
  showNotification(notificationId,notificationTitle,notificationMessage,notificationImg) {
 
@@ -403,7 +441,6 @@ setTimeout(() => {
     },
     getNumChapters() {
       // Get the number of chapters in the selected book
-      // TODO: Replace with actual data source
       const numChaptersMap = {
         "Genesis": 50,
         "Exodus": 40,
@@ -475,6 +512,10 @@ setTimeout(() => {
   return numChaptersMap[this.selectedBook];
 },
 
+handleScroll() {
+      this.scrolled = window.scrollY > 0
+    },
+
 },
 
 watch: {
@@ -486,13 +527,39 @@ this.updateChapterList();
 selectedTranslation() {
     this.$storage.setUniversal("selectedTranslation", this.selectedTranslation);
  },
+
+
+  selectedVerse(newVal, oldVal) {
+    let verseFound = false;
+    this.verses.forEach((verse) => {
+      if (verse.verse === Number(newVal)) {
+        const element = this.$refs.verseElement[verse.verseId];
+        element.scrollIntoView({ block: 'center' });
+        verseFound = true;
+      }
+    });
+
+    if (!verseFound && this.selectedVerse && this.verses.length !== 0) {
+    this.showNotification('bibleMultiModal', 'Info', this.selectedBook + ' does not have verse ' + this.selectedVerse , 'https://media.giphy.com/media/giOgF30tDPfkQ/giphy.gif');
+  }
+
+  },
+
+
   
 },
 
 mounted() {
+ this.chooseRandomImage();
 this.updateChapterList();
 this.selectedTranslation = this.$storage.getUniversal("selectedTranslation") || "kjv";
+
+window.addEventListener('scroll', this.handleScroll)
 },
+
+beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
 
    //Solved the modal overlay not leaving after route change issue
    beforeRouteLeave(to, from, next) {

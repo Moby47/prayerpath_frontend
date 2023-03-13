@@ -60,7 +60,7 @@ export default {
   },
   head() {
     return {
-      title: "PrayerPath - Emotion-based Prayers",
+      title: "PrayerPath | Emotion-based Prayers",
       meta: [
         {
           hid: 'description',

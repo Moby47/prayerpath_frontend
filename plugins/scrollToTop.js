@@ -6,6 +6,13 @@ export default ({ app }, inject) => {
         window.scrollTo(0, c - c / 8);
       }
     };
+
+    const scrollToBottom = () => {
+      const body = document.body;
+      const html = document.documentElement;
+      const height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+      window.scrollTo({ top: height, behavior: 'smooth' });
+    };
   
     const fabButton = document.querySelector('.fab-button');
     window.addEventListener('scroll', () => {
@@ -19,5 +26,6 @@ export default ({ app }, inject) => {
     });
   
     inject('scrollToTop', scrollToTop);
+    inject('scrollToBottom', scrollToBottom);
   };
   

@@ -31,7 +31,8 @@ const IMAGE_URLS_TO_CACHE = [
   'https://media.giphy.com/media/SVH9y2LQUVVCRcqD7o/giphy.gif',
   'https://media.giphy.com/media/ZHkVpDiI3vIiY/giphy.gif',
   'https://media.giphy.com/media/B0vFTrb0ZGDf2/giphy.gif',
-  'https://media.giphy.com/media/QVs6OmwbbGvWPJJ75m/giphy.gif'
+  'https://media.giphy.com/media/QVs6OmwbbGvWPJJ75m/giphy.gif',
+  'https://media.giphy.com/media/giOgF30tDPfkQ/giphy.gif'
 ];
 
 self.addEventListener('install', event => {

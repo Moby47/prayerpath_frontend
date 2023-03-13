@@ -72,7 +72,7 @@ export default {
   },
   head() {
     return {
-      title: "PrayerPath - Favourite Prayers",
+      title: "PrayerPath | Favourite Prayers",
       meta: [
         {
           hid: 'description',

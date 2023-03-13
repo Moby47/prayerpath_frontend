@@ -72,22 +72,22 @@ export default {
     appbottommenu,
   },
   head() {
-    // Setting the head section of the page
-    return {
-      title: "PrayerPath - Quote God & Pray",
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes about God's promises and prayers to help you stay focused on your faith."
-        },
-        {
-          name: 'keywords',
-          content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious'
-        }
-      ]
-    }
-  },
+// Setting the head section of the page
+return {
+title: "PrayerPath - Quote God & Pray | Multiple Categories",
+meta: [
+{
+hid: 'description',
+name: 'description',
+content: "Get daily inspiration from the Bible with Quote God & Pray. Find randomly generated quotes and prayers on multiple categories, including love, forgiveness, hope, and more, to help you stay focused on your faith."
+},
+{
+name: 'keywords',
+content: 'bible, quotes, promises, prayers, faith, inspiration, God, devotional, daily, motivation, religious, multiple categories, love, forgiveness, hope'
+}
+]
+}
+},
   data() {
     return {
       key: this.$config.BACKEND_API_KEY,
